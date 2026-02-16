@@ -1,41 +1,387 @@
-body {
+/* =====================================================
+   1. RESET GLOBAL
+   Normaliza modelo de caja y márgenes
+   ===================================================== */
+* {
+  box-sizing: border-box;
   margin: 0;
-  background: #0b0b0b;
-  color: #e0e0e0;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+}
+
+
+/* =====================================================
+   2. BASE GLOBAL
+   Fondo, tipografía y capas
+   ===================================================== */
+body {
+  position: relative;
+  z-index: 0;
+
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #0b0b0b;
+  color: #e0e0e0;
+
+  font-family: "IBM Plex Sans", system-ui, -apple-system,
+               BlinkMacSystemFont, "Segoe UI", Roboto,
+               Helvetica, Arial, sans-serif;
 }
 
+/* Neutralizar enlaces HTML */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* =====================================================
+   3. FONDOS POR PÁGINA
+   ===================================================== */
+body.home {
+  background-image: url("../img/005.jpg");
+}
+
+body.sacro {
+  background-image: url("../img/002.jpg");
+}
+
+body.almacen {
+  background-image: url("../img/009.jpg");
+}
+
+body.home {
+  background-size: 100% auto;
+  background-position: 50% 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+body.sacro {
+  background-size: 100% auto;
+  background-position: 50% 40%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.almacen {
+  background-size: 100% auto;
+  background-position: 50% 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Overlay oscuro */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+/* =====================================================
+   4. CONTENEDOR PRINCIPAL
+   ===================================================== */
 .container {
-  max-width: 520px;
-  padding: 2rem;
-  text-align: center;
+  position: relative;
+  z-index: 1;
+
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 6vh 3rem 8vh;
+
+  background: rgba(0, 0, 0, 0.65);
+  border-radius: 4px;
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
-h1 {
-  letter-spacing: 0.3em;
-  font-size: 2.4rem;
-  margin-bottom: 2rem;
-}
 
-.tagline {
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  opacity: 0.8;
-  margin-bottom: 2.5rem;
-}
-
-p {
-  line-height: 1.7;
-  margin-bottom: 1.4rem;
+/* =====================================================
+   5. IDENTIDAD
+   Logo, títulos y subtítulos
+   ===================================================== */
+.logo {
+  display: block;
+  margin: 0 auto 2.5rem;
+  width: 96px;
+  height: auto;
   opacity: 0.9;
 }
 
-.footer {
+h1 {
+  text-align: center;
+  font-size: 3.2rem;
+  font-weight: 400;
+  letter-spacing: 0.45em;
+  margin-bottom: 1.4rem;
+}
+
+.tagline {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.9rem;
+  font-weight: 300;
+  opacity: 0.75;
+  margin-bottom: 5rem;
+}
+
+
+/* =====================================================
+   6. SISTEMA DE COLUMNAS (BILINGÜE)
+   ===================================================== */
+.bilingual {
+  position: relative;
+}
+
+/* Línea central divisoria */
+.bilingual::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Columnas */
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 4rem;
+  margin-bottom: 3rem;
+}
+
+/* Texto principal */
+.bilingual .pair p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+
+/* =====================================================
+   7. COLUMNA DE ESTADO (Sacro Servo)
+   ===================================================== */
+.status {
+  opacity: 0.85;
+}
+
+.status-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  font-weight: 400;
+  margin-bottom: 0.6rem;
+  opacity: 0.6;
+}
+
+.status-entry {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+/* Botón Zona de Retención */
+.status-action {
   margin-top: 3rem;
+}
+
+.status-action a {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 400;
+
+  opacity: 0.6;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.status-action a:hover {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Separador interno */
+.status-divider {
+  border: none;
+  height: 1px;
+  width: 100%;
+  margin: 4rem 0;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Enlaces de plataformas */
+.platforms-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.platforms-list li {
+  margin-bottom: 0.8rem;
+}
+
+.platforms-list a {
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  font-weight: 300;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.platforms-list a:hover {
+  opacity: 1;
+}
+
+
+/* =====================================================
+   8. ZONA DE RETENCIÓN
+   Bloques horizontales tipo expediente
+   ===================================================== */
+.retention {
+  margin-top: 4rem;
+}
+
+.retention-block {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  column-gap: 3rem;
+
+  padding: 2.5rem;
+  margin-bottom: 3.5rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.retention-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.retention-title {
+  font-size: 1.1rem;
+  letter-spacing: 0.3em;
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+}
+
+.retention-subtitle {
   font-size: 0.8rem;
+  opacity: 0.6;
+  margin-bottom: 1.2rem;
+}
+
+.retention-description {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  text-align: justify;
+}
+
+.retention-links a {
+  margin-right: 2rem;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.retention-links a:hover {
+  opacity: 1;
+}
+
+
+/* =====================================================
+   9. ÍNDICE (Index principal)
+   ===================================================== */
+.section-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.section-list li {
+  margin-bottom: 1.8rem;
+}
+
+.section-list a {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.section-list a:hover {
+  opacity: 1;
+}
+
+.project-thumb {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 1rem;
+}
+
+
+/* =====================================================
+   10. FOOTER
+   ===================================================== */
+.footer p {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 300;
   opacity: 0.5;
+}
+
+
+/* =====================================================
+   11. RESPONSIVE
+   ===================================================== */
+@media (max-width: 900px) {
+
+  .container {
+    padding: 8vh 2rem;
+  }
+
+  /* Bilingüe pasa a una columna */
+  .bilingual::before {
+    display: none;
+  }
+
+  .pair {
+    grid-template-columns: 1fr;
+    row-gap: 1.5rem;
+  }
+
+  .bilingual .pair p {
+    text-align: left;
+  }
+
+  /* Zona de Retención vertical en móvil */
+  .retention-block {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+  }
 }
