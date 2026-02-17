@@ -1,6 +1,5 @@
 /* =====================================================
    1. RESET GLOBAL
-   Normaliza modelo de caja y márgenes
    ===================================================== */
 * {
   box-sizing: border-box;
@@ -11,7 +10,6 @@
 
 /* =====================================================
    2. BASE GLOBAL
-   Fondo, tipografía y capas
    ===================================================== */
 body {
   position: relative;
@@ -26,7 +24,7 @@ body {
                Helvetica, Arial, sans-serif;
 }
 
-/* Neutralizar enlaces HTML */
+/* Neutralizar enlaces */
 a {
   color: inherit;
   text-decoration: none;
@@ -44,38 +42,22 @@ a:active {
    3. FONDOS POR PÁGINA
    ===================================================== */
 body.home {
-  background-image: url("../img/005.jpg");
+  background-image: url("../img/001.jpg");
 }
 
 body.sacro {
-  background-image: url("../img/002.jpg");
+  background-image: url("../img/sacrobg.jpg");
 }
 
-body.almacen {
-  background-image: url("../img/009.jpg");
-}
-
-body.home {
-  background-size: 100% auto;
-  background-position: 50% 20%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
+body.home,
 body.sacro {
-  background-size: 100% auto;
-  background-position: 50% 40%;
+  background-size: cover;
+  background-position: 50% 30%;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
-body.almacen {
-  background-size: 100% auto;
-  background-position: 50% 20%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-/* Overlay oscuro */
+/* Overlay */
 body::before {
   content: "";
   position: fixed;
@@ -100,14 +82,13 @@ body::before {
   background: rgba(0, 0, 0, 0.65);
   border-radius: 4px;
 
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 
 /* =====================================================
    5. IDENTIDAD
-   Logo, títulos y subtítulos
    ===================================================== */
 .logo {
   display: block;
@@ -117,9 +98,10 @@ body::before {
   opacity: 0.9;
 }
 
+/* Título adaptable */
 h1 {
   text-align: center;
-  font-size: 3.2rem;
+  font-size: clamp(1.8rem, 6vw, 3.2rem);
   font-weight: 400;
   letter-spacing: 0.45em;
   margin-bottom: 1.4rem;
@@ -137,13 +119,12 @@ h1 {
 
 
 /* =====================================================
-   6. SISTEMA DE COLUMNAS (BILINGÜE)
+   6. SISTEMA DE COLUMNAS
    ===================================================== */
 .bilingual {
   position: relative;
 }
 
-/* Línea central divisoria */
 .bilingual::before {
   content: "";
   position: absolute;
@@ -154,7 +135,6 @@ h1 {
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Columnas */
 .pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -162,19 +142,17 @@ h1 {
   margin-bottom: 3rem;
 }
 
-/* Texto principal */
 .bilingual .pair p {
   font-size: 0.95rem;
   line-height: 1.7;
   font-weight: 300;
   margin-bottom: 1rem;
   text-align: justify;
-  text-justify: inter-word;
 }
 
 
 /* =====================================================
-   7. COLUMNA DE ESTADO (Sacro Servo)
+   7. ESTADO SACRO SERVO
    ===================================================== */
 .status {
   opacity: 0.85;
@@ -195,7 +173,6 @@ h1 {
   margin-bottom: 2rem;
 }
 
-/* Botón Zona de Retención */
 .status-action {
   margin-top: 3rem;
 }
@@ -219,7 +196,6 @@ h1 {
   border-color: rgba(255, 255, 255, 0.6);
 }
 
-/* Separador interno */
 .status-divider {
   border: none;
   height: 1px;
@@ -228,34 +204,9 @@ h1 {
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Enlaces de plataformas */
-.platforms-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.platforms-list li {
-  margin-bottom: 0.8rem;
-}
-
-.platforms-list a {
-  font-family: inherit;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  font-weight: 300;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.platforms-list a:hover {
-  opacity: 1;
-}
-
 
 /* =====================================================
    8. ZONA DE RETENCIÓN
-   Bloques horizontales tipo expediente
    ===================================================== */
 .retention {
   margin-top: 4rem;
@@ -299,54 +250,9 @@ h1 {
   text-align: justify;
 }
 
-.retention-links a {
-  margin-right: 2rem;
-  font-size: 0.8rem;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.retention-links a:hover {
-  opacity: 1;
-}
-
 
 /* =====================================================
-   9. ÍNDICE (Index principal)
-   ===================================================== */
-.section-list {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.section-list li {
-  margin-bottom: 1.8rem;
-}
-
-.section-list a {
-  font-size: 2rem;
-  font-weight: 300;
-  letter-spacing: 0.05em;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
-}
-
-.section-list a:hover {
-  opacity: 1;
-}
-
-.project-thumb {
-  display: block;
-  width: 200px;
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto 1rem;
-}
-
-
-/* =====================================================
-   10. FOOTER
+   9. FOOTER
    ===================================================== */
 .footer p {
   font-size: 0.75rem;
@@ -357,7 +263,7 @@ h1 {
 
 
 /* =====================================================
-   11. RESPONSIVE
+   10. RESPONSIVE
    ===================================================== */
 @media (max-width: 900px) {
 
@@ -365,7 +271,11 @@ h1 {
     padding: 8vh 2rem;
   }
 
-  /* Bilingüe pasa a una columna */
+  /* Reducir tracking en móvil */
+  h1 {
+    letter-spacing: 0.15em;
+  }
+
   .bilingual::before {
     display: none;
   }
@@ -379,7 +289,6 @@ h1 {
     text-align: left;
   }
 
-  /* Zona de Retención vertical en móvil */
   .retention-block {
     grid-template-columns: 1fr;
     row-gap: 2rem;
