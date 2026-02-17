@@ -49,6 +49,10 @@ body.sacro {
   background-image: url("../img/sacrobg.jpg");
 }
 
+body.almacen {
+  background-image: url("../img/sacrobg.jpg");
+}
+
 body.home,
 body.sacro {
   background-size: cover;
