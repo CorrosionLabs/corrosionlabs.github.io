@@ -198,7 +198,7 @@ h1, h2 {
 }
 
 .status-title {
-  font-size: 0.75rem;
+  font-size: 0.90rem;
   letter-spacing: 0.25em;
   font-weight: 400;
   margin-bottom: 0.6rem;
@@ -271,31 +271,34 @@ h1, h2 {
 }
 
 
-/* =====================================================
-   9. NOVEDADES SACRO SERVO
-   ===================================================== */
+.novedad {
+  max-width: 420px;
+  margin: 0 auto 60px auto;   /* 0 arriba, 60px abajo */
+  text-align: left;
+}
+
 .novedad img {
-  width: 100%;
-  max-width: 300px;
+  width: 220px;          /* icono más pequeño */
   height: auto;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .novedad h3 {
   font-size: 0.9rem;
   letter-spacing: 0.25em;
   font-weight: 400;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
 }
 
 .novedad p {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   line-height: 1.6;
   font-weight: 300;
-  text-align: justify;
+  text-align: left;
+  max-width: 360px;
 }
-
 
 /* =====================================================
    10. ZONA DE RETENCIÓN
