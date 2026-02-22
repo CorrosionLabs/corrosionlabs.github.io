@@ -2,9 +2,12 @@
 <html lang="es">
 
 <head>
+  <!-- =========================
+       METADATOS
+  ========================== -->
   <meta charset="UTF-8">
-  <title>CORROSION LABS — Sacro Servo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CORROSION LABS — Sacro Servo</title>
 
   <!-- Tipografía -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,102 +18,152 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
+
 <body class="sacro">
 
   <div class="container">
 
-    <!-- Identidad -->
-    <img src="img/icon.png" alt="Sacro Servo" class="logo">
-    <h1>SACRO SERVO</h1>
-    <p class="tagline">Corpus mechanicum, animus expansio</p>
+    <!-- =========================
+         IDENTIDAD
+    ========================== -->
+    <header class="identity">
+      <img src="img/icon.png" alt="Sacro Servo" class="logo">
+      <h1>SACRO SERVO</h1>
+      <p class="tagline">Corpus mechanicum, animus expansio</p>
+    </header>
 
-    <!-- Texto principal -->
+
+    <!-- =========================
+         CONTENIDO PRINCIPAL
+    ========================== -->
     <section class="bilingual sacro-layout">
+
       <div class="pair">
 
-        <!-- Columna izquierda: identidad estable -->
-        <div>
+        <!-- Columna izquierda: identidad conceptual -->
+        <article class="sacro-description">
+
           <p>
-            SACRO SERVO es un proyecto sonoro experimental desarrollado dentro de CORROSION LABS.<br>
+            SACRO SERVO es un proyecto sonoro experimental desarrollado dentro de CORROSION LABS.
             No funciona como una banda, ni como un artista tradicional, ni como una obra cerrada.
-            <br>Opera como un sistema.
+            Opera como un sistema.
           </p>
 
           <p>
             Investiga la relación entre ritual, control y automatización utilizando música generada mediante
-            inteligencia artificial como materia prima.<br>
+            inteligencia artificial como materia prima.
             La IA no actúa como autora autónoma, sino como instrumento operativo,
-            guiado por criterios humanos y sometido a procesos de repetición,desgaste y error.
+            guiado por criterios humanos y sometido a procesos de repetición, desgaste y error.
           </p>
 
           <p>
-            El proyecto se sitúa deliberadamente en un espacio ambiguo:<br>
-            entre lo sagrado y lo mecánico, entre el cuerpo y la interfaz,entre la devoción y la obediencia.
+            El proyecto se sitúa deliberadamente en un espacio ambiguo:
+            entre lo sagrado y lo mecánico, entre el cuerpo y la interfaz,
+            entre la devoción y la obediencia.
           </p>
 
           <p>
-            Las composiciones de Sacro Servo no buscan narrar ni emocionar de forma directa. Funcionan como estructuras
-            funcionales, pulsos, ciclos y residuos sonoros diseñados para insistir, erosionar y permanecer. La voz
-            —cuando aparece— es tratada como señal, no como identidad.
+            Las composiciones no buscan narrar ni emocionar de forma directa.
+            Funcionan como estructuras funcionales, pulsos, ciclos y residuos sonoros
+            diseñados para insistir, erosionar y permanecer.
+            La voz —cuando aparece— es tratada como señal, no como identidad.
           </p>
 
-          <p>Sacro Servo no representa un futuro deseable ni una distopía explícita.
-            Describe un presente operativo: sistemas que producen sentido sin comprenderlo y rituales que continúan
-            existiendo aun cuando su origen ha sido olvidado.
+          <p>
+            No representa un futuro deseable ni una distopía explícita.
+            Describe un presente operativo:
+            sistemas que producen sentido sin comprenderlo
+            y rituales que continúan existiendo aun cuando su origen ha sido olvidado.
           </p>
 
-          <p>Esto no es entretenimiento.<br>
+          <p>
+            Esto no es entretenimiento.
             Es un proceso activo.
           </p>
-        </div>
 
-        <!-- Columna derecha: estado / novedades -->
-        <div class="status">
-          <p class="status-title">ESTADO</p>
+        </article>
 
-          <p class="status-entry">
-            ▸ Sistema activo<br>
-            ▸ Material en proceso
-          </p>
 
-          <p class="status-title">ÚLTIMA SEÑAL</p>
+        <!-- Columna derecha: estado, enlaces y salidas -->
+        <aside class="status">
 
-          <p class="status-entry">
-            ▸ Emisión sonora en preparación
-          </p>
-
-          <div class="status-action">
-            <a href="almacen.html">ZONA DE RETENCIÓN</a>
-          </div>
+          <!-- Contenedor dinámico de novedades -->
+          <div id="sacro-novedades"></div>
 
           <hr class="status-divider">
 
+          <!-- Acciones internas -->
+          <nav class="status-actions">
+            <div class="status-action">
+              <a href="almacen.html">ZONA DE RETENCIÓN</a>
+            </div>
+
+            <div class="status-action">
+              <a href="condiciones.html">CONDICIONES LEGALES</a>
+            </div>
+          </nav>
+
+          <hr class="status-divider">
+
+          <!-- Plataformas externas -->
           <div class="platforms">
             <p class="platforms-title">SALIDAS</p>
 
             <ul class="platforms-list">
-              <li><a href="https://soundcloud.com/sacro-servo" target="_blank">SoundCloud</a></li>
-              <li><a href="https://archive.org/search?query=creator%3A%22Corrosion+Labs%22" target="_blank">Archive.org</a></li>
+              <li>
+                <a href="https://soundcloud.com/sacro-servo" target="_blank" rel="noopener">
+                  SoundCloud
+                </a>
+              </li>
+
+              <li>
+                <a href="https://archive.org/search?query=creator%3A%22Corrosion+Labs%22"
+                   target="_blank"
+                   rel="noopener">
+                  Archive.org
+                </a>
+              </li>
             </ul>
           </div>
 
-
-        </div>
+        </aside>
 
       </div>
+
     </section>
 
-    <!-- Cierre -->
-    <section class="footer" style="margin-top:5rem; text-align:center;">
+
+    <!-- =========================
+         PIE
+    ========================== -->
+    <footer class="footer">
+
       <p>
         Proyecto desarrollado dentro de CORROSION LABS.
       </p>
+
       <p>
         <a href="index.html">Volver</a>
       </p>
-    </section>
+
+    </footer>
 
   </div>
-</body>
 
+
+  <!-- =========================
+       SCRIPT: CARGA DE NOVEDADES
+  ========================== -->
+  <script>
+    fetch("sacro_novedades.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("sacro-novedades").innerHTML = data;
+      })
+      .catch(error => {
+        console.error("Error cargando novedades:", error);
+      });
+  </script>
+
+</body>
 </html>
