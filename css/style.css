@@ -10,21 +10,22 @@
 
 /* =====================================================
    2. BASE GLOBAL
+   Fondo, tipografía y capas
    ===================================================== */
 body {
   position: relative;
   z-index: 0;
-
   min-height: 100vh;
+
   background-color: #0b0b0b;
   color: #e0e0e0;
-  
+
   font-family: "IBM Plex Sans", system-ui, -apple-system,
                BlinkMacSystemFont, "Segoe UI", Roboto,
                Helvetica, Arial, sans-serif;
 }
 
-/* Neutralizar enlaces */
+/* Neutralizar enlaces HTML */
 a {
   color: inherit;
   text-decoration: none;
@@ -37,31 +38,7 @@ a:active {
   text-decoration: none;
 }
 
-
-/* =====================================================
-   3. FONDOS POR PÁGINA
-   ===================================================== */
-body.home {
-  background-image: url("../img/005.jpg");
-}
-
-body.sacro {
-  background-image: url("../img/002.jpg");
-}
-
-body.almacen {
-  background-image: url("../img/002.jpg");
-}
-
-body.home,
-body.sacro {
-  background-size: cover;
-  background-position: 50% 30%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-/* Overlay */
+/* Overlay oscuro global */
 body::before {
   content: "";
   position: fixed;
@@ -69,6 +46,43 @@ body::before {
   background: rgba(0, 0, 0, 0.55);
   pointer-events: none;
   z-index: -1;
+}
+
+
+/* =====================================================
+   3. FONDOS POR PÁGINA
+   ===================================================== */
+
+body.home {
+  background-image: url("../img/005.jpg");
+  background-size: 100% auto;
+  background-position: 50% 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.sacro {
+  background-image: url("../img/002.jpg");
+  background-size: 100% auto;
+  background-position: 50% 40%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.almacen {
+  background-image: url("../img/002.jpg");
+  background-size: 100% auto;
+  background-position: 50% 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.condiciones {
+  background-image: url("../img/009.jpg");
+  background-size: 100% auto;
+  background-position: 50% 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 
@@ -86,8 +100,8 @@ body::before {
   background: rgba(0, 0, 0, 0.65);
   border-radius: 4px;
 
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 
@@ -102,17 +116,12 @@ body::before {
   opacity: 0.9;
 }
 
-/* Título adaptable */
-h1 {
+h1, h2 {
   text-align: center;
-  font-size: clamp(1.8rem, 6vw, 3.2rem);
+  font-size: 3.2rem;
   font-weight: 400;
   letter-spacing: 0.45em;
   margin-bottom: 1.4rem;
-}
-
-body.sacro h1 {
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
 }
 
 .tagline {
@@ -125,14 +134,22 @@ body.sacro h1 {
   margin-bottom: 5rem;
 }
 
+.section-title{  
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.48em;
+  margin-bottom: 1.4rem;}
+
 
 /* =====================================================
-   6. SISTEMA DE COLUMNAS
+   6. SISTEMA DE COLUMNAS (BILINGÜE)
    ===================================================== */
 .bilingual {
   position: relative;
 }
 
+/* Línea divisoria central */
 .bilingual::before {
   content: "";
   position: absolute;
@@ -158,9 +175,23 @@ body.sacro h1 {
   text-align: justify;
 }
 
+.project-thumb {
+  max-width: 320px;   /* ajusta si quieres más pequeño */
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.section-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 
 /* =====================================================
-   7. ESTADO SACRO SERVO
+   7. COLUMNA SACRO SERVO (STATUS)
    ===================================================== */
 .status {
   opacity: 0.85;
@@ -181,8 +212,9 @@ body.sacro h1 {
   margin-bottom: 2rem;
 }
 
+/* Botones */
 .status-action {
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .status-action a {
@@ -214,7 +246,59 @@ body.sacro h1 {
 
 
 /* =====================================================
-   8. ZONA DE RETENCIÓN
+   8. PLATAFORMAS
+   ===================================================== */
+.platforms-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.platforms-list li {
+  margin-bottom: 0.8rem;
+}
+
+.platforms-list a {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  font-weight: 300;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.platforms-list a:hover {
+  opacity: 1;
+}
+
+
+/* =====================================================
+   9. NOVEDADES SACRO SERVO
+   ===================================================== */
+.novedad img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.novedad h3 {
+  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  font-weight: 400;
+  margin-bottom: 0.6rem;
+}
+
+.novedad p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  font-weight: 300;
+  text-align: justify;
+}
+
+
+/* =====================================================
+   10. ZONA DE RETENCIÓN
    ===================================================== */
 .retention {
   margin-top: 4rem;
@@ -224,10 +308,8 @@ body.sacro h1 {
   display: grid;
   grid-template-columns: 320px 1fr;
   column-gap: 3rem;
-
   padding: 2.5rem;
   margin-bottom: 3.5rem;
-
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -260,28 +342,55 @@ body.sacro h1 {
 
 
 /* =====================================================
-   9. FOOTER
+   11. CONDICIONES LEGALES
+   ===================================================== */
+.legal {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+p.legal-heading {
+  font-size: 1.5em;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 4rem 0 2rem;
+  opacity: 0.7;
+}
+
+.legal-list {
+  padding-left: 1.2rem;
+}
+
+.legal-list li {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+
+/* =====================================================
+   12. FOOTER
    ===================================================== */
 .footer p {
   font-size: 0.75rem;
   line-height: 1.4;
   font-weight: 300;
   opacity: 0.5;
+  text-align: center;
+  margin-top: 6rem; /* ajusta si quieres */
 }
 
 
 /* =====================================================
-   10. RESPONSIVE
+   13. RESPONSIVE
    ===================================================== */
 @media (max-width: 900px) {
 
   .container {
     padding: 8vh 2rem;
-  }
-
-  /* Reducir tracking en móvil */
-  h1 {
-    letter-spacing: 0.15em;
   }
 
   .bilingual::before {
