@@ -85,6 +85,14 @@ body.condiciones {
   background-attachment: fixed;
 }
 
+body.zero {
+  background-image: url("../img/003.jpg");
+  background-size: 100% auto;
+  background-position: 50% 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 
 /* =====================================================
    4. CONTENEDOR PRINCIPAL
@@ -175,13 +183,24 @@ h1, h2 {
   text-align: justify;
 }
 
-.project-thumb {
-  max-width: 320px;   /* ajusta si quieres más pequeño */
+.project-thumb-sacro {
+  max-width: 200px;   /* ajusta si quieres más pequeño */
   width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
+  padding-bottom: 50px;
 }
+
+.project-thumb-zero {
+  max-width: 150px;   /* ajusta si quieres más pequeño */
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
 
 .section-list {
   list-style: none;
