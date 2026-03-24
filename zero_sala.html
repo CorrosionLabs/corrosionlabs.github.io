@@ -94,7 +94,7 @@
         <aside class="status">
 
           <!-- Contenedor dinámico de novedades -->
-          <div id="sacro-novedades"></div>
+          <div id="zero-novedades"></div>
 
           <hr class="status-divider">
 
@@ -115,15 +115,15 @@
           <div class="platforms">
             <p class="platforms-title">SALIDAS</p>
 
-            <ul class="platforms-list">
+                        <ul class="platforms-list">
               <li>
-                <a href="https://soundcloud.com/sacro-servo" target="_blank" rel="noopener">
-                  SoundCloud
+                <a href="https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc" target="_blank" rel="noopener">
+                  Youtube
                 </a>
               </li>
 
               <li>
-                <a href="https://archive.org/search?query=creator%3A%22Corrosion+Labs%22"
+                <a href="https://archive.org/details/zero-sala.-ingravedad_202603"
                    target="_blank"
                    rel="noopener">
                   Archive.org
@@ -161,14 +161,14 @@
        SCRIPT: CARGA DE NOVEDADES
   ========================== -->
   <script>
-    fetch("sacro_novedades.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("sacro-novedades").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Error cargando novedades:", error);
-      });
+    fetch("zero_novedades.html")
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("zero-novedades").innerHTML = data;
+  })
+  .catch(error => {
+    console.error("Error cargando novedades:", error);
+  });
   </script>
 
 </body>

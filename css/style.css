@@ -263,6 +263,12 @@ h1, h2 {
   background: rgba(255, 255, 255, 0.15);
 }
 
+.retention-links {
+  display: flex;
+  gap: 20px;
+  margin-top: 1rem;
+}
+
 
 /* =====================================================
    8. PLATAFORMAS
@@ -432,4 +438,9 @@ p.legal-heading {
     grid-template-columns: 1fr;
     row-gap: 2rem;
   }
+.retention-links {
+  flex-direction: column;
+  gap: 10px;
+}
+  
 }
