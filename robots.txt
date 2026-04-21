@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://corrosionlabs.github.io/sitemap.xml

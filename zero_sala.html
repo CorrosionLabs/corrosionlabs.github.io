@@ -8,6 +8,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CORROSION LABS — Zero Sala</title>
+  <meta name="description" content="Zero Sala: espacio sonoro de Corrosion Labs dedicado a drones, resonancias y permanencia acustica.">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="canonical" href="https://corrosionlabs.github.io/zero_sala.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://corrosionlabs.github.io/zero_sala.html">
+  <meta property="og:title" content="Zero Sala — CORROSION LABS">
+  <meta property="og:description" content="Espacio sonoro de Corrosion Labs dedicado a drones, resonancias y permanencia acustica.">
+  <meta property="og:image" content="https://corrosionlabs.github.io/img/coverZero_01.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Zero Sala — CORROSION LABS">
+  <meta name="twitter:description" content="Espacio sonoro de Corrosion Labs dedicado a drones, resonancias y permanencia acustica.">
+  <meta name="twitter:image" content="https://corrosionlabs.github.io/img/coverZero_01.jpg">
 
   <!-- Tipografía -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +41,7 @@
          IDENTIDAD
     ========================== -->
     <header class="identity">
-      <img src="img/logo_alpha.png" alt="ZERO SALA" class="logo">
+      <img src="img/logo_alpha.png" alt="ZERO SALA" class="logo" width="400" height="400" decoding="async">
       <h1>ZERO SALA</h1>
       <p class="tagline">La permanencia del sonido</p>
     </header>
@@ -36,12 +50,12 @@
     <!-- =========================
          CONTENIDO PRINCIPAL
     ========================== -->
-    <section class="bilingual sacro-layout">
+    <main class="project-layout">
 
-      <div class="pair">
+      <div class="project-columns">
 
         <!-- Columna izquierda: identidad conceptual -->
-        <article class="sacro-description">
+        <article class="project-description">
 
           <p>
             Zero Sala es un espacio sonoro dentro del ecosistema de Corrosion Labs. 
@@ -91,10 +105,10 @@
 
 
         <!-- Columna derecha: estado, enlaces y salidas -->
-        <aside class="status">
+        <aside class="project-panel status">
 
           <!-- Contenedor dinámico de novedades -->
-          <div id="zero-novedades"></div>
+          <div class="project-news" data-project-news="zero"></div>
 
           <hr class="status-divider">
 
@@ -114,29 +128,14 @@
           <!-- Plataformas externas -->
           <div class="platforms">
             <p class="platforms-title">SALIDAS</p>
-
-                        <ul class="platforms-list">
-              <li>
-                <a href="https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc" target="_blank" rel="noopener">
-                  Youtube
-                </a>
-              </li>
-
-              <li>
-                <a href="https://archive.org/details/zero-sala.-ingravedad_202603"
-                   target="_blank"
-                   rel="noopener">
-                  Archive.org
-                </a>
-              </li>
-            </ul>
+            <div data-project-platforms="zero"></div>
           </div>
 
         </aside>
 
       </div>
 
-    </section>
+    </main>
 
 
     <!-- =========================
@@ -148,7 +147,7 @@
         Proyecto desarrollado dentro de CORROSION LABS.
       </p>
 
-      <p>
+      <p class="footer-actions">
         <a href="index.html">Volver</a>
       </p>
 
@@ -157,19 +156,9 @@
   </div>
 
 
-  <!-- =========================
-       SCRIPT: CARGA DE NOVEDADES
-  ========================== -->
-  <script>
-    fetch("zero_novedades.html")
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById("zero-novedades").innerHTML = data;
-  })
-  .catch(error => {
-    console.error("Error cargando novedades:", error);
-  });
-  </script>
+  <script src="js/releases.js"></script>
+  <script src="js/project-news.js"></script>
+  <script src="js/project-platforms.js"></script>
 
 </body>
 </html>

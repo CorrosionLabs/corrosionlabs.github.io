@@ -8,6 +8,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CORROSION LABS — Sacro Servo</title>
+  <meta name="description" content="Sacro Servo: proyecto sonoro experimental de Corrosion Labs, entre ritual, control y automatizacion.">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="canonical" href="https://corrosionlabs.github.io/sacro_servo.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://corrosionlabs.github.io/sacro_servo.html">
+  <meta property="og:title" content="Sacro Servo — CORROSION LABS">
+  <meta property="og:description" content="Proyecto sonoro experimental de Corrosion Labs, entre ritual, control y automatizacion.">
+  <meta property="og:image" content="https://corrosionlabs.github.io/img/img_01_300x300.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sacro Servo — CORROSION LABS">
+  <meta name="twitter:description" content="Proyecto sonoro experimental de Corrosion Labs, entre ritual, control y automatizacion.">
+  <meta name="twitter:image" content="https://corrosionlabs.github.io/img/img_01_300x300.jpg">
 
   <!-- Tipografía -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +41,7 @@
          IDENTIDAD
     ========================== -->
     <header class="identity">
-      <img src="img/icon.png" alt="Sacro Servo" class="logo">
+      <img src="img/icon.png" alt="Sacro Servo" class="logo" width="400" height="400" decoding="async">
       <h1>SACRO SERVO</h1>
       <p class="tagline">Corpus mechanicum, animus expansio</p>
     </header>
@@ -36,12 +50,12 @@
     <!-- =========================
          CONTENIDO PRINCIPAL
     ========================== -->
-    <section class="bilingual sacro-layout">
+    <main class="project-layout">
 
-      <div class="pair">
+      <div class="project-columns">
 
         <!-- Columna izquierda: identidad conceptual -->
-        <article class="sacro-description">
+        <article class="project-description">
 
           <p>
             SACRO SERVO es un proyecto sonoro experimental desarrollado dentro de CORROSION LABS.
@@ -85,10 +99,10 @@
 
 
         <!-- Columna derecha: estado, enlaces y salidas -->
-        <aside class="status">
+        <aside class="project-panel status">
 
           <!-- Contenedor dinámico de novedades -->
-          <div id="sacro-novedades"></div>
+          <div class="project-news" data-project-news="sacro"></div>
 
           <hr class="status-divider">
 
@@ -108,36 +122,14 @@
           <!-- Plataformas externas -->
           <div class="platforms">
             <p class="platforms-title">SALIDAS</p>
-
-            <ul class="platforms-list">
-              <li>
-                <a href="https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc" target="_blank" rel="noopener">
-                  Youtube
-                </a>
-              </li>
-
-            <ul class="platforms-list">
-              <li>
-                <a href="https://soundcloud.com/sacro-servo" target="_blank" rel="noopener">
-                  SoundCloud
-                </a>
-              </li>
-
-              <li>
-                <a href="https://archive.org/search?query=creator%3A%22Corrosion+Labs%22"
-                   target="_blank"
-                   rel="noopener">
-                  Archive.org
-                </a>
-              </li>
-            </ul>
+            <div data-project-platforms="sacro"></div>
           </div>
 
         </aside>
 
       </div>
 
-    </section>
+    </main>
 
 
     <!-- =========================
@@ -149,7 +141,7 @@
         Proyecto desarrollado dentro de CORROSION LABS.
       </p>
 
-      <p>
+      <p class="footer-actions">
         <a href="index.html">Volver</a>
       </p>
 
@@ -158,19 +150,9 @@
   </div>
 
 
-  <!-- =========================
-       SCRIPT: CARGA DE NOVEDADES
-  ========================== -->
-  <script>
-    fetch("sacro_novedades.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("sacro-novedades").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Error cargando novedades:", error);
-      });
-  </script>
+  <script src="js/releases.js"></script>
+  <script src="js/project-news.js"></script>
+  <script src="js/project-platforms.js"></script>
 
 </body>
 </html>
