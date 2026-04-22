@@ -1,6 +1,13 @@
 /* =====================================================
    1. RESET GLOBAL
    ===================================================== */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap");
+
+:root {
+  --font-body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: "Space Grotesk", "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -20,7 +27,8 @@ body {
   background-color: #0b0b0b;
   color: #e0e0e0;
 
-  font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
+  font-size: 17px;
 }
 
 /* Neutralizar enlaces HTML */
@@ -93,6 +101,14 @@ body.zero {
   background-attachment: fixed;
 }
 
+body.corpus {
+  background-image: url("../img/corpus.jpg");
+  background-size: cover;
+  background-position: 50% 45%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 
 /* =====================================================
    4. CONTENEDOR PRINCIPAL
@@ -124,11 +140,16 @@ body.zero {
   opacity: 0.9;
 }
 
+.logo-corpus {
+  width: min(180px, 48vw);
+}
+
 h1, h2 {
   text-align: center;
+  font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 3.2rem);
-  font-weight: 400;
-  letter-spacing: clamp(0.16em, 2.4vw, 0.42em);
+  font-weight: 500;
+  letter-spacing: clamp(0.14em, 2vw, 0.34em);
   overflow-wrap: anywhere;
   margin-bottom: 1.4rem;
 }
@@ -136,9 +157,10 @@ h1, h2 {
 .tagline {
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: clamp(0.12em, 1.2vw, 0.28em);
+  font-family: var(--font-display);
+  letter-spacing: clamp(0.12em, 1.2vw, 0.26em);
   font-size: 0.9rem;
-  font-weight: 300;
+  font-weight: 400;
   opacity: 0.75;
   margin-bottom: 5rem;
   overflow-wrap: anywhere;
@@ -154,11 +176,61 @@ h1, h2 {
 
 .section-title{  
   text-align: center;
+  font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: clamp(0.12em, 1.8vw, 0.34em);
+  font-weight: 500;
+  letter-spacing: clamp(0.12em, 1.6vw, 0.3em);
   overflow-wrap: anywhere;
   margin-bottom: 1.4rem;}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: -3vh auto 4.5rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.35rem;
+  padding: 0.54rem 0.82rem;
+
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+
+  color: rgba(242, 242, 242, 0.78);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible,
+.site-nav a[aria-current="page"] {
+  color: #f2f2f2;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  transform: translateY(-1px);
+}
+
+.site-nav a:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.75);
+  outline-offset: 3px;
+}
 
 
 /* =====================================================
@@ -200,7 +272,7 @@ h1, h2 {
 
 .bilingual .pair p,
 .project-description p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.7;
   font-weight: 300;
   margin-bottom: 1rem;
@@ -216,14 +288,15 @@ h1, h2 {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
 .project-card {
   display: grid;
-  grid-template-rows: 150px auto;
-  min-height: 280px;
+  grid-template-rows: minmax(210px, auto) auto;
+  row-gap: 1.25rem;
+  min-height: 330px;
   padding: 1.4rem;
 
   background: rgba(255, 255, 255, 0.045);
@@ -247,10 +320,12 @@ h1, h2 {
 .project-card-media {
   display: grid;
   place-items: center;
+  min-height: 210px;
 }
 
 .project-thumb-sacro,
-.project-thumb-zero {
+.project-thumb-zero,
+.project-thumb-corpus {
   width: 100%;
   height: auto;
   display: block;
@@ -264,26 +339,34 @@ h1, h2 {
   max-width: 145px;
 }
 
+.project-thumb-corpus {
+  max-width: 190px;
+}
+
 .project-card-body {
   display: grid;
-  align-content: end;
+  align-content: start;
+  justify-items: center;
   row-gap: 0.7rem;
   min-height: 88px;
+  text-align: center;
 }
 
 .project-card-title {
-  font-size: 0.85rem;
-  letter-spacing: 0.24em;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  letter-spacing: 0.22em;
+  font-weight: 600;
   text-transform: uppercase;
   color: #f1f1f1;
 }
 
 .project-card-text {
   max-width: 24rem;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   line-height: 1.55;
   font-weight: 300;
+  text-align: center;
   color: rgba(224, 224, 224, 0.72);
 }
 
@@ -304,15 +387,16 @@ h1, h2 {
 }
 
 .status-title {
-  font-size: 0.90rem;
-  letter-spacing: 0.25em;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
+  font-weight: 500;
   margin-bottom: 0.6rem;
   opacity: 0.6;
 }
 
 .status-entry {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   line-height: 1.6;
   font-weight: 300;
   margin-bottom: 2rem;
@@ -328,10 +412,11 @@ h1, h2 {
   min-width: 170px;
   padding: 0.82rem 1.25rem;
 
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   overflow-wrap: anywhere;
 
@@ -377,10 +462,11 @@ h1, h2 {
   min-width: 130px;
   padding: 0.68rem 1rem;
 
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   overflow-wrap: anywhere;
 
@@ -409,9 +495,10 @@ h1, h2 {
 }
 
 .platforms-title {
-  font-size: 0.85rem;
-  letter-spacing: 0.25em;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  letter-spacing: 0.22em;
+  font-weight: 500;
   margin-bottom: 1rem;
   opacity: 0.6;
 }
@@ -429,7 +516,7 @@ h1, h2 {
   max-width: 260px;
   padding: 0.62rem 0.75rem;
 
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   line-height: 1.6;
   font-weight: 400;
   color: #ededed;
@@ -453,7 +540,8 @@ h1, h2 {
   width: 2rem;
   height: 2rem;
 
-  font-size: 0.62rem;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
   letter-spacing: 0.08em;
   font-weight: 600;
 
@@ -490,15 +578,16 @@ h1, h2 {
 }
 
 .novedad h3 {
-  font-size: 0.9rem;
-  letter-spacing: 0.25em;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  letter-spacing: 0.22em;
+  font-weight: 500;
   margin-bottom: 0.8rem;
   text-transform: uppercase;
 }
 
 .novedad p {
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   line-height: 1.6;
   font-weight: 300;
   text-align: left;
@@ -529,21 +618,22 @@ h1, h2 {
 }
 
 .retention-title {
-  font-size: 1.1rem;
-  letter-spacing: clamp(0.08em, 1vw, 0.22em);
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  letter-spacing: clamp(0.08em, 1vw, 0.2em);
+  font-weight: 500;
   margin-bottom: 0.8rem;
   overflow-wrap: anywhere;
 }
 
 .retention-subtitle {
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   opacity: 0.6;
   margin-bottom: 1.2rem;
 }
 
 .retention-description {
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   line-height: 1.6;
   font-weight: 300;
   margin-bottom: 2rem;
@@ -560,10 +650,11 @@ h1, h2 {
 }
 
 .legal-heading {
+  font-family: var(--font-display);
   font-size: clamp(1.05rem, 3.6vw, 1.5rem);
   letter-spacing: clamp(0.08em, 1vw, 0.18em);
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 500;
   margin: 4rem 0 2rem;
   opacity: 0.7;
   overflow-wrap: anywhere;
@@ -574,7 +665,7 @@ h1, h2 {
 }
 
 .legal-list li {
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.7;
   font-weight: 300;
   margin-bottom: 1rem;
@@ -590,7 +681,7 @@ h1, h2 {
 }
 
 .footer p {
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   line-height: 1.4;
   font-weight: 300;
   opacity: 0.5;
@@ -613,10 +704,11 @@ h1, h2 {
   min-width: 120px;
   padding: 0.62rem 1rem;
 
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   overflow-wrap: anywhere;
 
@@ -655,7 +747,7 @@ h1, h2 {
 
   h1, h2 {
     font-size: clamp(1.75rem, 7vw, 2.2rem);
-    letter-spacing: 0.14em;
+    letter-spacing: 0.13em;
   }
 
   .legal-title {
@@ -665,6 +757,10 @@ h1, h2 {
   .tagline {
     letter-spacing: 0.12em;
     margin-bottom: 3rem;
+  }
+
+  .site-nav {
+    margin: -4vh auto 3rem;
   }
 
   .bilingual::before,
@@ -693,8 +789,8 @@ h1, h2 {
   }
 
   .project-card {
-    grid-template-rows: 130px auto;
-    min-height: 240px;
+    grid-template-rows: minmax(190px, auto) auto;
+    min-height: 300px;
   }
 
   .retention-links {
@@ -730,7 +826,7 @@ h1, h2 {
   }
 
   .project-card-title {
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
   }
 
   .status-action a {
@@ -738,6 +834,16 @@ h1, h2 {
     min-width: 0;
     letter-spacing: 0.12em;
     text-align: center;
+  }
+
+  .site-nav {
+    gap: 0.5rem;
+  }
+
+  .site-nav a {
+    flex: 1 1 100%;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
   }
 
   .retention-links a,

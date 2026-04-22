@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Release Builder — CORROSION LABS</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #0b0b0b;
+      color: #e0e0e0;
+      font-family: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    main {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 40px 20px 56px;
+    }
+
+    header {
+      margin-bottom: 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      padding-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0;
+      color: rgba(224, 224, 224, 0.72);
+      line-height: 1.6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 4px;
+      padding: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(224, 224, 224, 0.72);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.42);
+      color: #f2f2f2;
+      padding: 0.72rem 0.8rem;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid rgba(255, 255, 255, 0.68);
+      outline-offset: 2px;
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 20px;
+    }
+
+    .check input {
+      width: auto;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f2f2f2;
+      padding: 0.72rem 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    button:hover,
+    button:focus-visible {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.76);
+    }
+
+    pre {
+      min-height: 520px;
+      margin: 0;
+      overflow: auto;
+      white-space: pre;
+      border-radius: 4px;
+      background: #050505;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 16px;
+      color: #e8e8e8;
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    .hint {
+      margin-top: 14px;
+      font-size: 0.86rem;
+    }
+
+    .status {
+      min-height: 1.4em;
+      margin-top: 10px;
+      font-size: 0.86rem;
+      color: rgba(224, 224, 224, 0.78);
+    }
+
+    @media (max-width: 860px) {
+      .layout,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      pre {
+        min-height: 360px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Release Builder</h1>
+      <p>Genera un bloque listo para pegar dentro de <code>js/releases.js</code>.</p>
+    </header>
+
+    <div class="layout">
+      <section class="panel">
+        <form id="release-form">
+          <div class="form-grid">
+            <div class="field">
+              <label for="project">Proyecto</label>
+              <select id="project" name="project">
+                <option value="sacro">Sacro Servo</option>
+                <option value="zero">Zero Sala</option>
+                <option value="corpus">Corpus Submissum</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="label">Etiqueta</label>
+              <input id="label" name="label" value="Álbum 02">
+            </div>
+
+            <div class="field">
+              <label for="title">Titulo</label>
+              <input id="title" name="title" placeholder="Nuevo Registro">
+            </div>
+
+            <div class="field">
+              <label for="year">Año</label>
+              <input id="year" name="year" value="2026">
+            </div>
+
+            <div class="field">
+              <label for="status">Estado</label>
+              <input id="status" name="status" placeholder="Registro activo">
+            </div>
+
+            <div class="field">
+              <label for="cover">Portada</label>
+              <input id="cover" name="cover" value="img/nuevo_registro.jpg">
+            </div>
+
+            <div class="field">
+              <label for="thumbnail">Miniatura</label>
+              <input id="thumbnail" name="thumbnail" value="img/nuevo_registro_thumb.jpg">
+            </div>
+
+            <div class="field">
+              <label for="coverAlt">Alt portada</label>
+              <input id="coverAlt" name="coverAlt" placeholder="Nuevo Registro - portada">
+            </div>
+
+            <div class="field">
+              <label for="featuredTitle">Titulo novedad</label>
+              <input id="featuredTitle" name="featuredTitle" placeholder="Album Nuevo Registro">
+            </div>
+
+            <div class="field full">
+              <label for="featuredText">Texto corto de novedad</label>
+              <textarea id="featuredText" name="featuredText" placeholder="Texto breve que aparecera junto al boton OBTENER."></textarea>
+            </div>
+
+            <div class="field full">
+              <label for="descriptions">Descripcion larga</label>
+              <textarea id="descriptions" name="descriptions" placeholder="Escribe un parrafo por bloque.&#10;&#10;Deja una linea en blanco entre parrafos."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="listenUrl">URL escuchar</label>
+              <input id="listenUrl" name="listenUrl" placeholder="https://archive.org/details/...">
+            </div>
+
+            <div class="field">
+              <label for="downloadUrl">URL descargar</label>
+              <input id="downloadUrl" name="downloadUrl" placeholder="https://archive.org/details/...">
+            </div>
+
+            <label class="check full">
+              <input id="featured" name="featured" type="checkbox" checked>
+              Marcar como destacado
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="button" id="copy">Copiar bloque</button>
+            <button type="reset">Limpiar</button>
+          </div>
+
+          <p class="hint">
+            Pega el bloque dentro del array del proyecto seleccionado. Si es destacado, pon <code>featured: false</code> en el lanzamiento anterior.
+          </p>
+          <p class="status" id="status-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="panel">
+        <pre id="output" aria-label="Bloque generado"></pre>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const form = document.querySelector("#release-form");
+    const output = document.querySelector("#output");
+    const statusMessage = document.querySelector("#status-message");
+    const copyButton = document.querySelector("#copy");
+
+    const escapeString = (value) => JSON.stringify(value.trim());
+
+    const getParagraphs = (value) => value
+      .split(/\n\s*\n/)
+      .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+
+    const buildRelease = () => {
+      const data = new FormData(form);
+      const title = data.get("title") || "Nuevo Registro";
+      const coverAlt = data.get("coverAlt") || `${title} - portada`;
+      const featuredTitle = data.get("featuredTitle") || `Album ${title}`;
+      const cover = data.get("cover") || "img/nuevo_registro.jpg";
+      const thumbnail = data.get("thumbnail") || cover;
+      const descriptions = getParagraphs(data.get("descriptions") || "Descripcion breve del material.");
+
+      const lines = [
+        "{",
+        `  title: ${escapeString(title)},`,
+        `  label: ${escapeString(data.get("label") || "Álbum 02")},`,
+        `  year: ${escapeString(data.get("year") || "2026")},`,
+        `  status: ${escapeString(data.get("status") || "Registro activo")},`,
+        `  cover: ${escapeString(cover)},`,
+        `  thumbnail: ${escapeString(thumbnail)},`,
+        `  coverAlt: ${escapeString(coverAlt)},`,
+        `  featuredTitle: ${escapeString(featuredTitle)},`,
+        `  featuredText: ${escapeString(data.get("featuredText") || "Texto breve para anunciar el lanzamiento.")},`,
+        "  descriptions: [",
+        ...descriptions.map((paragraph, index) => {
+          const comma = index === descriptions.length - 1 ? "" : ",";
+          return `    ${escapeString(paragraph)}${comma}`;
+        }),
+        "  ],",
+        `  listenUrl: ${escapeString(data.get("listenUrl") || "https://archive.org/details/...")},`,
+        `  downloadUrl: ${escapeString(data.get("downloadUrl") || "https://archive.org/details/...")},`,
+        `  featured: ${document.querySelector("#featured").checked}`,
+        "}"
+      ];
+
+      output.textContent = lines.join("\n");
+    };
+
+    form.addEventListener("input", buildRelease);
+    form.addEventListener("reset", () => {
+      window.setTimeout(() => {
+        statusMessage.textContent = "";
+        buildRelease();
+      }, 0);
+    });
+
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(output.textContent);
+        statusMessage.textContent = "Bloque copiado.";
+      } catch (error) {
+        statusMessage.textContent = "No se pudo copiar automaticamente. Selecciona el bloque manualmente.";
+      }
+    });
+
+    buildRelease();
+  </script>
+</body>
+</html>

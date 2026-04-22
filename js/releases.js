@@ -6,6 +6,7 @@ window.CorrosionReleases = {
       year: "2026",
       status: "Registro cerrado",
       cover: "img/img_01_300x300.jpg",
+      thumbnail: "img/img_01_300x300.jpg",
       coverAlt: "Ejecuta - portada",
       featuredTitle: "Album Ejecuta",
       featuredText: "Primer artefacto publicado dentro del sistema operativo Sacro Servo.",
@@ -27,6 +28,7 @@ window.CorrosionReleases = {
       year: "2026",
       status: "Reverberación consecuente",
       cover: "img/coverZero_01.jpg",
+      thumbnail: "img/coverZero_01.jpg",
       coverAlt: "ingravidad - portada",
       featuredTitle: "Album ingravedad",
       featuredText: "Los pasillos de hormigón no son un lugar, sino una condición. Figuras protegidas avanzan mientras algo empieza a fallar: la gravedad, el cuerpo, la percepción. No hay un punto exacto donde comienza la mutación.\n\nLa imagen no explica. Sugiere.\nEl sonido no acompaña. Permanece.",
@@ -40,6 +42,8 @@ window.CorrosionReleases = {
       downloadUrl: "https://archive.org/search?query=creator%3A%22Corrosion+Labs%22",
       featured: true
     }
+  ],
+  corpus: [
   ]
 };
 
@@ -74,6 +78,20 @@ window.CorrosionProjects = {
         label: "Archive.org",
         mark: "AR",
         url: "https://archive.org/details/zero-sala.-ingravedad_202603"
+      }
+    ]
+  },
+  corpus: {
+    platforms: [
+      {
+        label: "Youtube",
+        mark: "YT",
+        url: "https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc"
+      },
+      {
+        label: "Archive.org",
+        mark: "AR",
+        url: "https://archive.org/search?query=creator%3A%22Corrosion+Labs%22"
       }
     ]
   }
