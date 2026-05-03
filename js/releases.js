@@ -44,6 +44,27 @@ window.CorrosionReleases = {
     }
   ],
   corpus: [
+    {
+      title: "Respiración Forzada",
+      label: "Álbum 01",
+      year: "2026",
+      status: "Registro activo",
+      cover: "img/corpus_respiracion_forzada_cover.jpg",
+      thumbnail: "img/corpus_respiracion_forzada_thumb.jpg",
+      coverAlt: "Respiración Forzada - portada",
+      featuredTitle: "Album Respiración Forzada",
+      featuredText: "Corpus Submissum (de Sacro Servo) nace como una extensión interna de Sacro Servo: un subproyecto centrado en lo instrumental donde la voz se elimina como vehículo de significado, pero no como presencia.",
+      descriptions: [
+        "Aquí no hay letras, pero el cuerpo sigue inscrito en el sonido. Respiraciones convertidas en ruido, pulsos transformados en percusión, tensión muscular traducida a capas de distorsión. La ausencia de palabra no implica vacío, sino una forma más directa de intervención: sin filtro, sin relato, sin mediación.",
+        "Corpus Submissum se construye desde la idea de sumisión física y sistémica. No como concepto abstracto, sino como experiencia repetitiva: presión constante, ciclos cerrados, estructuras que obligan al movimiento sin permitir salida. Los ritmos no invitan, imponen. Las texturas no decoran, envuelven. Cada elemento está diseñado para mantener al oyente dentro de un espacio contenido, donde el tiempo se dilata y la percepción se vuelve densa.",
+        "La materia sonora es industrial y pesada: impactos metálicos, resonancias profundas, subgraves persistentes, capas de drones que evolucionan lentamente o permanecen estáticas como una maquinaria en funcionamiento continuo. No hay progresión clásica, sino acumulación. No hay clímax, sino desgaste.",
+        "Cada pieza funciona como un entorno autónomo, casi arquitectónico. Un sistema cerrado donde el cuerpo —biológico o sintético— deja de ejercer control y pasa a adaptarse, a resistir o a integrarse.",
+        "Sacro Servo Corpus Submissum no se escucha. Se atraviesa."
+      ],
+      listenUrl: "https://archive.org/details/libreto_202604",
+      downloadUrl: "https://archive.org/details/libreto_202604",
+      featured: true
+    }
   ]
 };
 
