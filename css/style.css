@@ -884,12 +884,14 @@ h1, h2 {
 }
 
 .contact-panel h2 {
+  text-align: left;
   margin-bottom: 1rem;
   font-size: 1rem;
   letter-spacing: 0.22em;
 }
 
 .contact-panel p {
+  text-align: left;
   line-height: 1.75;
   opacity: 0.84;
 }
@@ -905,6 +907,7 @@ h1, h2 {
   padding: 0.85rem 0.95rem;
   border-left: 1px solid rgba(255, 255, 255, 0.22);
   background: rgba(255, 255, 255, 0.03);
+  text-align: left;
   line-height: 1.65;
   opacity: 0.9;
 }
@@ -912,6 +915,10 @@ h1, h2 {
 .contact-form {
   display: grid;
   gap: 1rem;
+}
+
+.contact-form p {
+  margin: 0;
 }
 
 .contact-field {
