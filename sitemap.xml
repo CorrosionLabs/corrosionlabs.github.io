@@ -37,7 +37,12 @@
   </url>
   <url>
     <loc>https://corrosionlabs.github.io/condiciones.html</loc>
-    <lastmod>2026-04-22</lastmod>
+    <lastmod>2026-06-15</lastmod>
     <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://corrosionlabs.github.io/contacto.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>
