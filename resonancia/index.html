@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resonancia</title>
+  <meta
+    name="description"
+    content="Resonancia is an infinite biopunk dark ambient ritual generated in the browser."
+  />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="background-grid" aria-hidden="true"></div>
+    <div class="background-orb background-orb-primary" aria-hidden="true"></div>
+    <div class="background-orb background-orb-secondary" aria-hidden="true"></div>
+
+    <main class="experience" aria-live="polite">
+      <p class="eyebrow">Collective Biopunk Liturgy</p>
+      <h1 class="title">RESONANCIA</h1>
+      <p class="subtitle">
+        An infinite dark ambient organism dreaming through your browser.
+      </p>
+
+      <button class="start-button" type="button" data-start>
+        Iniciar Experiencia
+      </button>
+
+      <div class="status-panel">
+        <p class="status-line" data-status>Awaiting acoustic consent.</p>
+        <p class="state-line" data-state>Dormant Organism</p>
+      </div>
+
+      <section class="phrase-layer" aria-label="Doctrinal phrase display">
+        <p class="phrase-text" data-phrase></p>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
