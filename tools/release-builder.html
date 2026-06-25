@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" translate="yes">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -179,7 +179,7 @@
     }
   </style>
 </head>
-<body>
+<body translate="yes">
   <main>
     <header>
       <h1>Release Builder</h1>
@@ -221,12 +221,12 @@
 
             <div class="field">
               <label for="cover">Portada</label>
-              <input id="cover" name="cover" value="img/nuevo_registro.jpg">
+              <input id="cover" name="cover" value="img/projects/proyecto/releases/nuevo-registro/cover.jpg">
             </div>
 
             <div class="field">
               <label for="thumbnail">Miniatura</label>
-              <input id="thumbnail" name="thumbnail" value="img/nuevo_registro_thumb.jpg">
+              <input id="thumbnail" name="thumbnail" value="img/projects/proyecto/releases/nuevo-registro/thumb.jpg">
             </div>
 
             <div class="field">
@@ -301,7 +301,7 @@
       const title = data.get("title") || "Nuevo Registro";
       const coverAlt = data.get("coverAlt") || `${title} - portada`;
       const featuredTitle = data.get("featuredTitle") || `Album ${title}`;
-      const cover = data.get("cover") || "img/nuevo_registro.jpg";
+      const cover = data.get("cover") || "img/projects/proyecto/releases/nuevo-registro/cover.jpg";
       const thumbnail = data.get("thumbnail") || cover;
       const descriptions = getParagraphs(data.get("descriptions") || "Descripcion breve del material.");
 

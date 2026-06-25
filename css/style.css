@@ -62,7 +62,7 @@ body::before {
    ===================================================== */
 
 body.home {
-  background-image: url("../img/005.jpg");
+  background-image: url("../img/site/backgrounds/007.jpg");
   background-size: cover;
   background-position: 50% 20%;
   background-repeat: no-repeat;
@@ -70,7 +70,7 @@ body.home {
 }
 
 body.sacro {
-  background-image: url("../img/002.jpg");
+  background-image: url("../img/site/backgrounds/002.jpg");
   background-size: cover;
   background-position: 50% 40%;
   background-repeat: no-repeat;
@@ -78,7 +78,7 @@ body.sacro {
 }
 
 body.almacen {
-  background-image: url("../img/002.jpg");
+  background-image: url("../img/site/backgrounds/002.jpg");
   background-size: cover;
   background-position: 50% 20%;
   background-repeat: no-repeat;
@@ -86,7 +86,7 @@ body.almacen {
 }
 
 body.condiciones {
-  background-image: url("../img/009.jpg");
+  background-image: url("../img/site/backgrounds/005.jpg");
   background-size: cover;
   background-position: 50% 20%;
   background-repeat: no-repeat;
@@ -94,7 +94,7 @@ body.condiciones {
 }
 
 body.zero {
-  background-image: url("../img/003.jpg");
+  background-image: url("../img/site/backgrounds/003.jpg");
   background-size: cover;
   background-position: 50% 20%;
   background-repeat: no-repeat;
@@ -102,7 +102,7 @@ body.zero {
 }
 
 body.corpus {
-  background-image: url("../img/corpus.jpg");
+  background-image: url("../img/site/backgrounds/009.jpg");
   background-size: cover;
   background-position: 50% 45%;
   background-repeat: no-repeat;
@@ -110,7 +110,7 @@ body.corpus {
 }
 
 body.hub {
-  background-image: url("../img/005.jpg");
+  background-image: url("../img/site/backgrounds/006.jpg");
   background-size: cover;
   background-position: 50% 20%;
   background-repeat: no-repeat;
@@ -118,9 +118,17 @@ body.hub {
 }
 
 body.contacto {
-  background-image: url("../img/009.jpg");
+  background-image: url("../img/site/backgrounds/004.jpg");
   background-size: cover;
   background-position: 50% 24%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.collections {
+  background-image: url("../img/site/backgrounds/corpus.jpg");
+  background-size: cover;
+  background-position: 50% 20%;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -656,6 +664,111 @@ h1, h2 {
   text-align: justify;
 }
 
+.collections-intro {
+  max-width: 760px;
+  margin: 0 auto 2.5rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  text-align: center;
+  color: rgba(224, 224, 224, 0.82);
+}
+
+.collections-list {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.collection-card {
+  display: grid;
+  grid-template-columns: minmax(220px, 360px) minmax(0, 1fr);
+  align-items: start;
+  gap: 1.25rem;
+  padding: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.collection-media,
+.collection-content {
+  display: grid;
+  align-content: start;
+  gap: 0.85rem;
+}
+
+.collection-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.72;
+  overflow-wrap: anywhere;
+}
+
+.collection-cover img {
+  width: 100%;
+  max-height: clamp(240px, 42vw, 420px);
+  object-fit: contain;
+  display: block;
+  border-radius: 4px;
+}
+
+.collection-body {
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+}
+
+.collection-title {
+  margin-bottom: 0.15rem;
+  text-align: left;
+  font-size: clamp(1.05rem, 2.3vw, 1.2rem);
+  letter-spacing: clamp(0.08em, 0.9vw, 0.16em);
+}
+
+.collection-description {
+  margin-bottom: 1rem;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  font-weight: 300;
+  color: rgba(224, 224, 224, 0.9);
+}
+
+.collection-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin: 0.35rem 0 1.25rem;
+}
+
+.collection-gallery img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.collections-empty {
+  padding: 1.4rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.collections-list .retention-links {
+  margin-top: 0.8rem;
+}
+
+.collections-list .retention-links a {
+  flex: 1 1 180px;
+}
+
 
 /* =====================================================
    11. CONDICIONES LEGALES
@@ -1093,6 +1206,21 @@ h1, h2 {
     row-gap: 2rem;
   }
 
+  .collection-card {
+    grid-template-columns: minmax(180px, 300px) minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .collection-cover img {
+    max-height: 340px;
+  }
+
+  .collections-intro {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
   .hub-layout {
     grid-template-columns: 1fr;
   }
@@ -1171,6 +1299,45 @@ h1, h2 {
 
   .retention-block {
     padding: 1.25rem;
+  }
+
+  .collection-card {
+    grid-template-columns: 1fr;
+    padding: 1.15rem;
+  }
+
+  .collection-title {
+    text-align: center;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .collection-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .collection-cover img {
+    max-height: 260px;
+  }
+
+  .collection-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+  }
+
+  .collection-description,
+  .collections-intro {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .collections-list .retention-links {
+    gap: 0.65rem;
+  }
+
+  .collections-list .retention-links a {
+    width: 100%;
   }
 
   .hub-links a {

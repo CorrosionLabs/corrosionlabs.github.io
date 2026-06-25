@@ -49,8 +49,8 @@ class ReleaseBuilder(tk.Tk):
             "label": tk.StringVar(value="Álbum 02"),
             "year": tk.StringVar(value="2026"),
             "status": tk.StringVar(),
-            "cover": tk.StringVar(value="img/nuevo_registro.jpg"),
-            "thumbnail": tk.StringVar(value="img/nuevo_registro_thumb.jpg"),
+            "cover": tk.StringVar(value="img/projects/proyecto/releases/nuevo-registro/cover.jpg"),
+            "thumbnail": tk.StringVar(value="img/projects/proyecto/releases/nuevo-registro/thumb.jpg"),
             "coverAlt": tk.StringVar(),
             "featuredTitle": tk.StringVar(),
             "listenUrl": tk.StringVar(),
@@ -92,7 +92,7 @@ class ReleaseBuilder(tk.Tk):
         ).pack(anchor="w")
         tk.Label(
             header,
-            text="Genera un bloque para js/releases.js y copia las imagenes a img/.",
+            text="Genera un bloque para js/releases.js y copia las imagenes a su carpeta dentro de img/projects/.",
             bg="#171717",
             fg="#a9a39a",
             font=("Segoe UI", 11),
@@ -248,12 +248,11 @@ class ReleaseBuilder(tk.Tk):
         prefix = self.vars["project"].get()
         title = slugify(self.vars["title"].get() or source.stem)
         suffix = "thumb" if key == "thumbnail" else "cover"
-        target_name = f"{prefix}_{title}_{suffix}{source.suffix.lower()}"
-        self.vars[key].set(f"img/{target_name}")
+        self.vars[key].set(f"img/projects/{prefix}/releases/{title}/{suffix}{source.suffix.lower()}")
 
     def build_release(self) -> str:
         title = self.vars["title"].get() or "Nuevo Registro"
-        cover = self.vars["cover"].get() or "img/nuevo_registro.jpg"
+        cover = self.vars["cover"].get() or "img/projects/proyecto/releases/nuevo-registro/cover.jpg"
         thumbnail = self.vars["thumbnail"].get() or cover
         cover_alt = self.vars["coverAlt"].get() or f"{title} - portada"
         featured_title = self.vars["featuredTitle"].get() or f"Album {title}"
@@ -332,8 +331,8 @@ class ReleaseBuilder(tk.Tk):
         self.vars["project"].set("sacro")
         self.vars["label"].set("Álbum 02")
         self.vars["year"].set("2026")
-        self.vars["cover"].set("img/nuevo_registro.jpg")
-        self.vars["thumbnail"].set("img/nuevo_registro_thumb.jpg")
+        self.vars["cover"].set("img/projects/proyecto/releases/nuevo-registro/cover.jpg")
+        self.vars["thumbnail"].set("img/projects/proyecto/releases/nuevo-registro/thumb.jpg")
         self.cover_source.set("")
         self.thumbnail_source.set("")
         self.featuredText.delete("1.0", "end")
