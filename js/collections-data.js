@@ -22,7 +22,7 @@ window.CorrosionCollections = [
         alt: "img 03"
       }
     ],
-    buyUrl: "https://archive.org/search?query=creator%3A%22Corrosion+Labs%22",
+    buyUrl: "https://ko-fi.com/s/93dc05c251",
     extrasUrl: "https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc"
   }
 ];
