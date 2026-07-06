@@ -769,6 +769,65 @@ h1, h2 {
   flex: 1 1 180px;
 }
 
+.collection-product-page {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.collection-product-card {
+  padding: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.collection-product-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 360px) minmax(0, 1fr);
+  align-items: start;
+  gap: 1.5rem;
+}
+
+.collection-product-media,
+.collection-product-content {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.collection-product-section {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.collection-gallery-product {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin-bottom: 0;
+}
+
+.collection-extra-text {
+  margin-bottom: 0.35rem;
+}
+
+.collection-extra-link {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.collection-extra-link a {
+  color: rgba(224, 224, 224, 0.86);
+  text-decoration: underline;
+  text-decoration-color: rgba(224, 224, 224, 0.36);
+  text-underline-offset: 0.18em;
+}
+
+.collection-extra-link a:hover,
+.collection-extra-link a:focus-visible {
+  text-decoration-color: rgba(224, 224, 224, 0.82);
+}
+
 
 /* =====================================================
    11. CONDICIONES LEGALES
@@ -1212,6 +1271,11 @@ h1, h2 {
     padding: 1.25rem;
   }
 
+  .collection-product-layout {
+    grid-template-columns: minmax(180px, 300px) minmax(0, 1fr);
+    gap: 1.15rem;
+  }
+
   .collection-cover img {
     max-height: 340px;
   }
@@ -1304,6 +1368,14 @@ h1, h2 {
   .collection-card {
     grid-template-columns: 1fr;
     padding: 1.15rem;
+  }
+
+  .collection-product-card {
+    padding: 1.15rem;
+  }
+
+  .collection-product-layout {
+    grid-template-columns: 1fr;
   }
 
   .collection-title {

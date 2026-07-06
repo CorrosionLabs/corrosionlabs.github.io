@@ -1,6 +1,6 @@
 # Guía rápida para modificar contenidos
 
-Esta guía explica cómo actualizar contenidos de las páginas `collections.html`, `hub.html` y `tools/release-builder.html` sin romper la estructura del sitio.
+Esta guía explica cómo actualizar contenidos de las páginas `collections.html`, `hub.html` y las herramientas internas de `tools/` sin romper la estructura del sitio.
 
 ## Estructura de imágenes
 
@@ -12,122 +12,141 @@ La carpeta `img/` está organizada así:
 - `img/projects/sacro/`: imágenes del proyecto Sacro Servo
 - `img/projects/zero/`: imágenes del proyecto Zero Sala
 - `img/projects/corpus/`: imágenes del proyecto Corpus Submissum
+- `img/projects/collections/`: imágenes de productos y colecciones visuales
 
 ## Vista general
 
-- `collections.html` muestra una página de colecciones.
-- `js/collections-data.js` guarda el contenido de esas colecciones.
-- `js/collections-page.js` pinta automáticamente las tarjetas en pantalla.
-- `hub.html` contiene enlaces internos y externos editados directamente en HTML.
-- `tools/release-builder.html` es una herramienta auxiliar para generar bloques de releases.
-- `css/style.css` solo hace falta tocarlo si quieres cambiar estilos o distribución visual.
+- `collections.html` es el índice público de colecciones
+- `products/` contiene una página HTML por producto
+- `data/collections.json` es la fuente principal de datos de colecciones
+- `tools/collections-builder.html` es la herramienta interna para crear o editar productos
+- `tools/collections_builder.py` regenera el índice, las fichas y el sitemap
+- `hub.html` contiene enlaces internos y externos editados directamente en HTML
+- `tools/release-builder.html` es una herramienta auxiliar para generar bloques de releases
+- `css/style.css` es el CSS compartido de la web pública
 
 ## 1. Página `Collections`
 
 ### Archivos que intervienen
 
 - `collections.html`
-- `js/collections-data.js`
-- `js/collections-page.js`
+- `products/`
+- `data/collections.json`
+- `tools/collections-builder.html`
+- `tools/collections_builder.py`
+- `sitemap.xml`
+
+### Cómo funciona ahora
+
+La sección de colecciones ya no depende de `js/collections-data.js` ni de `js/collections-page.js`.
+
+Ahora el flujo es este:
+
+1. Se guardan los datos en `data/collections.json`
+2. El generador crea `collections.html`
+3. El generador crea una ficha individual en `products/<slug>.html`
+4. El generador actualiza `sitemap.xml`
 
 ### Qué tocar normalmente
 
-Para cambiar el contenido de la página, lo habitual es editar solo:
+Para añadir o editar un producto, lo normal es usar la herramienta:
 
-- `js/collections-data.js`
+- `tools/collections-builder.html`
 
-No hace falta tocar `collections.html` ni `js/collections-page.js` si solo vas a:
+Y ejecutar el servidor local:
 
-- cambiar títulos
-- cambiar descripciones
-- cambiar imágenes
-- añadir o quitar colecciones
-- actualizar enlaces
+- `python tools/collections_builder.py`
 
-### Estructura de una colección
+No hace falta editar a mano `collections.html` ni las páginas dentro de `products/` para cambios normales de contenido.
 
-Cada colección dentro de `js/collections-data.js` sigue esta forma:
+### Flujo recomendado de uso
 
-```js
-{
-  title: "Collection 01",
-  cover: "img/projects/sacro/releases/ejecuta/img_01_300x300.jpg",
-  coverAlt: "Portada de Collection 01",
-  description: [
-    "Texto 1",
-    "Texto 2"
-  ],
-  gallery: [
-    { src: "img/projects/sacro/releases/ejecuta/img_01_300x300.jpg", alt: "Vista 1" },
-    { src: "img/projects/sacro/releases/ejecuta/img_02_300x300.jpg", alt: "Vista 2" },
-    { src: "img/projects/zero/releases/ingravidad/coverZero_01.jpg", alt: "Vista 3" }
-  ],
-  buyUrl: "https://...",
-  extrasUrl: "https://..."
-}
+1. Ejecuta:
+
+```bash
+python tools/collections_builder.py
 ```
 
-### Cómo editar una colección existente
+2. Abre en el navegador:
 
-Abre `js/collections-data.js` y modifica los valores del bloque que ya existe:
+```text
+http://127.0.0.1:8765
+```
 
-- `title`: nombre visible de la colección
+3. Rellena el formulario del producto
+4. Pulsa `Guardar producto`
+5. La herramienta actualiza:
+   - `data/collections.json`
+   - `collections.html`
+   - `products/<slug>.html`
+   - `sitemap.xml`
+
+### Campos del formulario
+
+La herramienta de colecciones trabaja con estos campos:
+
+- `slug`: identificador único usado en la URL
+- `title`: nombre visible del producto
 - `cover`: imagen principal
 - `coverAlt`: texto alternativo de la portada
 - `description`: uno o varios párrafos
-- `gallery`: hasta 3 miniaturas interiores
-- `buyUrl`: enlace principal de compra o acceso
-- `extrasUrl`: enlace secundario de extras, vídeo o material adicional
+- `gallery`: una línea por imagen con formato `ruta | alt`
+- `buyUrl`: enlace principal de compra
+- `extraText`: texto breve del bloque extra
+- `extraUrl`: URL del bloque extra
 
-### Cómo añadir una nueva colección
+### Estructura del JSON
 
-Dentro del array `window.CorrosionCollections = [ ... ]`, duplica una entrada completa y cambia sus datos.
+Cada producto dentro de `data/collections.json` sigue esta forma:
 
-Ejemplo:
-
-```js
-window.CorrosionCollections = [
-  {
-    title: "Collection 01",
-    cover: "img/projects/sacro/releases/ejecuta/img_01_300x300.jpg",
-    coverAlt: "Portada de Collection 01",
-    description: [
-      "Primera colección."
-    ],
-    gallery: [
-      { src: "img/projects/sacro/releases/ejecuta/img_01_300x300.jpg", alt: "Vista 1" },
-      { src: "img/projects/sacro/releases/ejecuta/img_02_300x300.jpg", alt: "Vista 2" },
-      { src: "img/projects/zero/releases/ingravidad/coverZero_01.jpg", alt: "Vista 3" }
-    ],
-    buyUrl: "https://...",
-    extrasUrl: "https://..."
-  },
-  {
-    title: "Collection 02",
-    cover: "img/projects/sacro/releases/collection-02/nueva_portada.jpg",
-    coverAlt: "Portada de Collection 02",
-    description: [
-      "Texto principal de la segunda colección.",
-      "Segundo párrafo opcional."
-    ],
-    gallery: [
-      { src: "img/projects/sacro/releases/collection-02/nueva_01.jpg", alt: "Vista 1 de Collection 02" },
-      { src: "img/projects/sacro/releases/collection-02/nueva_02.jpg", alt: "Vista 2 de Collection 02" },
-      { src: "img/projects/sacro/releases/collection-02/nueva_03.jpg", alt: "Vista 3 de Collection 02" }
-    ],
-    buyUrl: "https://...",
-    extrasUrl: "https://..."
-  }
-];
+```json
+{
+  "slug": "the-soft-servo-ost",
+  "title": "The soft servo OST",
+  "cover": "img/projects/collections/cober_soft_servo.jpg",
+  "coverAlt": "The soft servo OST",
+  "description": [
+    "Música concebida para acompañar la lectura de El servo suave.",
+    "Doce piezas para permanecer en la habitación mientras continúa la conversación."
+  ],
+  "gallery": [
+    {
+      "src": "img/projects/collections/cober_soft_servo.jpg",
+      "alt": "The soft servo OST"
+    }
+  ],
+  "buyUrl": "https://...",
+  "extraText": "Canal de YouTube de Corrosion Labs",
+  "extraUrl": "https://..."
+}
 ```
+
+### Qué se muestra en cada sitio
+
+En `collections.html` se muestra:
+
+- portada
+- título
+- primer párrafo de la descripción
+- botón `Ver más`
+
+En `products/<slug>.html` se muestra:
+
+- portada
+- descripción completa
+- galería variable
+- botón `Compra`
+- bloque `Extra`
 
 ### Reglas importantes en `collections`
 
-- Mantén las comas entre bloques.
-- Usa rutas correctas para imágenes, por ejemplo `img/projects/sacro/releases/ejecuta/cover.jpg`.
-- La galería está pensada para 3 imágenes; si pones más, el script solo muestra las tres primeras.
-- Si dejas vacío `extrasUrl`, no aparecerá ese botón.
-- Si dejas vacío `buyUrl`, no aparecerá ese botón.
+- cada `slug` debe ser único
+- las rutas de imágenes deben apuntar a archivos reales
+- el primer párrafo de `description` se usa como resumen del índice
+- `gallery` puede tener una o varias imágenes
+- si dejas vacío `buyUrl`, no aparecerá el botón de compra
+- si dejas vacíos `extraText` o `extraUrl`, no aparecerá el bloque extra
+- el CSS público siempre sale de `css/style.css`
 
 ### Cuándo tocar `collections.html`
 
@@ -138,16 +157,38 @@ Edita `collections.html` solo si quieres cambiar:
 - el menú de navegación
 - el pie de página
 
-### Cuándo tocar `js/collections-page.js`
+Ten en cuenta que `collections.html` es un archivo generado.
+Si lo cambias a mano, el generador puede sobrescribirlo al regenerar.
 
-Edita `js/collections-page.js` solo si quieres cambiar la estructura visual generada:
+### Cuándo tocar `products/<slug>.html`
 
-- cambiar el orden portada / texto / galería
-- renombrar etiquetas como `PORTADA` o `DescripciÃ³n`
-- añadir nuevos campos visibles
-- cambiar la lógica de botones o enlaces
+Las fichas de producto también son generadas.
+Si necesitas añadir contenido manual especial en una ficha concreta, usa el bloque marcado dentro del archivo:
 
-Si solo vas a cambiar contenido, no hace falta tocar este archivo.
+- `<!-- PRODUCT_MANUAL_START -->`
+- `<!-- PRODUCT_MANUAL_END -->`
+
+Todo lo que pongas entre esas dos marcas se conserva al regenerar.
+
+### Cuándo tocar `tools/collections_builder.py`
+
+Edita `tools/collections_builder.py` solo si quieres cambiar:
+
+- la estructura HTML generada
+- la lógica del formulario o la API local
+- la forma del JSON
+- la actualización automática del sitemap
+
+### Cuándo tocar `tools/collections-builder.html`
+
+Edita `tools/collections-builder.html` solo si quieres cambiar:
+
+- los textos de ayuda
+- la disposición del formulario
+- la vista previa
+- los botones de la herramienta
+
+Esta herramienta es interna y no forma parte de la web pública.
 
 ## 2. Página `Hub`
 
@@ -188,7 +229,7 @@ Ejemplo:
 ```html
 <a href="collections.html">
   <span>Collections</span>
-  <span class="hub-link-note">Pagina de colecciones cargada desde JSON</span>
+  <span class="hub-link-note">Indice público de colecciones</span>
 </a>
 ```
 
@@ -247,11 +288,12 @@ Guarda las imágenes del sitio dentro de la carpeta que corresponda:
 - `img/projects/sacro/releases/` para releases de Sacro Servo
 - `img/projects/zero/releases/` para releases de Zero Sala
 - `img/projects/corpus/releases/` para releases de Corpus Submissum
+- `img/projects/collections/` para productos de colecciones
 
 Luego referencia los archivos así:
 
 - `img/site/backgrounds/mi-imagen.jpg`
-- `img/projects/sacro/releases/mi-release/mi-portada.png`
+- `img/projects/collections/mi-producto/mi-portada.png`
 
 ### Recomendaciones
 
@@ -261,20 +303,22 @@ Luego referencia los archivos así:
 
 ## 4. Herramienta `Release Builder`
 
-### Archivo que interviene
+### Archivos que intervienen
 
 - `tools/release-builder.html`
+- `tools/release_builder.py`
 
 ### Para qué sirve
 
-Esta página no es una sección pública de contenido como `collections` o `hub`.
-Su función es ayudarte a construir un bloque listo para pegar en el archivo de datos de releases del sitio.
+Esta herramienta no publica nada por sí sola.
+Su función es ayudarte a construir un bloque listo para pegar o guardar para los releases del sitio.
 
 En otras palabras:
 
 - aquí rellenas campos
 - la herramienta genera un bloque de texto
-- luego ese bloque se pega en el archivo real de releases
+- o copia imágenes a su carpeta
+- luego ese bloque se pega en el archivo real de releases del sitio
 
 ### Qué puedes cambiar en `tools/release-builder.html`
 
@@ -286,17 +330,26 @@ Normalmente solo hace falta tocar este archivo si quieres cambiar:
 - la estructura del bloque generado
 - el aspecto visual de la herramienta
 
+### Qué puedes cambiar en `tools/release_builder.py`
+
+Edita este archivo solo si quieres cambiar:
+
+- el comportamiento de la app de escritorio
+- la lógica de copiado de imágenes
+- la generación del bloque de salida
+- las rutas por defecto
+
 ### Qué no hace esta herramienta
 
-Modificar `tools/release-builder.html` no cambia por sí solo los releases publicados en la web.
+Modificar `tools/release-builder.html` o `tools/release_builder.py` no cambia por sí solo los releases publicados en la web.
 
 Lo que cambia los releases reales es el archivo de datos donde luego pegas el bloque generado.
 
 ### Flujo recomendado de uso
 
-1. Abrir `tools/release-builder.html`
+1. Abrir la herramienta de releases
 2. Rellenar los campos del release
-3. Copiar el bloque generado
+3. Copiar el bloque generado o guardar con imágenes
 4. Pegar ese bloque en el archivo de releases correspondiente del proyecto
 5. Guardar y revisar en la página final
 
@@ -318,22 +371,17 @@ La herramienta incluye campos como:
 - URL para escuchar
 - URL para descargar
 
-### Cuándo tocar esta herramienta
-
-Edita `tools/release-builder.html` solo si quieres mejorar la herramienta en sí.
-
-Si solo quieres añadir o cambiar un lanzamiento, lo normal es:
-
-- usar la herramienta para generar el bloque
-- pegar el resultado en el archivo de releases
-
 ## 5. Checklist antes de dar por bueno un cambio
 
-- comprobar que no falten comas en `js/collections-data.js`
+Si has trabajado con colecciones:
+
+- comprobar que `data/collections.json` siga teniendo JSON válido
 - comprobar que las rutas de imágenes existan
+- comprobar que `collections.html` muestre el producto nuevo o editado
+- comprobar que exista `products/<slug>.html`
 - comprobar que los enlaces abran donde corresponde
-- comprobar que la nueva colección aparezca en `collections.html`
 - comprobar que los textos nuevos no rompan el diseño
+- comprobar que `sitemap.xml` incluya la ficha nueva si procede
 
 Si has trabajado con releases:
 
@@ -346,28 +394,35 @@ Si has trabajado con releases:
 
 ### Si quieres cambiar colecciones
 
-- edita `js/collections-data.js`
+- usa `python tools/collections_builder.py`
+- abre `http://127.0.0.1:8765`
+- guarda el producto desde `tools/collections-builder.html`
+
+### Si quieres revisar o corregir los datos base de colecciones
+
+- edita `data/collections.json`
 
 ### Si quieres cambiar textos fijos de la página de colecciones
 
-- edita `collections.html`
+- edita el generador `tools/collections_builder.py`
 
-### Si quieres cambiar cómo se dibujan las tarjetas
+### Si quieres cambiar una ficha concreta con contenido especial
 
-- edita `js/collections-page.js`
+- edita solo el bloque entre `PRODUCT_MANUAL_START` y `PRODUCT_MANUAL_END`
 
 ### Si quieres cambiar accesos y enlaces del hub
 
 - edita `hub.html`
 
+### Si quieres cambiar la herramienta que genera colecciones
+
+- edita `tools/collections-builder.html`
+- o `tools/collections_builder.py`
+
 ### Si quieres cambiar la herramienta que genera releases
 
 - edita `tools/release-builder.html`
-
-### Si quieres cambiar un release real publicado
-
-- usa `tools/release-builder.html` para generar el bloque
-- pega el resultado en el archivo de releases del proyecto
+- o `tools/release_builder.py`
 
 ## 7. Siguiente mejora recomendada
 
@@ -375,6 +430,6 @@ Si más adelante quieres escalar el sitio sin complicarlo, la siguiente evoluci�
 
 - mover también el contenido del `hub` a un archivo de datos
 - separar los releases en datos claros por proyecto
-- usar la misma lógica de carga que ya usa `collections`
+- dar a las herramientas internas un estilo todavía más unificado con el sitio
 
-Así tendrías dos páginas gestionables desde contenido estructurado y menos texto duro dentro del HTML.
+Así tendrías más partes del sitio gestionables desde contenido estructurado y menos texto duro dentro del HTML.

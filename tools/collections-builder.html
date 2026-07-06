@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es" translate="yes">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collections Builder | CORROSION LABS</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      color-scheme: dark;
+      --bg: #0a0a0a;
+      --panel: rgba(255, 255, 255, 0.05);
+      --line: rgba(255, 255, 255, 0.16);
+      --text: #ece7df;
+      --muted: rgba(236, 231, 223, 0.72);
+      --accent: #d5c4a1;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 34%),
+        linear-gradient(180deg, #101010 0%, #070707 100%);
+      color: var(--text);
+      font-family: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    main {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 48px;
+    }
+
+    header {
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 5vw, 2.9rem);
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 18px;
+      backdrop-filter: blur(6px);
+    }
+
+    .panel + .panel {
+      position: sticky;
+      top: 18px;
+    }
+
+    .toolbar,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .toolbar {
+      margin-bottom: 18px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    input,
+    textarea,
+    select,
+    button {
+      font: inherit;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.42);
+      color: var(--text);
+      padding: 0.72rem 0.8rem;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: 2px solid rgba(213, 196, 161, 0.68);
+      outline-offset: 2px;
+    }
+
+    button {
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      padding: 0.72rem 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    button:hover,
+    button:focus-visible {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(213, 196, 161, 0.86);
+    }
+
+    .status {
+      min-height: 1.5em;
+      margin-top: 12px;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .hint {
+      font-size: 0.86rem;
+    }
+
+    pre {
+      min-height: 360px;
+      margin: 0;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      border-radius: 4px;
+      background: #050505;
+      border: 1px solid var(--line);
+      padding: 14px;
+      color: #f4f1eb;
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    @media (max-width: 920px) {
+      .layout,
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel + .panel {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body translate="yes">
+  <main>
+    <header>
+      <h1>Collections Builder</h1>
+      <p>Gestiona <code>data/collections.json</code> y regenera automáticamente <code>collections.html</code>, <code>products/*.html</code> y <code>sitemap.xml</code>.</p>
+    </header>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="toolbar">
+          <select id="product-select" aria-label="Producto existente"></select>
+          <button type="button" id="new-product">Nuevo producto</button>
+          <button type="button" id="rebuild-site">Regenerar sitio</button>
+        </div>
+
+        <form id="builder-form">
+          <div class="field-grid">
+            <div class="field">
+              <label for="slug">Slug</label>
+              <input id="slug" name="slug" placeholder="the-soft-servo-ost">
+            </div>
+
+            <div class="field">
+              <label for="title">Título</label>
+              <input id="title" name="title" placeholder="The soft servo OST">
+            </div>
+
+            <div class="field">
+              <label for="cover">Portada</label>
+              <input id="cover" name="cover" placeholder="img/projects/collections/mi-portada.jpg">
+            </div>
+
+            <div class="field">
+              <label for="coverAlt">Alt portada</label>
+              <input id="coverAlt" name="coverAlt" placeholder="Portada del producto">
+            </div>
+
+            <div class="field full">
+              <label for="description">Descripción</label>
+              <textarea id="description" name="description" placeholder="Escribe un párrafo por bloque. El índice usa el primer párrafo como resumen."></textarea>
+            </div>
+
+            <div class="field full">
+              <label for="gallery">Galería</label>
+              <textarea id="gallery" name="gallery" placeholder="Una línea por imagen:&#10;img/projects/collections/imagen_01.jpg | Vista 1&#10;img/projects/collections/imagen_02.jpg | Vista 2"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="buyUrl">URL compra</label>
+              <input id="buyUrl" name="buyUrl" placeholder="https://ko-fi.com/...">
+            </div>
+
+            <div class="field">
+              <label for="extraText">Texto extra</label>
+              <input id="extraText" name="extraText" placeholder="Canal de YouTube de Corrosion Labs">
+            </div>
+
+            <div class="field full">
+              <label for="extraUrl">URL extra</label>
+              <input id="extraUrl" name="extraUrl" placeholder="https://youtube.com/...">
+            </div>
+          </div>
+
+          <div class="actions" style="margin-top:16px">
+            <button type="submit" id="save-product">Guardar producto</button>
+            <button type="button" id="copy-json">Copiar JSON</button>
+            <button type="reset" id="reset-form">Limpiar</button>
+          </div>
+        </form>
+
+        <p class="hint" style="margin-top:14px">Si un producto necesita contenido especial, puedes editar manualmente el bloque entre <code>PRODUCT_MANUAL_START</code> y <code>PRODUCT_MANUAL_END</code> dentro de su ficha. El generador conservará ese bloque al regenerar.</p>
+        <p class="status" id="status-message" aria-live="polite"></p>
+      </section>
+
+      <aside class="panel stack">
+        <div>
+          <label for="json-preview">Vista previa JSON</label>
+          <pre id="json-preview"></pre>
+        </div>
+
+        <div>
+          <label for="product-preview">Resumen del producto</label>
+          <pre id="product-preview"></pre>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const form = document.querySelector("#builder-form");
+    const select = document.querySelector("#product-select");
+    const statusMessage = document.querySelector("#status-message");
+    const jsonPreview = document.querySelector("#json-preview");
+    const productPreview = document.querySelector("#product-preview");
+    const titleInput = document.querySelector("#title");
+    const slugInput = document.querySelector("#slug");
+
+    let collections = [];
+    let slugTouched = false;
+
+    const slugify = (value) => value
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .replace(/-{2,}/g, "-") || "producto";
+
+    const getParagraphs = (value) => value
+      .split(/\n\s*\n/)
+      .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+
+    const getGallery = (value) => value
+      .split(/\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => {
+        const [src, alt = ""] = line.split("|");
+        return { src: (src || "").trim(), alt: alt.trim() };
+      })
+      .filter((entry) => entry.src);
+
+    const getPayload = () => {
+      const data = new FormData(form);
+      const title = (data.get("title") || "").trim();
+      const slug = ((data.get("slug") || "").trim() || slugify(title));
+      return {
+        slug,
+        title,
+        cover: (data.get("cover") || "").trim(),
+        coverAlt: (data.get("coverAlt") || "").trim(),
+        description: (data.get("description") || "").trim(),
+        gallery: (data.get("gallery") || "").trim(),
+        buyUrl: (data.get("buyUrl") || "").trim(),
+        extraText: (data.get("extraText") || "").trim(),
+        extraUrl: (data.get("extraUrl") || "").trim()
+      };
+    };
+
+    const buildJsonPreview = () => {
+      const payload = getPayload();
+      const preview = {
+        slug: payload.slug,
+        title: payload.title,
+        cover: payload.cover,
+        coverAlt: payload.coverAlt || payload.title,
+        description: getParagraphs(payload.description),
+        gallery: getGallery(payload.gallery),
+        buyUrl: payload.buyUrl,
+        extraText: payload.extraText,
+        extraUrl: payload.extraUrl
+      };
+      jsonPreview.textContent = JSON.stringify(preview, null, 2);
+      productPreview.textContent = [
+        `Titulo: ${preview.title || "-"}`,
+        `Slug: ${preview.slug || "-"}`,
+        `Parrafos: ${preview.description.length}`,
+        `Galeria: ${preview.gallery.length} imagen(es)`,
+        `Compra: ${preview.buyUrl || "-"}`,
+        `Extra: ${preview.extraText && preview.extraUrl ? "si" : "no"}`
+      ].join("\n");
+    };
+
+    const fillForm = (item) => {
+      form.reset();
+      slugInput.value = item.slug || "";
+      titleInput.value = item.title || "";
+      document.querySelector("#cover").value = item.cover || "";
+      document.querySelector("#coverAlt").value = item.coverAlt || "";
+      document.querySelector("#description").value = Array.isArray(item.description) ? item.description.join("\n\n") : "";
+      document.querySelector("#gallery").value = Array.isArray(item.gallery)
+        ? item.gallery.map((entry) => `${entry.src}${entry.alt ? ` | ${entry.alt}` : ""}`).join("\n")
+        : "";
+      document.querySelector("#buyUrl").value = item.buyUrl || "";
+      document.querySelector("#extraText").value = item.extraText || "";
+      document.querySelector("#extraUrl").value = item.extraUrl || "";
+      slugTouched = true;
+      buildJsonPreview();
+    };
+
+    const fillSelect = () => {
+      const current = select.value;
+      select.innerHTML = "";
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "Selecciona un producto existente";
+      select.append(placeholder);
+
+      collections.forEach((item) => {
+        const option = document.createElement("option");
+        option.value = item.slug;
+        option.textContent = item.title;
+        select.append(option);
+      });
+
+      select.value = collections.some((item) => item.slug === current) ? current : "";
+    };
+
+    const loadCollections = async () => {
+      const response = await fetch("/api/collections");
+      const payload = await response.json();
+      collections = Array.isArray(payload.items) ? payload.items : [];
+      fillSelect();
+    };
+
+    form.addEventListener("input", (event) => {
+      if (event.target === slugInput) {
+        slugTouched = slugInput.value.trim().length > 0;
+      }
+      if (event.target === titleInput && !slugTouched) {
+        slugInput.value = slugify(titleInput.value);
+      }
+      buildJsonPreview();
+    });
+
+    form.addEventListener("reset", () => {
+      window.setTimeout(() => {
+        slugTouched = false;
+        statusMessage.textContent = "";
+        buildJsonPreview();
+      }, 0);
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      statusMessage.textContent = "Guardando producto y regenerando...";
+      const response = await fetch("/api/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(getPayload())
+      });
+      const payload = await response.json();
+      if (!payload.ok) {
+        statusMessage.textContent = payload.error || "No se pudo guardar el producto.";
+        return;
+      }
+      await loadCollections();
+      select.value = payload.item.slug;
+      fillForm(payload.item);
+      statusMessage.textContent = `Producto guardado: ${payload.item.title}`;
+    });
+
+    select.addEventListener("change", () => {
+      const item = collections.find((entry) => entry.slug === select.value);
+      if (!item) {
+        return;
+      }
+      fillForm(item);
+      statusMessage.textContent = `Editando: ${item.title}`;
+    });
+
+    document.querySelector("#new-product").addEventListener("click", () => {
+      form.reset();
+      select.value = "";
+      slugTouched = false;
+      buildJsonPreview();
+      statusMessage.textContent = "Formulario listo para un producto nuevo.";
+    });
+
+    document.querySelector("#rebuild-site").addEventListener("click", async () => {
+      statusMessage.textContent = "Regenerando índice, fichas y sitemap...";
+      const response = await fetch("/api/build", { method: "POST" });
+      const payload = await response.json();
+      statusMessage.textContent = payload.ok
+        ? "Sitio regenerado correctamente."
+        : (payload.error || "No se pudo regenerar el sitio.");
+    });
+
+    document.querySelector("#copy-json").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(jsonPreview.textContent);
+        statusMessage.textContent = "JSON copiado al portapapeles.";
+      } catch (error) {
+        statusMessage.textContent = "No se pudo copiar automaticamente.";
+      }
+    });
+
+    loadCollections()
+      .then(buildJsonPreview)
+      .catch((error) => {
+        statusMessage.textContent = "No se pudo conectar con el servidor local del builder.";
+        console.error(error);
+      });
+  </script>
+</body>
+</html>

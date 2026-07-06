@@ -1,5 +1,30 @@
 window.CorrosionCollections = [
   {
+    title: "The soft servo OST",
+    cover: "img/projects/collections/cober_soft_servo.jpg",
+    coverAlt: "The soft servo OST",
+    description: [
+      "Música concebida para acompañar la lectura de El servo suave.",
+      "Doce piezas para permanecer en la habitación mientras continúa la conversación.",
+    ],
+    gallery: [
+      {
+        src: "img/projects/collections/cober_soft_servo.jpg",
+        alt: "img 01"
+      },
+      {
+        src: "img/projects/collections/cober_soft_servo.jpg",
+        alt: "img 02"
+      },
+      {
+        src: "img/projects/collections/cober_soft_servo.jpg",
+        alt: "img 03"
+      }
+    ],
+    buyUrl: "https://ko-fi.com/s/93dc05c251",
+    extrasUrl: "https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc"
+  },
+  {
     title: "Collection 01",
     cover: "img/projects/collections/subject_series_01_cover.jpg",
     coverAlt: "Subject Series 01",
