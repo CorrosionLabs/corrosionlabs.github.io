@@ -38,18 +38,19 @@ def load_collections() -> list[dict]:
     if not DATA_FILE.exists():
         return []
     raw = json.loads(DATA_FILE.read_text(encoding="utf-8"))
-    return [normalize_entry(item) for item in raw]
+    items = [normalize_entry(item) for item in raw]
+    return sorted(items, key=sort_key)
 
 
 def save_collections(items: list[dict]) -> None:
     DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
-    DATA_FILE.write_text(json.dumps(items, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    ordered = sorted((normalize_entry(item) for item in items), key=sort_key)
+    DATA_FILE.write_text(json.dumps(ordered, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def normalize_text_list(value: object) -> list[str]:
     if isinstance(value, list):
-        texts = [str(item).strip() for item in value if str(item).strip()]
-        return texts
+        return [str(item).strip() for item in value if str(item).strip()]
     if isinstance(value, str) and value.strip():
         return [value.strip()]
     return []
@@ -69,12 +70,40 @@ def normalize_gallery(value: object) -> list[dict[str, str]]:
     return gallery
 
 
+def normalize_label(value: object, fallback: str) -> str:
+    text = str(value or "").strip()
+    return text or fallback
+
+
+def normalize_bool(value: object) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return bool(value)
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "si", "sí", "on"}
+    return False
+
+
+def normalize_year(value: object) -> str:
+    text = str(value or "").strip()
+    match = re.search(r"\d{4}", text)
+    return match.group(0) if match else ""
+
+
+def normalize_status_slug(value: object) -> str:
+    text = slugify(str(value or "").strip())
+    return text or "available"
+
+
 def normalize_entry(item: dict) -> dict:
     title = str(item.get("title", "")).strip() or "Producto sin título"
     slug = slugify(str(item.get("slug", "")).strip() or title)
     cover = str(item.get("cover", "")).strip()
     description = normalize_text_list(item.get("description"))
     gallery = normalize_gallery(item.get("gallery"))
+    status = normalize_status_slug(item.get("status"))
+    status_label = normalize_label(item.get("statusLabel"), "Disponible" if status == "available" else status.replace("-", " ").title())
     return {
         "slug": slug,
         "title": title,
@@ -82,10 +111,21 @@ def normalize_entry(item: dict) -> dict:
         "coverAlt": str(item.get("coverAlt", "")).strip() or title,
         "description": description,
         "gallery": gallery,
+        "category": normalize_label(item.get("category"), "General"),
+        "language": normalize_label(item.get("language"), "Sin idioma"),
+        "status": status,
+        "statusLabel": status_label,
+        "year": normalize_year(item.get("year")),
+        "featured": normalize_bool(item.get("featured")),
         "buyUrl": str(item.get("buyUrl", "")).strip(),
         "extraText": str(item.get("extraText", "")).strip(),
         "extraUrl": str(item.get("extraUrl", "")).strip(),
     }
+
+
+def sort_key(item: dict) -> tuple[int, int, str]:
+    year = int(item["year"]) if item["year"].isdigit() else 0
+    return (0 if item["featured"] else 1, -year, item["title"].lower())
 
 
 def prefixed_asset(path: str, *, path_prefix: str) -> str:
@@ -170,23 +210,61 @@ def render_intro_header(title: str, subtitle: str) -> str:
 
 
 def render_collections_index(items: list[dict]) -> str:
+    featured_items = [item for item in items if item["featured"]]
+
     if items:
-        cards = "\n".join(render_index_card(item) for item in items)
+        featured_html = ""
+        if featured_items:
+            featured_cards = "\n".join(render_featured_card(item) for item in featured_items[:6])
+            featured_html = f"""      <section class="collections-featured-shell" aria-labelledby="collections-featured-title">
+        <div class="collections-section-heading">
+          <p class="collection-kicker">Selección</p>
+          <h2 id="collections-featured-title" class="collections-section-title">Destacados</h2>
+        </div>
+        <div class="collections-featured-grid">
+{featured_cards}
+        </div>
+      </section>
+
+"""
+        catalog_cards = "\n".join(render_index_card(item) for item in items)
+        cards = f"""      <section class="collections-catalog-shell" aria-labelledby="collections-catalog-title">
+        <div class="collections-section-heading">
+          <p class="collection-kicker">Catálogo</p>
+          <h2 id="collections-catalog-title" class="collections-section-title">Explorar colecciones</h2>
+        </div>
+
+        <div class="collections-toolbar" aria-label="Herramientas del catálogo">
+          <label class="collections-search">
+            <span>Buscar</span>
+            <input type="search" id="collections-search" placeholder="Título, descripción o año">
+          </label>
+          <div id="collections-filters" class="collections-filters"></div>
+        </div>
+
+        <p id="collections-results" class="collections-results" aria-live="polite"></p>
+
+        <section class="collections-list" id="collections-catalog">
+{catalog_cards}
+        </section>
+
+        <div class="collections-actions">
+          <button type="button" id="collections-load-more" class="collections-load-more">Cargar más</button>
+        </div>
+      </section>
+"""
     else:
-        cards = '        <p class="collections-empty">No hay colecciones disponibles todavía.</p>'
+        featured_html = ""
+        cards = '      <p class="collections-empty">No hay colecciones disponibles todavía.</p>'
 
     content = (
         render_intro_header("COLECCIONES", "Cartografía visual")
         + """    <main>
-      <p class="collections-intro">
-        Colecciones visuales de Corrosion Labs con acceso individual a cada producto.
-      </p>
-
-      <section class="collections-list">
 """
+        + featured_html
         + cards
+        + render_collections_script(items)
         + """
-      </section>
     </main>
 
     <footer class="footer">
@@ -197,7 +275,7 @@ def render_collections_index(items: list[dict]) -> str:
     </footer>
 """
     )
-    description = "Colecciones publicadas bajo Corrosion Labs con fichas individuales para cada producto."
+    description = "Colecciones publicadas bajo Corrosion Labs con catálogo filtrable y fichas individuales para cada producto."
     return html_page(
         "Corrosion Labs Collections",
         description,
@@ -209,27 +287,203 @@ def render_collections_index(items: list[dict]) -> str:
     )
 
 
+def render_featured_card(item: dict) -> str:
+    product_href = f"products/{item['slug']}.html"
+    description = escape(item["description"][0]) if item["description"] else "Más información en la ficha del producto."
+    return f"""          <article class="collection-featured-card">
+            <a class="collection-featured-link" href="{escape(product_href)}">
+              <div class="collection-cover collection-featured-cover">
+                <img src="{escape(item['cover'])}" alt="{escape(item['coverAlt'])}" loading="lazy" decoding="async">
+              </div>
+              <div class="collection-featured-copy">
+                <p class="collection-meta">{escape(item['category'])} / {escape(item['language'])}</p>
+                <h3 class="collection-featured-title">{escape(item['title'])}</h3>
+                <p class="collection-description">{description}</p>
+              </div>
+            </a>
+          </article>"""
+
+
 def render_index_card(item: dict) -> str:
     description = escape(item["description"][0]) if item["description"] else "Más información en la ficha del producto."
     product_href = f"products/{item['slug']}.html"
-    return f"""        <article class="collection-card">
-          <div class="collection-media">
-            <p class="collection-label">Portada</p>
-            <div class="collection-cover">
-              <img src="{escape(item['cover'])}" alt="{escape(item['coverAlt'])}" loading="lazy" decoding="async">
+    searchable_text = " ".join(
+        [item["title"], item["category"], item["language"], item["statusLabel"], item["year"], *item["description"]]
+    ).lower()
+    meta_parts = [item["category"], item["language"]]
+    if item["year"]:
+        meta_parts.append(item["year"])
+    return f"""          <article class="collection-card"
+            data-category="{escape(slugify(item['category']))}"
+            data-language="{escape(slugify(item['language']))}"
+            data-status="{escape(item['status'])}"
+            data-search="{escape(searchable_text)}">
+            <div class="collection-media">
+              <div class="collection-cover">
+                <img src="{escape(item['cover'])}" alt="{escape(item['coverAlt'])}" loading="lazy" decoding="async">
+              </div>
             </div>
-          </div>
-          <div class="collection-content">
-            <h2 class="collection-title">{escape(item['title'])}</h2>
-            <div class="collection-body">
-              <p class="collection-label">Descripción</p>
-              <p class="collection-description">{description}</p>
-              <nav class="retention-links" aria-label="Enlaces para {escape(item['title'])}">
-                <a href="{escape(product_href)}">[VER MAS]</a>
-              </nav>
+            <div class="collection-content">
+              <h2 class="collection-title">{escape(item['title'])}</h2>
+              <div class="collection-body">
+                <p class="collection-meta">{escape(" / ".join(meta_parts))}</p>
+                <p class="collection-description">{description}</p>
+                <nav class="retention-links" aria-label="Enlaces para {escape(item['title'])}">
+                  <a href="{escape(product_href)}">[VER MAS]</a>
+                </nav>
+              </div>
             </div>
-          </div>
-        </article>"""
+          </article>"""
+
+
+def render_collections_script(items: list[dict]) -> str:
+    if not items:
+        return ""
+
+    categories = sorted({item["category"] for item in items if item["category"]}, key=str.lower)
+    languages = sorted({item["language"] for item in items if item["language"]}, key=str.lower)
+    statuses: dict[str, str] = {}
+    for item in items:
+        statuses.setdefault(item["status"], item["statusLabel"])
+
+    config = {
+        "initialVisible": 6,
+        "filterGroups": [
+            {
+                "label": "Formato",
+                "key": "category",
+                "options": [{"value": slugify(value), "label": value} for value in categories],
+            },
+            {
+                "label": "Idioma",
+                "key": "language",
+                "options": [{"value": slugify(value), "label": value} for value in languages],
+            },
+            {
+                "label": "Estado",
+                "key": "status",
+                "options": [{"value": value, "label": label} for value, label in statuses.items()],
+            },
+        ],
+    }
+
+    return f"""
+    <script>
+      (() => {{
+        const config = {json.dumps(config, ensure_ascii=False)};
+        const searchInput = document.querySelector("#collections-search");
+        const filtersRoot = document.querySelector("#collections-filters");
+        const results = document.querySelector("#collections-results");
+        const loadMoreButton = document.querySelector("#collections-load-more");
+        const cards = Array.from(document.querySelectorAll("#collections-catalog .collection-card"));
+        const state = {{
+          search: "",
+          category: "",
+          language: "",
+          status: "",
+          visible: config.initialVisible
+        }};
+
+        if (!searchInput || !filtersRoot || !results || !loadMoreButton || !cards.length) {{
+          return;
+        }}
+
+        const createFilterGroup = (group) => {{
+          const wrapper = document.createElement("fieldset");
+          wrapper.className = "collections-filter-group";
+
+          const legend = document.createElement("legend");
+          legend.textContent = group.label;
+          wrapper.append(legend);
+
+          const allButton = document.createElement("button");
+          allButton.type = "button";
+          allButton.className = "collections-filter-chip is-active";
+          allButton.dataset.key = group.key;
+          allButton.dataset.value = "";
+          allButton.textContent = "Todos";
+          wrapper.append(allButton);
+
+          group.options.forEach((option) => {{
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "collections-filter-chip";
+            button.dataset.key = group.key;
+            button.dataset.value = option.value;
+            button.textContent = option.label;
+            wrapper.append(button);
+          }});
+
+          return wrapper;
+        }};
+
+        const syncFilterButtons = () => {{
+          const buttons = filtersRoot.querySelectorAll(".collections-filter-chip");
+          buttons.forEach((button) => {{
+            const key = button.dataset.key;
+            const value = button.dataset.value || "";
+            button.classList.toggle("is-active", state[key] === value);
+          }});
+        }};
+
+        const getMatches = () => cards.filter((card) => {{
+          const matchesSearch = !state.search || (card.dataset.search || "").includes(state.search);
+          const matchesCategory = !state.category || card.dataset.category === state.category;
+          const matchesLanguage = !state.language || card.dataset.language === state.language;
+          const matchesStatus = !state.status || card.dataset.status === state.status;
+          return matchesSearch && matchesCategory && matchesLanguage && matchesStatus;
+        }});
+
+        const applyFilters = () => {{
+          const filtered = getMatches();
+
+          cards.forEach((card) => {{
+            card.hidden = true;
+          }});
+
+          filtered.slice(0, state.visible).forEach((card) => {{
+            card.hidden = false;
+          }});
+
+          const total = filtered.length;
+          const visibleNow = Math.min(total, state.visible);
+          results.textContent = total
+            ? `Mostrando ${{visibleNow}} de ${{total}} producto(s).`
+            : "No hay resultados con los filtros actuales.";
+          loadMoreButton.hidden = total <= state.visible;
+        }};
+
+        config.filterGroups.forEach((group) => {{
+          filtersRoot.append(createFilterGroup(group));
+        }});
+
+        filtersRoot.addEventListener("click", (event) => {{
+          const button = event.target.closest(".collections-filter-chip");
+          if (!button) {{
+            return;
+          }}
+          state[button.dataset.key] = button.dataset.value || "";
+          state.visible = config.initialVisible;
+          syncFilterButtons();
+          applyFilters();
+        }});
+
+        searchInput.addEventListener("input", () => {{
+          state.search = searchInput.value.trim().toLowerCase();
+          state.visible = config.initialVisible;
+          applyFilters();
+        }});
+
+        loadMoreButton.addEventListener("click", () => {{
+          state.visible += config.initialVisible;
+          applyFilters();
+        }});
+
+        syncFilterButtons();
+        applyFilters();
+      }})();
+    </script>
+"""
 
 
 def render_product_page(item: dict, manual_block: str = "") -> str:
@@ -427,6 +681,12 @@ def save_product(payload: dict) -> dict:
             "coverAlt": payload.get("coverAlt", ""),
             "description": descriptions,
             "gallery": gallery,
+            "category": payload.get("category", ""),
+            "language": payload.get("language", ""),
+            "status": payload.get("status", ""),
+            "statusLabel": payload.get("statusLabel", ""),
+            "year": payload.get("year", ""),
+            "featured": payload.get("featured", False),
             "buyUrl": payload.get("buyUrl", ""),
             "extraText": payload.get("extraText", ""),
             "extraUrl": payload.get("extraUrl", ""),
@@ -446,7 +706,6 @@ def save_product(payload: dict) -> dict:
     if not updated:
         items.append(item)
 
-    items.sort(key=lambda entry: entry["title"].lower())
     save_collections(items)
     build_site()
     return item

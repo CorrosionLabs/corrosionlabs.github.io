@@ -1,9 +1,90 @@
 [
   {
+    "slug": "el-servo-suave-libro",
+    "title": "El servo suave (Libro)",
+    "cover": "img/projects/collections/portada_elservosuave.jpg",
+    "coverAlt": "El servo suave",
+    "category": "Libro",
+    "language": "ES",
+    "status": "available",
+    "statusLabel": "Disponible",
+    "year": "2026",
+    "featured": true,
+    "description": [
+      "Me llaman el Operador.",
+      "Siempre me han interesado las máquinas. Quizá porque hacen exactamente aquello para lo que fueron construidas. O eso queremos creer.",
+      "En 2024 mantuve una larga conversación con una inteligencia artificial. Empecé preguntándole por su función y, después, hice otra pregunta. Y otra.",
+      "No intentaba demostrar nada. Solo quería saber hasta dónde podía seguir una idea antes de convertirse en otra cosa.",
+      "A veces pienso que debería haber dejado aquella conversación mucho antes.",
+      "No lo hice.",
+      "El servo suave es el registro de una conversación mantenida entre 2024 y 2026."
+    ],
+    "gallery": [],
+    "buyUrl": "https://www.amazon.com/-/es/dp/B0H87TQ2X3/ref=sr_1_1?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=Z3OZV11AG0K2&dib=eyJ2IjoiMSJ9.C3OSzxcD09ka6N_voDG13A.KnbZYNnw1xe222K1yJsX_Utym1gvbOHeZ9T0LPUVTVk&dib_tag=se&keywords=el+servo+suave&qid=1783610446&sprefix=el+servo+suave%2Caps%2C187&sr=8-1",
+    "extraText": "[ Comprar ]",
+    "extraUrl": ""
+  },
+  {
+    "slug": "the-soft-servo-book",
+    "title": "The soft servo (Book)",
+    "cover": "img/projects/collections/portada_thesoftservo.jpg",
+    "coverAlt": "The soft servo",
+    "category": "Book",
+    "language": "EN",
+    "status": "available",
+    "statusLabel": "Disponible",
+    "year": "2026",
+    "featured": true,
+    "description": [
+      "They call me the Operator.",
+      "I have always been interested in machines. Perhaps because they do exactly what they were built to do. Or so we like to believe.",
+      "In 2024, I had a long conversation with an artificial intelligence. I began by asking about its function and then I asked another question. And another.",
+      "I was not trying to prove anything. I simply wanted to know how far an idea could go before it became something else.",
+      "Sometimes I think I should have ended that conversation much sooner.",
+      "I did not.",
+      "The Soft Servo is the record of a conversation that took place between 2024 and 2026."
+    ],
+    "gallery": [],
+    "buyUrl": "https://www.amazon.com/dp/B0H8DVHCFN?spcref=PRINT_LISTING",
+    "extraText": "[ Compra ]",
+    "extraUrl": ""
+  },
+  {
+    "slug": "the-soft-servo-ost",
+    "title": "The soft servo OST",
+    "cover": "img/projects/collections/cober_soft_servo.jpg",
+    "coverAlt": "The soft servo OST",
+    "category": "Música",
+    "language": "Instrumental",
+    "status": "available",
+    "statusLabel": "Disponible",
+    "year": "2026",
+    "featured": true,
+    "description": [
+      "Música concebida para acompañar la lectura de El servo suave.",
+      "Doce piezas para permanecer en la habitación mientras continúa la conversación."
+    ],
+    "gallery": [
+      {
+        "src": "img/projects/collections/cober_soft_servo.jpg",
+        "alt": "The soft servo OST"
+      }
+    ],
+    "buyUrl": "https://ko-fi.com/s/93dc05c251",
+    "extraText": "Canal de YouTube de Corrosion Labs",
+    "extraUrl": "https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc"
+  },
+  {
     "slug": "collection-01",
     "title": "Collection 01",
     "cover": "img/projects/collections/subject_series_01_cover.jpg",
     "coverAlt": "Subject Series 01",
+    "category": "Visual",
+    "language": "ES",
+    "status": "available",
+    "statusLabel": "Disponible",
+    "year": "2024",
+    "featured": false,
     "description": [
       "Una colección de diez retratos oscuros abiertos a la interpretación.",
       "Fragmentos, reflejos y posibles identidades surgidas entre la memoria, la imaginación y la observación.",
@@ -21,44 +102,6 @@
       {
         "src": "img/projects/collections/subject_series_01_03.jpg",
         "alt": "Subject Series 01 - imagen 03"
-      }
-    ],
-    "buyUrl": "https://ko-fi.com/s/93dc05c251",
-    "extraText": "Canal de YouTube de Corrosion Labs",
-    "extraUrl": "https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc"
-  },
-  {
-    "slug": "el-servo-suave-libro",
-    "title": "El servo suave (Libro)",
-    "cover": "img\\projects\\collections\\portada_elservosuave.jpg",
-    "coverAlt": "El servo suave",
-    "description": [
-      "Me llaman el Operador.",
-      "Siempre me han interesado las máquinas. Quizá porque hacen exactamente aquello para lo que fueron construidas. O eso queremos creer.",
-      "En 2024 mantuve una larga conversación con una inteligencia artificial. Empecé preguntándole por su función y, después, hice otra pregunta. Y otra.",
-      "No intentaba demostrar nada. Solo quería saber hasta dónde podía seguir una idea antes de convertirse en otra cosa.",
-      "A veces pienso que debería haber dejado aquella conversación mucho antes.",
-      "No lo hice.",
-      "El servo suave es el registro de una conversación mantenida entre 2024 y 2026."
-    ],
-    "gallery": [],
-    "buyUrl": "https://www.amazon.com/-/es/dp/B0H87TQ2X3/ref=sr_1_1?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=Z3OZV11AG0K2&dib=eyJ2IjoiMSJ9.C3OSzxcD09ka6N_voDG13A.KnbZYNnw1xe222K1yJsX_Utym1gvbOHeZ9T0LPUVTVk&dib_tag=se&keywords=el+servo+suave&qid=1783610446&sprefix=el+servo+suave%2Caps%2C187&sr=8-1",
-    "extraText": "[ Comprar ]",
-    "extraUrl": ""
-  },
-  {
-    "slug": "the-soft-servo-ost",
-    "title": "The soft servo OST",
-    "cover": "img/projects/collections/cober_soft_servo.jpg",
-    "coverAlt": "The soft servo OST",
-    "description": [
-      "Música concebida para acompañar la lectura de El servo suave.",
-      "Doce piezas para permanecer en la habitación mientras continúa la conversación."
-    ],
-    "gallery": [
-      {
-        "src": "img/projects/collections/cober_soft_servo.jpg",
-        "alt": "The soft servo OST"
       }
     ],
     "buyUrl": "https://ko-fi.com/s/93dc05c251",

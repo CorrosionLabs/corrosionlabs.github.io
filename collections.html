@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Corrosion Labs Collections</title>
-  <meta name="description" content="Colecciones publicadas bajo Corrosion Labs con fichas individuales para cada producto.">
+  <meta name="description" content="Colecciones publicadas bajo Corrosion Labs con catálogo filtrable y fichas individuales para cada producto.">
   <meta name="theme-color" content="#0b0b0b">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://corrosionlabs.github.io/collections.html">
@@ -13,12 +13,12 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://corrosionlabs.github.io/collections.html">
   <meta property="og:title" content="Corrosion Labs Collections">
-  <meta property="og:description" content="Colecciones publicadas bajo Corrosion Labs con fichas individuales para cada producto.">
+  <meta property="og:description" content="Colecciones publicadas bajo Corrosion Labs con catálogo filtrable y fichas individuales para cada producto.">
   <meta property="og:image" content="https://corrosionlabs.github.io/img/site/backgrounds/005.jpg">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Corrosion Labs Collections">
-  <meta name="twitter:description" content="Colecciones publicadas bajo Corrosion Labs con fichas individuales para cada producto.">
+  <meta name="twitter:description" content="Colecciones publicadas bajo Corrosion Labs con catálogo filtrable y fichas individuales para cada producto.">
   <meta name="twitter:image" content="https://corrosionlabs.github.io/img/site/backgrounds/005.jpg">
 
   <link rel="stylesheet" href="css/style.css?v=4">
@@ -42,66 +42,275 @@
       <p class="tagline">Cartografía visual</p>
     </header>
     <main>
-      <p class="collections-intro">
-        Colecciones visuales de Corrosion Labs con acceso individual a cada producto.
-      </p>
-
-      <section class="collections-list">
-        <article class="collection-card">
-          <div class="collection-media">
-            <p class="collection-label">Portada</p>
-            <div class="collection-cover">
-              <img src="img/projects/collections/subject_series_01_cover.jpg" alt="Subject Series 01" loading="lazy" decoding="async">
-            </div>
-          </div>
-          <div class="collection-content">
-            <h2 class="collection-title">Collection 01</h2>
-            <div class="collection-body">
-              <p class="collection-label">Descripción</p>
-              <p class="collection-description">Una colección de diez retratos oscuros abiertos a la interpretación.</p>
-              <nav class="retention-links" aria-label="Enlaces para Collection 01">
-                <a href="products/collection-01.html">[VER MAS]</a>
-              </nav>
-            </div>
-          </div>
-        </article>
-        <article class="collection-card">
-          <div class="collection-media">
-            <p class="collection-label">Portada</p>
-            <div class="collection-cover">
-              <img src="img\projects\collections\portada_elservosuave.jpg" alt="El servo suave" loading="lazy" decoding="async">
-            </div>
-          </div>
-          <div class="collection-content">
-            <h2 class="collection-title">El servo suave (Libro)</h2>
-            <div class="collection-body">
-              <p class="collection-label">Descripción</p>
-              <p class="collection-description">Me llaman el Operador.</p>
-              <nav class="retention-links" aria-label="Enlaces para El servo suave (Libro)">
-                <a href="products/el-servo-suave-libro.html">[VER MAS]</a>
-              </nav>
-            </div>
-          </div>
-        </article>
-        <article class="collection-card">
-          <div class="collection-media">
-            <p class="collection-label">Portada</p>
-            <div class="collection-cover">
-              <img src="img/projects/collections/cober_soft_servo.jpg" alt="The soft servo OST" loading="lazy" decoding="async">
-            </div>
-          </div>
-          <div class="collection-content">
-            <h2 class="collection-title">The soft servo OST</h2>
-            <div class="collection-body">
-              <p class="collection-label">Descripción</p>
-              <p class="collection-description">Música concebida para acompañar la lectura de El servo suave.</p>
-              <nav class="retention-links" aria-label="Enlaces para The soft servo OST">
-                <a href="products/the-soft-servo-ost.html">[VER MAS]</a>
-              </nav>
-            </div>
-          </div>
-        </article>
+      <section class="collections-featured-shell" aria-labelledby="collections-featured-title">
+        <div class="collections-section-heading">
+          <p class="collection-kicker">Selección</p>
+          <h2 id="collections-featured-title" class="collections-section-title">Destacados</h2>
+        </div>
+        <div class="collections-featured-grid">
+          <article class="collection-featured-card">
+            <a class="collection-featured-link" href="products/el-servo-suave-libro.html">
+              <div class="collection-cover collection-featured-cover">
+                <img src="img/projects/collections/portada_elservosuave.jpg" alt="El servo suave" loading="lazy" decoding="async">
+              </div>
+              <div class="collection-featured-copy">
+                <p class="collection-meta">Libro / ES</p>
+                <h3 class="collection-featured-title">El servo suave (Libro)</h3>
+                <p class="collection-description">Me llaman el Operador.</p>
+              </div>
+            </a>
+          </article>
+          <article class="collection-featured-card">
+            <a class="collection-featured-link" href="products/the-soft-servo-book.html">
+              <div class="collection-cover collection-featured-cover">
+                <img src="img/projects/collections/portada_thesoftservo.jpg" alt="The soft servo" loading="lazy" decoding="async">
+              </div>
+              <div class="collection-featured-copy">
+                <p class="collection-meta">Book / EN</p>
+                <h3 class="collection-featured-title">The soft servo (Book)</h3>
+                <p class="collection-description">They call me the Operator.</p>
+              </div>
+            </a>
+          </article>
+          <article class="collection-featured-card">
+            <a class="collection-featured-link" href="products/the-soft-servo-ost.html">
+              <div class="collection-cover collection-featured-cover">
+                <img src="img/projects/collections/cober_soft_servo.jpg" alt="The soft servo OST" loading="lazy" decoding="async">
+              </div>
+              <div class="collection-featured-copy">
+                <p class="collection-meta">Música / Instrumental</p>
+                <h3 class="collection-featured-title">The soft servo OST</h3>
+                <p class="collection-description">Música concebida para acompañar la lectura de El servo suave.</p>
+              </div>
+            </a>
+          </article>
+        </div>
       </section>
+
+      <section class="collections-catalog-shell" aria-labelledby="collections-catalog-title">
+        <div class="collections-section-heading">
+          <p class="collection-kicker">Catálogo</p>
+          <h2 id="collections-catalog-title" class="collections-section-title">Explorar colecciones</h2>
+        </div>
+
+        <div class="collections-toolbar" aria-label="Herramientas del catálogo">
+          <label class="collections-search">
+            <span>Buscar</span>
+            <input type="search" id="collections-search" placeholder="Título, descripción o año">
+          </label>
+          <div id="collections-filters" class="collections-filters"></div>
+        </div>
+
+        <p id="collections-results" class="collections-results" aria-live="polite"></p>
+
+        <section class="collections-list" id="collections-catalog">
+          <article class="collection-card"
+            data-category="libro"
+            data-language="es"
+            data-status="available"
+            data-search="el servo suave (libro) libro es disponible 2026 me llaman el operador. siempre me han interesado las máquinas. quizá porque hacen exactamente aquello para lo que fueron construidas. o eso queremos creer. en 2024 mantuve una larga conversación con una inteligencia artificial. empecé preguntándole por su función y, después, hice otra pregunta. y otra. no intentaba demostrar nada. solo quería saber hasta dónde podía seguir una idea antes de convertirse en otra cosa. a veces pienso que debería haber dejado aquella conversación mucho antes. no lo hice. el servo suave es el registro de una conversación mantenida entre 2024 y 2026.">
+            <div class="collection-media">
+              <div class="collection-cover">
+                <img src="img/projects/collections/portada_elservosuave.jpg" alt="El servo suave" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <div class="collection-content">
+              <h2 class="collection-title">El servo suave (Libro)</h2>
+              <div class="collection-body">
+                <p class="collection-meta">Libro / ES / 2026</p>
+                <p class="collection-description">Me llaman el Operador.</p>
+                <nav class="retention-links" aria-label="Enlaces para El servo suave (Libro)">
+                  <a href="products/el-servo-suave-libro.html">[VER MAS]</a>
+                </nav>
+              </div>
+            </div>
+          </article>
+          <article class="collection-card"
+            data-category="book"
+            data-language="en"
+            data-status="available"
+            data-search="the soft servo (book) book en disponible 2026 they call me the operator. i have always been interested in machines. perhaps because they do exactly what they were built to do. or so we like to believe. in 2024, i had a long conversation with an artificial intelligence. i began by asking about its function and then i asked another question. and another. i was not trying to prove anything. i simply wanted to know how far an idea could go before it became something else. sometimes i think i should have ended that conversation much sooner. i did not. the soft servo is the record of a conversation that took place between 2024 and 2026.">
+            <div class="collection-media">
+              <div class="collection-cover">
+                <img src="img/projects/collections/portada_thesoftservo.jpg" alt="The soft servo" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <div class="collection-content">
+              <h2 class="collection-title">The soft servo (Book)</h2>
+              <div class="collection-body">
+                <p class="collection-meta">Book / EN / 2026</p>
+                <p class="collection-description">They call me the Operator.</p>
+                <nav class="retention-links" aria-label="Enlaces para The soft servo (Book)">
+                  <a href="products/the-soft-servo-book.html">[VER MAS]</a>
+                </nav>
+              </div>
+            </div>
+          </article>
+          <article class="collection-card"
+            data-category="musica"
+            data-language="instrumental"
+            data-status="available"
+            data-search="the soft servo ost música instrumental disponible 2026 música concebida para acompañar la lectura de el servo suave. doce piezas para permanecer en la habitación mientras continúa la conversación.">
+            <div class="collection-media">
+              <div class="collection-cover">
+                <img src="img/projects/collections/cober_soft_servo.jpg" alt="The soft servo OST" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <div class="collection-content">
+              <h2 class="collection-title">The soft servo OST</h2>
+              <div class="collection-body">
+                <p class="collection-meta">Música / Instrumental / 2026</p>
+                <p class="collection-description">Música concebida para acompañar la lectura de El servo suave.</p>
+                <nav class="retention-links" aria-label="Enlaces para The soft servo OST">
+                  <a href="products/the-soft-servo-ost.html">[VER MAS]</a>
+                </nav>
+              </div>
+            </div>
+          </article>
+          <article class="collection-card"
+            data-category="visual"
+            data-language="es"
+            data-status="available"
+            data-search="collection 01 visual es disponible 2024 una colección de diez retratos oscuros abiertos a la interpretación. fragmentos, reflejos y posibles identidades surgidas entre la memoria, la imaginación y la observación. incluye 10 ilustraciones jpg de 3000 x 3000 píxeles y un libreto pdf.">
+            <div class="collection-media">
+              <div class="collection-cover">
+                <img src="img/projects/collections/subject_series_01_cover.jpg" alt="Subject Series 01" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <div class="collection-content">
+              <h2 class="collection-title">Collection 01</h2>
+              <div class="collection-body">
+                <p class="collection-meta">Visual / ES / 2024</p>
+                <p class="collection-description">Una colección de diez retratos oscuros abiertos a la interpretación.</p>
+                <nav class="retention-links" aria-label="Enlaces para Collection 01">
+                  <a href="products/collection-01.html">[VER MAS]</a>
+                </nav>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <div class="collections-actions">
+          <button type="button" id="collections-load-more" class="collections-load-more">Cargar más</button>
+        </div>
+      </section>
+
+    <script>
+      (() => {
+        const config = {"initialVisible": 6, "filterGroups": [{"label": "Formato", "key": "category", "options": [{"value": "book", "label": "Book"}, {"value": "libro", "label": "Libro"}, {"value": "musica", "label": "Música"}, {"value": "visual", "label": "Visual"}]}, {"label": "Idioma", "key": "language", "options": [{"value": "en", "label": "EN"}, {"value": "es", "label": "ES"}, {"value": "instrumental", "label": "Instrumental"}]}, {"label": "Estado", "key": "status", "options": [{"value": "available", "label": "Disponible"}]}]};
+        const searchInput = document.querySelector("#collections-search");
+        const filtersRoot = document.querySelector("#collections-filters");
+        const results = document.querySelector("#collections-results");
+        const loadMoreButton = document.querySelector("#collections-load-more");
+        const cards = Array.from(document.querySelectorAll("#collections-catalog .collection-card"));
+        const state = {
+          search: "",
+          category: "",
+          language: "",
+          status: "",
+          visible: config.initialVisible
+        };
+
+        if (!searchInput || !filtersRoot || !results || !loadMoreButton || !cards.length) {
+          return;
+        }
+
+        const createFilterGroup = (group) => {
+          const wrapper = document.createElement("fieldset");
+          wrapper.className = "collections-filter-group";
+
+          const legend = document.createElement("legend");
+          legend.textContent = group.label;
+          wrapper.append(legend);
+
+          const allButton = document.createElement("button");
+          allButton.type = "button";
+          allButton.className = "collections-filter-chip is-active";
+          allButton.dataset.key = group.key;
+          allButton.dataset.value = "";
+          allButton.textContent = "Todos";
+          wrapper.append(allButton);
+
+          group.options.forEach((option) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "collections-filter-chip";
+            button.dataset.key = group.key;
+            button.dataset.value = option.value;
+            button.textContent = option.label;
+            wrapper.append(button);
+          });
+
+          return wrapper;
+        };
+
+        const syncFilterButtons = () => {
+          const buttons = filtersRoot.querySelectorAll(".collections-filter-chip");
+          buttons.forEach((button) => {
+            const key = button.dataset.key;
+            const value = button.dataset.value || "";
+            button.classList.toggle("is-active", state[key] === value);
+          });
+        };
+
+        const getMatches = () => cards.filter((card) => {
+          const matchesSearch = !state.search || (card.dataset.search || "").includes(state.search);
+          const matchesCategory = !state.category || card.dataset.category === state.category;
+          const matchesLanguage = !state.language || card.dataset.language === state.language;
+          const matchesStatus = !state.status || card.dataset.status === state.status;
+          return matchesSearch && matchesCategory && matchesLanguage && matchesStatus;
+        });
+
+        const applyFilters = () => {
+          const filtered = getMatches();
+
+          cards.forEach((card) => {
+            card.hidden = true;
+          });
+
+          filtered.slice(0, state.visible).forEach((card) => {
+            card.hidden = false;
+          });
+
+          const total = filtered.length;
+          const visibleNow = Math.min(total, state.visible);
+          results.textContent = total
+            ? `Mostrando ${visibleNow} de ${total} producto(s).`
+            : "No hay resultados con los filtros actuales.";
+          loadMoreButton.hidden = total <= state.visible;
+        };
+
+        config.filterGroups.forEach((group) => {
+          filtersRoot.append(createFilterGroup(group));
+        });
+
+        filtersRoot.addEventListener("click", (event) => {
+          const button = event.target.closest(".collections-filter-chip");
+          if (!button) {
+            return;
+          }
+          state[button.dataset.key] = button.dataset.value || "";
+          state.visible = config.initialVisible;
+          syncFilterButtons();
+          applyFilters();
+        });
+
+        searchInput.addEventListener("input", () => {
+          state.search = searchInput.value.trim().toLowerCase();
+          state.visible = config.initialVisible;
+          applyFilters();
+        });
+
+        loadMoreButton.addEventListener("click", () => {
+          state.visible += config.initialVisible;
+          applyFilters();
+        });
+
+        syncFilterButtons();
+        applyFilters();
+      })();
+    </script>
+
     </main>
 
     <footer class="footer">

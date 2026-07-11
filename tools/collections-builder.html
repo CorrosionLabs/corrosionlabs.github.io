@@ -238,6 +238,39 @@
               <input id="coverAlt" name="coverAlt" placeholder="Portada del producto">
             </div>
 
+            <div class="field">
+              <label for="category">Formato</label>
+              <input id="category" name="category" placeholder="Libro, Música, Visual">
+            </div>
+
+            <div class="field">
+              <label for="language">Idioma</label>
+              <input id="language" name="language" placeholder="ES, EN, Instrumental">
+            </div>
+
+            <div class="field">
+              <label for="status">Estado</label>
+              <input id="status" name="status" placeholder="available, archive, upcoming">
+            </div>
+
+            <div class="field">
+              <label for="statusLabel">Etiqueta estado</label>
+              <input id="statusLabel" name="statusLabel" placeholder="Disponible, Archivo, Próximamente">
+            </div>
+
+            <div class="field">
+              <label for="year">Año</label>
+              <input id="year" name="year" placeholder="2026">
+            </div>
+
+            <div class="field">
+              <label for="featured">Destacado</label>
+              <select id="featured" name="featured">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+              </select>
+            </div>
+
             <div class="field full">
               <label for="description">Descripción</label>
               <textarea id="description" name="description" placeholder="Escribe un párrafo por bloque. El índice usa el primer párrafo como resumen."></textarea>
@@ -272,6 +305,7 @@
         </form>
 
         <p class="hint" style="margin-top:14px">Si un producto necesita contenido especial, puedes editar manualmente el bloque entre <code>PRODUCT_MANUAL_START</code> y <code>PRODUCT_MANUAL_END</code> dentro de su ficha. El generador conservará ese bloque al regenerar.</p>
+        <p class="hint" style="margin-top:10px">Usa los nuevos campos para decidir qué sale en destacados y cómo se filtra el catálogo público.</p>
         <p class="status" id="status-message" aria-live="polite"></p>
       </section>
 
@@ -333,6 +367,12 @@
         title,
         cover: (data.get("cover") || "").trim(),
         coverAlt: (data.get("coverAlt") || "").trim(),
+        category: (data.get("category") || "").trim(),
+        language: (data.get("language") || "").trim(),
+        status: (data.get("status") || "").trim(),
+        statusLabel: (data.get("statusLabel") || "").trim(),
+        year: (data.get("year") || "").trim(),
+        featured: (data.get("featured") || "false") === "true",
         description: (data.get("description") || "").trim(),
         gallery: (data.get("gallery") || "").trim(),
         buyUrl: (data.get("buyUrl") || "").trim(),
@@ -348,6 +388,12 @@
         title: payload.title,
         cover: payload.cover,
         coverAlt: payload.coverAlt || payload.title,
+        category: payload.category || "General",
+        language: payload.language || "Sin idioma",
+        status: payload.status || "available",
+        statusLabel: payload.statusLabel || "Disponible",
+        year: payload.year,
+        featured: payload.featured,
         description: getParagraphs(payload.description),
         gallery: getGallery(payload.gallery),
         buyUrl: payload.buyUrl,
@@ -358,6 +404,11 @@
       productPreview.textContent = [
         `Titulo: ${preview.title || "-"}`,
         `Slug: ${preview.slug || "-"}`,
+        `Formato: ${preview.category || "-"}`,
+        `Idioma: ${preview.language || "-"}`,
+        `Estado: ${preview.statusLabel || preview.status || "-"}`,
+        `Ano: ${preview.year || "-"}`,
+        `Destacado: ${preview.featured ? "si" : "no"}`,
         `Parrafos: ${preview.description.length}`,
         `Galeria: ${preview.gallery.length} imagen(es)`,
         `Compra: ${preview.buyUrl || "-"}`,
@@ -371,6 +422,12 @@
       titleInput.value = item.title || "";
       document.querySelector("#cover").value = item.cover || "";
       document.querySelector("#coverAlt").value = item.coverAlt || "";
+      document.querySelector("#category").value = item.category || "";
+      document.querySelector("#language").value = item.language || "";
+      document.querySelector("#status").value = item.status || "";
+      document.querySelector("#statusLabel").value = item.statusLabel || "";
+      document.querySelector("#year").value = item.year || "";
+      document.querySelector("#featured").value = item.featured ? "true" : "false";
       document.querySelector("#description").value = Array.isArray(item.description) ? item.description.join("\n\n") : "";
       document.querySelector("#gallery").value = Array.isArray(item.gallery)
         ? item.gallery.map((entry) => `${entry.src}${entry.alt ? ` | ${entry.alt}` : ""}`).join("\n")
@@ -476,7 +533,7 @@
         await navigator.clipboard.writeText(jsonPreview.textContent);
         statusMessage.textContent = "JSON copiado al portapapeles.";
       } catch (error) {
-        statusMessage.textContent = "No se pudo copiar automaticamente.";
+        statusMessage.textContent = "No se pudo copiar automáticamente.";
       }
     });
 
