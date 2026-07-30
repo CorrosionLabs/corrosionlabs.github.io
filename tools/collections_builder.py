@@ -446,9 +446,8 @@ def render_collections_script(items: list[dict]) -> str:
           }});
 
           const total = filtered.length;
-          const visibleNow = Math.min(total, state.visible);
           results.textContent = total
-            ? `Mostrando ${{visibleNow}} de ${{total}} producto(s).`
+            ? `${{total}} productos disponibles`
             : "No hay resultados con los filtros actuales.";
           loadMoreButton.hidden = total <= state.visible;
         }};
