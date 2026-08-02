@@ -191,6 +191,7 @@ def html_page(
       <a href="{path_prefix}condiciones.html">Condiciones</a>
       <a href="{path_prefix}contacto.html">Contacto</a>
       <a href="{path_prefix}collections.html">Colecciones</a>
+      <a href="{path_prefix}strategies/">Corrosion Strategies</a>
       <a href="{path_prefix}hub.html">Hub</a>
     </nav>
 
