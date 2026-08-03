@@ -1,3 +1,21 @@
+window.resolveCorrosionAssetPath = function resolveCorrosionAssetPath(path) {
+  if (!path || /^(?:[a-z]+:|\/|\.\/|\.\.\/)/i.test(path)) {
+    return path;
+  }
+
+  const currentPath = window.location.pathname || "";
+
+  if (currentPath.includes("/pages/internal/")) {
+    return `../../${path}`;
+  }
+
+  if (currentPath.includes("/pages/") || currentPath.includes("/products/")) {
+    return `../${path}`;
+  }
+
+  return path;
+};
+
 window.CorrosionReleases = {
   sacro: [
     {

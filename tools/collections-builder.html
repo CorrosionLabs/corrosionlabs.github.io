@@ -210,7 +210,7 @@
   <main>
     <header>
       <h1>Collections Builder</h1>
-      <p>Gestiona <code>data/collections.json</code> y regenera automáticamente <code>collections.html</code>, <code>products/*.html</code> y <code>sitemap.xml</code>.</p>
+      <p>Gestiona <code>data/collections.json</code> y regenera automáticamente <code>pages/collections.html</code>, <code>products/*.html</code> y <code>sitemap.xml</code>.</p>
     </header>
 
     <div class="layout">
@@ -235,7 +235,7 @@
 
             <div class="field">
               <label for="cover">Portada</label>
-              <input id="cover" name="cover" placeholder="img/projects/collections/mi-portada.jpg">
+              <input id="cover" name="cover" placeholder="img/projects/collections/mi-producto/cover.jpg">
             </div>
 
             <div class="field">
@@ -283,7 +283,7 @@
 
             <div class="field full">
               <label for="gallery">Galería</label>
-              <textarea id="gallery" name="gallery" placeholder="Una línea por imagen:&#10;img/projects/collections/imagen_01.jpg | Vista 1&#10;img/projects/collections/imagen_02.jpg | Vista 2"></textarea>
+              <textarea id="gallery" name="gallery" placeholder="Una línea por imagen:&#10;img/projects/collections/mi-producto/image-01.jpg | Vista 1&#10;img/projects/collections/mi-producto/image-02.jpg | Vista 2"></textarea>
             </div>
 
             <div class="field">
@@ -311,6 +311,7 @@
 
         <p class="hint" style="margin-top:14px">Si un producto necesita contenido especial, puedes editar manualmente el bloque entre <code>PRODUCT_MANUAL_START</code> y <code>PRODUCT_MANUAL_END</code> dentro de su ficha. El generador conservará ese bloque al regenerar.</p>
         <p class="hint" style="margin-top:10px">Usa los nuevos campos para decidir qué sale en destacados y cómo se filtra el catálogo público.</p>
+        <p class="hint" style="margin-top:10px">Convención recomendada: una carpeta por producto dentro de <code>img/projects/collections/&lt;slug&gt;/</code>, con <code>cover.jpg</code> para la portada e <code>image-01.jpg</code>, <code>image-02.jpg</code>, etc. para la galería.</p>
         <p class="status" id="status-message" aria-live="polite"></p>
       </section>
 
@@ -551,3 +552,4 @@
   </script>
 </body>
 </html>
+

@@ -7,12 +7,11 @@ Esta guía explica cómo actualizar contenidos de las páginas `collections.html
 La carpeta `img/` está organizada así:
 
 - `img/site/backgrounds/`: fondos generales del sitio
-- `img/site/branding/`: iconos y marcas comunes
-- `img/site/legacy/`: archivos antiguos no usados en la web actual
+- `img/site/branding/`: marca global de Corrosion Labs
 - `img/projects/sacro/`: imágenes del proyecto Sacro Servo
 - `img/projects/zero/`: imágenes del proyecto Zero Sala
 - `img/projects/corpus/`: imágenes del proyecto Corpus Submissum
-- `img/projects/collections/`: imágenes de productos y colecciones visuales
+- `img/projects/collections/`: una carpeta por producto o coleccion visual
 
 ## Vista general
 
@@ -38,7 +37,7 @@ La carpeta `img/` está organizada así:
 
 ### Cómo funciona ahora
 
-La sección de colecciones ya no depende de `js/collections-data.js` ni de `js/collections-page.js`.
+La sección de colecciones usa `data/collections.json` como fuente de verdad y ya no mantiene una capa JS separada para el catálogo.
 
 Ahora el flujo es este:
 
@@ -103,7 +102,7 @@ Cada producto dentro de `data/collections.json` sigue esta forma:
 {
   "slug": "the-soft-servo-ost",
   "title": "The soft servo OST",
-  "cover": "img/projects/collections/cober_soft_servo.jpg",
+  "cover": "img/projects/collections/the-soft-servo-ost/cover.jpg",
   "coverAlt": "The soft servo OST",
   "description": [
     "Música concebida para acompañar la lectura de El servo suave.",
@@ -111,7 +110,7 @@ Cada producto dentro de `data/collections.json` sigue esta forma:
   ],
   "gallery": [
     {
-      "src": "img/projects/collections/cober_soft_servo.jpg",
+      "src": "img/projects/collections/the-soft-servo-ost/cover.jpg",
       "alt": "The soft servo OST"
     }
   ],
@@ -247,7 +246,7 @@ Los enlaces externos están agrupados por proyecto. Ejemplo:
 <a href="https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc" target="_blank" rel="noopener noreferrer">
   <span class="platform-mark">YT</span>
   <span>YouTube</span>
-  <span class="external-mark" aria-hidden="true">↗</span>
+  <span class="external-mark" aria-hidden="true">?</span>
 </a>
 ```
 
@@ -284,16 +283,18 @@ Para cambiar textos o enlaces no hace falta tocar CSS.
 Guarda las imágenes del sitio dentro de la carpeta que corresponda:
 
 - `img/site/backgrounds/` para fondos generales
-- `img/site/branding/` para logos e iconos comunes
+- `img/site/branding/` para la marca global del sitio
 - `img/projects/sacro/releases/` para releases de Sacro Servo
 - `img/projects/zero/releases/` para releases de Zero Sala
 - `img/projects/corpus/releases/` para releases de Corpus Submissum
-- `img/projects/collections/` para productos de colecciones
+- `img/projects/collections/<slug>/` para los assets de cada producto
 
 Luego referencia los archivos así:
 
+Nota: los favicons de la web y `site.webmanifest` permanecen en la raiz del proyecto porque aplican a todo el sitio.
+
 - `img/site/backgrounds/mi-imagen.jpg`
-- `img/projects/collections/mi-producto/mi-portada.png`
+- `img/projects/collections/mi-producto/cover.jpg`
 
 ### Recomendaciones
 
@@ -433,3 +434,7 @@ Si más adelante quieres escalar el sitio sin complicarlo, la siguiente evoluci�
 - dar a las herramientas internas un estilo todavía más unificado con el sitio
 
 Así tendrías más partes del sitio gestionables desde contenido estructurado y menos texto duro dentro del HTML.
+
+
+
+

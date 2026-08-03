@@ -2,7 +2,7 @@
   {
     "slug": "el-servo-suave-libro",
     "title": "El servo suave (Libro)",
-    "cover": "img/projects/collections/portada_elservosuave.jpg",
+    "cover": "img/projects/collections/el-servo-suave-libro/cover.jpg",
     "coverAlt": "El servo suave",
     "category": "Libro",
     "language": "ES",
@@ -27,7 +27,7 @@
   {
     "slug": "the-soft-servo-book",
     "title": "The soft servo (Book)",
-    "cover": "img/projects/collections/portada_thesoftservo.jpg",
+    "cover": "img/projects/collections/the-soft-servo-book/cover.jpg",
     "coverAlt": "The soft servo",
     "category": "Book",
     "language": "EN",
@@ -52,7 +52,7 @@
   {
     "slug": "the-soft-servo-ost",
     "title": "The soft servo OST",
-    "cover": "img/projects/collections/cober_soft_servo.jpg",
+    "cover": "img/projects/collections/the-soft-servo-ost/cover.jpg",
     "coverAlt": "The soft servo OST",
     "category": "Música",
     "language": "Instrumental",
@@ -66,7 +66,7 @@
     ],
     "gallery": [
       {
-        "src": "img/projects/collections/cober_soft_servo.jpg",
+        "src": "img/projects/collections/the-soft-servo-ost/cover.jpg",
         "alt": "The soft servo OST"
       }
     ],
@@ -77,7 +77,7 @@
   {
     "slug": "collection-01",
     "title": "Collection 01",
-    "cover": "img/projects/collections/subject_series_01_cover.jpg",
+    "cover": "img/projects/collections/collection-01/cover.jpg",
     "coverAlt": "Subject Series 01",
     "category": "Visual",
     "language": "ES",
@@ -92,15 +92,15 @@
     ],
     "gallery": [
       {
-        "src": "img/projects/collections/subject_series_01_01.jpg",
+        "src": "img/projects/collections/collection-01/image-01.jpg",
         "alt": "Subject Series 01 - imagen 01"
       },
       {
-        "src": "img/projects/collections/subject_series_01_02.jpg",
+        "src": "img/projects/collections/collection-01/image-02.jpg",
         "alt": "Subject Series 01 - imagen 02"
       },
       {
-        "src": "img/projects/collections/subject_series_01_03.jpg",
+        "src": "img/projects/collections/collection-01/image-03.jpg",
         "alt": "Subject Series 01 - imagen 03"
       }
     ],
@@ -109,3 +109,4 @@
     "extraUrl": "https://youtube.com/@corrosionlabs?si=sctskkTcgdJed9Yc"
   }
 ]
+

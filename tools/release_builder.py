@@ -92,7 +92,7 @@ class ReleaseBuilder(tk.Tk):
         ).pack(anchor="w")
         tk.Label(
             header,
-            text="Genera un bloque para js/releases.js y copia las imagenes a su carpeta dentro de img/projects/.",
+            text="Genera un bloque para js/releases.js y copia las imágenes a su carpeta dentro de img/projects/.",
             bg="#171717",
             fg="#a9a39a",
             font=("Segoe UI", 11),
@@ -255,9 +255,9 @@ class ReleaseBuilder(tk.Tk):
         cover = self.vars["cover"].get() or "img/projects/proyecto/releases/nuevo-registro/cover.jpg"
         thumbnail = self.vars["thumbnail"].get() or cover
         cover_alt = self.vars["coverAlt"].get() or f"{title} - portada"
-        featured_title = self.vars["featuredTitle"].get() or f"Album {title}"
+        featured_title = self.vars["featuredTitle"].get() or f"Álbum {title}"
         featured_text = self.featuredText.get("1.0", "end").strip() or "Texto breve para anunciar el lanzamiento."
-        description_text = self.descriptions.get("1.0", "end").strip() or "Descripcion breve del material."
+        description_text = self.descriptions.get("1.0", "end").strip() or "Descripción breve del material."
         description_parts = paragraphs(description_text)
 
         lines = [
@@ -314,7 +314,7 @@ class ReleaseBuilder(tk.Tk):
             copied.append(str(target.relative_to(ROOT)))
 
         OUTPUT_FILE.write_text(self.build_release(), encoding="utf-8")
-        copied_text = ", ".join(copied) if copied else "sin imagenes copiadas"
+        copied_text = ", ".join(copied) if copied else "sin imágenes copiadas"
         self.status_message.set(f"Guardado en {OUTPUT_FILE.relative_to(ROOT)} ({copied_text}).")
 
     def copy_block(self) -> None:

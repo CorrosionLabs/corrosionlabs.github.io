@@ -1,6 +1,7 @@
 document.querySelectorAll("[data-project-archive]").forEach((container) => {
   const project = container.dataset.projectArchive;
   const releases = window.CorrosionReleases?.[project] || [];
+  const resolveAssetPath = window.resolveCorrosionAssetPath || ((path) => path);
 
   releases.forEach((release) => {
     const article = document.createElement("article");
@@ -10,7 +11,7 @@ document.querySelectorAll("[data-project-archive]").forEach((container) => {
     media.className = "retention-media";
 
     const image = document.createElement("img");
-    image.src = release.cover;
+    image.src = resolveAssetPath(release.cover);
     image.alt = release.coverAlt || release.title;
     image.loading = "lazy";
     image.decoding = "async";

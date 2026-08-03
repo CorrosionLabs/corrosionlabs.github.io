@@ -15,7 +15,7 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = ROOT / "data" / "collections.json"
 TOOLS_PAGE = ROOT / "tools" / "collections-builder.html"
-COLLECTIONS_PAGE = ROOT / "collections.html"
+COLLECTIONS_PAGE = ROOT / "pages" / "collections.html"
 PRODUCTS_DIR = ROOT / "products"
 SITEMAP_FILE = ROOT / "sitemap.xml"
 SITE_URL = "https://corrosionlabs.github.io"
@@ -151,7 +151,9 @@ def html_page(
     content: str,
     og_image: str,
     *,
-    path_prefix: str,
+    asset_prefix: str,
+    page_prefix: str,
+    home_href: str,
 ) -> str:
     canonical_url = f"{SITE_URL}/{canonical_path}".replace("//", "/").replace("https:/", "https://")
     og_image_url = og_image if og_image.startswith("http") else f"{SITE_URL}/{og_image}".replace("//", "/").replace("https:/", "https://")
@@ -165,6 +167,11 @@ def html_page(
   <meta name="description" content="{escape(description)}">
   <meta name="theme-color" content="#0b0b0b">
   <meta name="robots" content="index,follow">
+  <link rel="icon" href="{asset_prefix}favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="{asset_prefix}favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="{asset_prefix}favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="{asset_prefix}apple-touch-icon.png">
+  <link rel="manifest" href="{asset_prefix}site.webmanifest">
   <link rel="canonical" href="{escape(canonical_url)}">
 
   <meta property="og:type" content="website">
@@ -178,21 +185,21 @@ def html_page(
   <meta name="twitter:description" content="{escape(description)}">
   <meta name="twitter:image" content="{escape(og_image_url)}">
 
-  <link rel="stylesheet" href="{path_prefix}css/style.css?v=4">
+  <link rel="stylesheet" href="{asset_prefix}css/style.css?v=4">
 </head>
 
 <body class="{escape(body_class)}" translate="yes">
   <div class="container">
     <nav class="site-nav" aria-label="Indice principal">
-      <a href="{path_prefix}index.html">Inicio</a>
-      <a href="{path_prefix}sacro_servo.html">Sacro Servo</a>
-      <a href="{path_prefix}zero_sala.html">Zero Sala</a>
-      <a href="{path_prefix}corpus_submissum.html">Corpus Submissum</a>
-      <a href="{path_prefix}condiciones.html">Condiciones</a>
-      <a href="{path_prefix}contacto.html">Contacto</a>
-      <a href="{path_prefix}collections.html">Colecciones</a>
-      <a href="{path_prefix}strategies/">Corrosion Strategies</a>
-      <a href="{path_prefix}hub.html">Hub</a>
+      <a href="{home_href}">Inicio</a>
+      <a href="{page_prefix}sacro_servo.html">Sacro Servo</a>
+      <a href="{page_prefix}zero_sala.html">Zero Sala</a>
+      <a href="{page_prefix}corpus_submissum.html">Corpus Submissum</a>
+      <a href="{page_prefix}condiciones.html">Condiciones</a>
+      <a href="{page_prefix}contacto.html">Contacto</a>
+      <a href="{page_prefix}collections.html">Colecciones</a>
+      <a href="{asset_prefix}strategies/">Corrosion Strategies</a>
+      <a href="{page_prefix}hub.html">Hub</a>
     </nav>
 
 {content}
@@ -271,7 +278,7 @@ def render_collections_index(items: list[dict]) -> str:
     <footer class="footer">
       <p class="footer-actions">
         <a href="hub.html">Volver al Hub</a>
-        <a href="index.html">Inicio</a>
+        <a href="../index.html">Inicio</a>
       </p>
     </footer>
 """
@@ -280,16 +287,18 @@ def render_collections_index(items: list[dict]) -> str:
     return html_page(
         "Corrosion Labs Collections",
         description,
-        "collections.html",
+        "pages/collections.html",
         "collections",
         content,
         "img/site/backgrounds/005.jpg",
-        path_prefix="",
+        asset_prefix="../",
+        page_prefix="",
+        home_href="../index.html",
     )
 
 
 def render_featured_card(item: dict) -> str:
-    product_href = f"products/{item['slug']}.html"
+    product_href = f"../products/{item['slug']}.html"
     description = escape(item["description"][0]) if item["description"] else "Más información en la ficha del producto."
     return f"""          <article class="collection-featured-card">
             <a class="collection-featured-link" href="{escape(product_href)}">
@@ -307,7 +316,7 @@ def render_featured_card(item: dict) -> str:
 
 def render_index_card(item: dict) -> str:
     description = escape(item["description"][0]) if item["description"] else "Más información en la ficha del producto."
-    product_href = f"products/{item['slug']}.html"
+    product_href = f"../products/{item['slug']}.html"
     searchable_text = " ".join(
         [item["title"], item["category"], item["language"], item["statusLabel"], item["year"], *item["description"]]
     ).lower()
@@ -559,7 +568,7 @@ def render_product_page(item: dict, manual_block: str = "") -> str:
             </div>
 {gallery_html}{extra_html}{manual_html}
             <nav class="retention-links" aria-label="Acciones para {escape(item["title"])}">
-{buy_link}          <a href="../collections.html">[VOLVER]</a>
+{buy_link}          <a href="../pages/collections.html">[VOLVER]</a>
             </nav>
           </div>
         </div>
@@ -568,7 +577,7 @@ def render_product_page(item: dict, manual_block: str = "") -> str:
 
     <footer class="footer">
       <p class="footer-actions">
-        <a href="../collections.html">Indice de colecciones</a>
+        <a href="../pages/collections.html">Indice de colecciones</a>
         <a href="../index.html">Inicio</a>
       </p>
     </footer>
@@ -581,7 +590,9 @@ def render_product_page(item: dict, manual_block: str = "") -> str:
         "collections collection-product",
         content,
         item["cover"] or "img/site/backgrounds/005.jpg",
-        path_prefix="../",
+        asset_prefix="../",
+        page_prefix="../pages/",
+        home_href="../index.html",
     )
 
 
@@ -601,7 +612,7 @@ def update_sitemap(items: list[dict]) -> None:
             entries[loc.text] = url
 
     base_entries = {
-        f"{SITE_URL}/collections.html": "0.7",
+        f"{SITE_URL}/pages/collections.html": "0.7",
     }
     product_entries = {
         f"{SITE_URL}/products/{item['slug']}.html": "0.6" for item in items

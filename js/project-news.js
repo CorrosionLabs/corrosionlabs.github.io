@@ -2,6 +2,7 @@ document.querySelectorAll("[data-project-news]").forEach((container) => {
   const project = container.dataset.projectNews;
   const releases = window.CorrosionReleases?.[project] || [];
   const release = releases.find((item) => item.featured) || releases[0];
+  const resolveAssetPath = window.resolveCorrosionAssetPath || ((path) => path);
 
   if (!release) {
     return;
@@ -11,7 +12,7 @@ document.querySelectorAll("[data-project-news]").forEach((container) => {
   wrapper.className = "novedad";
 
   const image = document.createElement("img");
-  image.src = release.thumbnail || release.cover;
+  image.src = resolveAssetPath(release.thumbnail || release.cover);
   image.alt = release.coverAlt || release.title;
   image.loading = "lazy";
   image.decoding = "async";

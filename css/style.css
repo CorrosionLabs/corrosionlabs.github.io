@@ -6,6 +6,24 @@
 :root {
   --font-body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
   --font-display: "Space Grotesk", "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  /* Tamano del logo en la pagina Inicio */
+  /* clamp(minimo, valor fluido segun pantalla, maximo) */
+  /* 128px = tamano minimo, 15vw = escala con el ancho de ventana, 168px = tamano maximo */
+  --logo-home-width: clamp(128px, 15vw, 168px);
+  /* Tamano del logo en Sacro Servo */
+  --logo-sacro-width: clamp(128px, 20vw, 250px);
+  /* Tamano del logo en Zero Sala */
+  --logo-zero-width: clamp(128px, 20vw, 150px);
+  /* Tamano del logo en Corpus Submissum */
+  --logo-corpus-width: clamp(140px, 16vw, 200px);
+  /* Tamano del logo en la pagina Inicio para movil */
+  --logo-home-width-mobile: min(120px, 42vw);
+  /* Tamano del logo en Sacro Servo para movil */
+  --logo-sacro-width-mobile: min(120px, 42vw);
+  /* Tamano del logo en Zero Sala para movil */
+  --logo-zero-width-mobile: min(120px, 42vw);
+  /* Tamano del logo en Corpus Submissum para movil */
+  --logo-corpus-width-mobile: min(120px, 42vw);
 }
 
 * {
@@ -173,8 +191,20 @@ body.strategies {
   opacity: 0.9;
 }
 
+body.home .logo {
+  width: var(--logo-home-width);
+}
+
+body.sacro .logo {
+  width: var(--logo-sacro-width);
+}
+
+body.zero .logo {
+  width: var(--logo-zero-width);
+}
+
 .logo-corpus {
-  width: min(180px, 48vw);
+  width: var(--logo-corpus-width);
 }
 
 h1, h2 {
@@ -1181,7 +1211,7 @@ body.strategies .container {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 2rem;
+  padding-top: 6vh;
   padding-bottom: 2rem;
 }
 
@@ -1757,6 +1787,22 @@ body.strategies .container {
 
   .logo {
     width: 76px;
+  }
+
+  body.home .logo {
+    width: var(--logo-home-width-mobile);
+  }
+
+  body.sacro .logo {
+    width: var(--logo-sacro-width-mobile);
+  }
+
+  body.zero .logo {
+    width: var(--logo-zero-width-mobile);
+  }
+
+  .logo-corpus {
+    width: var(--logo-corpus-width-mobile);
   }
 
   .project-card {
