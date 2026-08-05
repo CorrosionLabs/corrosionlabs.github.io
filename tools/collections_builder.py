@@ -300,10 +300,11 @@ def render_collections_index(items: list[dict]) -> str:
 def render_featured_card(item: dict) -> str:
     product_href = f"../products/{item['slug']}.html"
     description = escape(item["description"][0]) if item["description"] else "Más información en la ficha del producto."
+    cover_src = prefixed_asset(item["cover"], path_prefix="../")
     return f"""          <article class="collection-featured-card">
             <a class="collection-featured-link" href="{escape(product_href)}">
               <div class="collection-cover collection-featured-cover">
-                <img src="{escape(item['cover'])}" alt="{escape(item['coverAlt'])}" loading="lazy" decoding="async">
+                <img src="{escape(cover_src)}" alt="{escape(item['coverAlt'])}" loading="lazy" decoding="async">
               </div>
               <div class="collection-featured-copy">
                 <p class="collection-meta">{escape(item['category'])} / {escape(item['language'])}</p>
@@ -317,6 +318,7 @@ def render_featured_card(item: dict) -> str:
 def render_index_card(item: dict) -> str:
     description = escape(item["description"][0]) if item["description"] else "Más información en la ficha del producto."
     product_href = f"../products/{item['slug']}.html"
+    cover_src = prefixed_asset(item["cover"], path_prefix="../")
     searchable_text = " ".join(
         [item["title"], item["category"], item["language"], item["statusLabel"], item["year"], *item["description"]]
     ).lower()
@@ -330,7 +332,7 @@ def render_index_card(item: dict) -> str:
             data-search="{escape(searchable_text)}">
             <div class="collection-media">
               <div class="collection-cover">
-                <img src="{escape(item['cover'])}" alt="{escape(item['coverAlt'])}" loading="lazy" decoding="async">
+                <img src="{escape(cover_src)}" alt="{escape(item['coverAlt'])}" loading="lazy" decoding="async">
               </div>
             </div>
             <div class="collection-content">
