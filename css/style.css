@@ -160,6 +160,14 @@ body.strategies {
   overflow: hidden;
 }
 
+body.idea-collider {
+  background-image: url("../img/site/backgrounds/001.jpg");
+  background-size: cover;
+  background-position: 50% 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 
 /* =====================================================
    4. CONTENEDOR PRINCIPAL
@@ -1370,6 +1378,70 @@ body.strategies .container {
   opacity: 0.62;
 }
 
+.collider-shell {
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+.collider-toolbar {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+  margin-bottom: 2rem;
+}
+
+.collider-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.collider-output {
+  min-height: 18rem;
+  display: grid;
+  align-items: center;
+}
+
+.collider-card-shell {
+  max-width: 52rem;
+}
+
+.collider-line {
+  max-width: 44rem;
+  font-size: clamp(0.98rem, 1.45vw, 1.16rem);
+  line-height: 1.7;
+  text-wrap: balance;
+}
+
+.collider-word-fixed,
+.collider-word-inserted {
+  display: inline-block;
+}
+
+.collider-word-inserted {
+  animation: collider-word-elastic 0.56s cubic-bezier(0.22, 0.82, 0.24, 1.06);
+  transform-origin: 50% 70%;
+}
+
+@keyframes collider-word-elastic {
+  0% {
+    opacity: 0;
+    transform: scale(0.84);
+  }
+  38% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  62% {
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 
 /* =====================================================
    12. HUB
@@ -1752,6 +1824,10 @@ body.strategies .container {
     grid-template-columns: 1fr;
   }
 
+  .collider-output {
+    min-height: 0;
+  }
+
   .project-grid {
     grid-template-columns: 1fr;
   }
@@ -1842,6 +1918,15 @@ body.strategies .container {
 
   .strategies-button {
     width: 100%;
+  }
+
+  .collider-actions {
+    width: 100%;
+  }
+
+  .collider-line {
+    font-size: 0.94rem;
+    line-height: 1.65;
   }
 
   .retention-block {

@@ -199,6 +199,7 @@ def html_page(
       <a href="{page_prefix}contacto.html">Contacto</a>
       <a href="{page_prefix}collections.html">Colecciones</a>
       <a href="{asset_prefix}strategies/">Corrosion Strategies</a>
+      <a href="{asset_prefix}idea-collider/">Colisionador de Ideas / Idea Collider</a>
       <a href="{page_prefix}hub.html">Hub</a>
     </nav>
 
