@@ -130,7 +130,7 @@
     return decoration.prefix + replacement + decoration.suffix;
   }
 
-  function renderScramble(target, revealProgress, revealOrder, pool) {
+  function renderScramble(target, revealProgress, revealOrder, pool, conceptTokenCount) {
     var targetParts = getWordParts(target);
     var exactReveal = Math.max(0, Math.min(revealProgress, revealOrder.length));
     var revealedCount = Math.floor(exactReveal);
@@ -163,12 +163,15 @@
         output.push(
           '<span class="' +
           (i === latestRevealedIndex ? "collider-word-inserted" : "collider-word-fixed") +
+          (i < conceptTokenCount ? " collider-word-concept" : "") +
           '">' +
           escapeHtml(targetParts[i]) +
           "</span>"
         );
       } else if (i === pendingIndex) {
-        output.push('<span class="strategy-char-pending">' +
+        output.push('<span class="strategy-char-pending' +
+          (i < conceptTokenCount ? " collider-word-concept" : "") +
+          '">' +
           escapeHtml(getSearchWord(targetParts[i], pool, pendingIndex, searchStep)) +
           "</span>");
       }
@@ -209,6 +212,18 @@
     mutation = capitalizeFirst(selectedById.mutation || "");
 
     return concept + ": " + objectItem + " " + contextItem + ". " + rule + ". (" + aestheticTone + ". " + mutation + ")";
+  }
+
+  function getConceptTokenCount(language) {
+    var selectedById = {};
+    var concept;
+
+    currentSelection.forEach(function (entry) {
+      selectedById[entry.id] = entry.item[language];
+    });
+
+    concept = capitalizeFirst(selectedById.concept || "") + ":";
+    return getWordParts(concept).length;
   }
 
   function selectRandomCollision() {
@@ -254,6 +269,8 @@
     var token = animationToken + 1;
     var revealOrderEs = getRevealOrder(getWordParts(textEs));
     var revealOrderEn = getRevealOrder(getWordParts(textEn));
+    var conceptTokenCountEs = getConceptTokenCount("es");
+    var conceptTokenCountEn = getConceptTokenCount("en");
     var totalWords = Math.max(revealOrderEs.length, revealOrderEn.length);
     var duration = Math.max(totalWords * COLLIDER_WORD_REVEAL_DELAY_MS, COLLIDER_WORD_REVEAL_DELAY_MS);
 
@@ -274,16 +291,16 @@
 
       elapsed = Math.min(timestamp - start, duration);
       revealProgress = elapsed / COLLIDER_WORD_REVEAL_DELAY_MS;
-      resultElementEs.innerHTML = renderScramble(textEs, revealProgress, revealOrderEs, wordPoolEs);
-      resultElementEn.innerHTML = renderScramble(textEn, revealProgress, revealOrderEn, wordPoolEn);
+      resultElementEs.innerHTML = renderScramble(textEs, revealProgress, revealOrderEs, wordPoolEs, conceptTokenCountEs);
+      resultElementEn.innerHTML = renderScramble(textEn, revealProgress, revealOrderEn, wordPoolEn, conceptTokenCountEn);
 
       if (elapsed < duration && token === animationToken) {
         animationFrameId = requestAnimationFrame(step);
         return;
       }
 
-      resultElementEs.textContent = textEs;
-      resultElementEn.textContent = textEn;
+      resultElementEs.innerHTML = '<strong>' + escapeHtml(textEs.slice(0, textEs.indexOf(":") + 1)) + '</strong>' + escapeHtml(textEs.slice(textEs.indexOf(":") + 1));
+      resultElementEn.innerHTML = '<strong>' + escapeHtml(textEn.slice(0, textEn.indexOf(":") + 1)) + '</strong>' + escapeHtml(textEn.slice(textEn.indexOf(":") + 1));
       resultElementEs.setAttribute("data-text", textEs);
       resultElementEn.setAttribute("data-text", textEn);
       collideButton.disabled = false;

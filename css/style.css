@@ -168,6 +168,14 @@ body.idea-collider {
   background-attachment: fixed;
 }
 
+body.idea-collider .container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 6vh;
+  padding-bottom: 2rem;
+}
+
 
 /* =====================================================
    4. CONTENEDOR PRINCIPAL
@@ -1381,6 +1389,10 @@ body.strategies .container {
 .collider-shell {
   max-width: 62rem;
   margin: 0 auto;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .collider-toolbar {
@@ -1401,6 +1413,7 @@ body.strategies .container {
   min-height: 18rem;
   display: grid;
   align-items: center;
+  flex: 1;
 }
 
 .collider-card-shell {
@@ -1409,14 +1422,36 @@ body.strategies .container {
 
 .collider-line {
   max-width: 44rem;
-  font-size: clamp(0.98rem, 1.45vw, 1.16rem);
+  font-size: clamp(1.05rem, 1.62vw, 1.28rem);
   line-height: 1.7;
   text-wrap: balance;
+}
+
+.collider-line-group {
+  display: block;
+}
+
+.collider-line-part {
+  display: inline;
+}
+
+.collider-line-concept {
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+}
+
+.collider-line-aside {
+  opacity: 0.86;
 }
 
 .collider-word-fixed,
 .collider-word-inserted {
   display: inline-block;
+}
+
+.collider-word-concept {
+  font-weight: 600;
+  font-size: 1.14em;
 }
 
 .collider-word-inserted {
@@ -1841,6 +1876,15 @@ body.strategies .container {
     flex-direction: column;
     gap: 10px;
   }
+
+  body.strategies {
+    overflow: auto;
+  }
+
+  body.strategies .container {
+    min-height: 100vh;
+    height: auto;
+  }
   
 }
 
@@ -1925,7 +1969,7 @@ body.strategies .container {
   }
 
   .collider-line {
-    font-size: 0.94rem;
+    font-size: 1rem;
     line-height: 1.65;
   }
 
