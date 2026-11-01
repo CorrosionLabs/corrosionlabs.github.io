@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de usuario de Auto Backup v2.">
+  <title>Auto Backup v2 | Manual de usuario</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --page: #191919;
+      --surface: #222222;
+      --surface-deep: #111111;
+      --line: #3d3d3d;
+      --text: #e8e8e8;
+      --muted: #aaaaaa;
+      --accent: #b92121;
+      --accent-soft: #e65a5a;
+      --max-width: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--text);
+      font-family: "Cascadia Mono", "Consolas", "Courier New", monospace;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      background: #0e0e0e;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner,
+    .content,
+    .footer-inner {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      min-height: 164px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 30px 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--accent-soft);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 { line-height: 1.15; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      letter-spacing: .04em;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .language-placeholder {
+      width: 92px;
+      min-height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      color: #747474;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      user-select: none;
+    }
+
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(25, 25, 25, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .main-nav ul {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+      padding: 0;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      list-style: none;
+    }
+
+    .main-nav a {
+      display: block;
+      padding: 13px 12px;
+      color: var(--muted);
+      font-size: .82rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover,
+    .main-nav a:focus-visible {
+      color: var(--text);
+      outline: none;
+      box-shadow: inset 0 -2px 0 var(--accent);
+    }
+
+    .content { padding: 46px 0 64px; }
+
+    .intro {
+      max-width: 850px;
+      margin-bottom: 58px;
+      color: #d0d0d0;
+      font-size: 1.04rem;
+    }
+
+    .intro strong { color: var(--text); }
+
+    section {
+      scroll-margin-top: 58px;
+      padding: 34px 0 48px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .section-index {
+      color: var(--accent-soft);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3.5vw, 2.15rem);
+    }
+
+    h3 {
+      margin: 30px 0 10px;
+      color: #f0f0f0;
+      font-size: 1.05rem;
+    }
+
+    p { margin: 0 0 16px; }
+
+    .note {
+      margin: 22px 0 0;
+      padding: 14px 16px;
+      border-left: 3px solid var(--accent);
+      background: #1e1e1e;
+      color: #d7d7d7;
+    }
+
+    .image-frame {
+      margin: 28px auto 30px;
+      max-width: 920px;
+      background: var(--surface-deep);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .reference-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 26px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .reference-list li {
+      position: relative;
+      padding: 12px 0 12px 54px;
+      border-bottom: 1px solid #303030;
+      color: #d3d3d3;
+    }
+
+    .reference-list b {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      min-width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    code {
+      padding: 2px 5px;
+      background: #111;
+      color: #f2f2f2;
+      font-family: inherit;
+      font-size: .92em;
+    }
+
+    .file-patterns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 20px 0 0;
+    }
+
+    .file-patterns div {
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .file-patterns h3 { margin: 0 0 8px; }
+
+    .file-patterns p { margin: 0; color: var(--muted); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: #101010;
+      color: #808080;
+      font-size: .8rem;
+    }
+
+    .footer-inner { padding: 22px 0; }
+
+    @media (max-width: 700px) {
+      body { font-size: 15px; }
+      .header-inner { min-height: 140px; }
+      .reference-list,
+      .file-patterns { grid-template-columns: 1fr; }
+      .content { padding-top: 26px; }
+      section { padding: 28px 0 38px; }
+    }
+
+    @media (max-width: 440px) {
+      .header-inner,
+      .content,
+      .footer-inner,
+      .main-nav ul { width: min(calc(100% - 28px), var(--max-width)); }
+      .header-inner { gap: 12px; }
+      .language-placeholder { width: 74px; font-size: .7rem; }
+      .main-nav a { padding-inline: 9px; }
+      .section-heading { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="inicio">
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">Corrosion Labs</p>
+        <h1>AUTO BACKUP v2</h1>
+        <p class="subtitle">Manual de usuario</p>
+      </div>
+      <select id="language-selector" class="language-placeholder" aria-label="Seleccionar idioma">
+        <option value="es">ES</option>
+        <option value="en">EN</option>
+      </select>
+    </div>
+  </header>
+
+  <nav class="main-nav" aria-label="Navegación del manual">
+    <ul>
+      <li><a href="#configuracion">Configuración</a></li>
+      <li><a href="#principal">Pantalla principal</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#notificaciones">Notificaciones</a></li>
+      <li><a href="#almacenamiento">Almacenamiento</a></li>
+      <li><a href="#backups">Backups</a></li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <p class="intro">
+      <strong>Auto Backup v2</strong> crea copias de seguridad automáticas y manuales por proyecto.
+      Este manual explica cómo configurar el espacio de trabajo, administrar proyectos, elegir
+      notificaciones y consultar el almacenamiento disponible.
+    </p>
+
+    <section id="configuracion">
+      <div class="section-heading">
+        <span class="section-index">01</span>
+        <h2>Configuración inicial</h2>
+      </div>
+      <p>
+        Al iniciar la aplicación por primera vez, indica la carpeta central donde se guardarán los
+        backups. Todos los proyectos se almacenan dentro de esa ubicación, usando el nombre de cada
+        proyecto, junto con su configuración.
+      </p>
+      <p>
+        Puedes ejecutar varias instancias de la aplicación siempre que cada una trabaje con un
+        proyecto distinto.
+      </p>
+    </section>
+
+    <section id="principal">
+      <div class="section-heading">
+        <span class="section-index">02</span>
+        <h2>Pantalla principal</h2>
+      </div>
+      <p>La barra superior permite acceder a las tres áreas principales de Auto Backup v2.</p>
+      <figure class="image-frame">
+        <img src="i01.jpg" alt="Pantalla principal con las pestañas Backup, Settings y Storage señaladas.">
+        <figcaption>Imagen 1. Navegación principal.</figcaption>
+      </figure>
+      <ul class="reference-list">
+        <li><b>1</b><strong>Backup.</strong> Inicia o detiene los backups automáticos y permite crear un backup manual.</li>
+        <li><b>2</b><strong>Settings.</strong> Gestiona proyectos, rutas de trabajo y notificaciones de audio.</li>
+        <li><b>3</b><strong>Storage.</strong> Muestra el espacio usado y el historial de backups realizados.</li>
+      </ul>
+    </section>
+
+    <section id="proyectos">
+      <div class="section-heading">
+        <span class="section-index">03</span>
+        <h2>Proyectos</h2>
+      </div>
+      <p>
+        En <strong>Settings</strong> se configuran la carpeta de origen, el intervalo y el número de
+        copias que se conservan para el proyecto seleccionado.
+      </p>
+      <figure class="image-frame">
+        <img src="i02.jpg" alt="Pantalla Settings con controles de proyecto numerados del 4 al 9.">
+        <figcaption>Imagen 2. Controles del proyecto.</figcaption>
+      </figure>
+      <ul class="reference-list">
+        <li><b>4</b><strong>New.</strong> Crea un proyecto nuevo.</li>
+        <li><b>5</b><strong>Rename.</strong> Cambia el nombre del proyecto seleccionado.</li>
+        <li><b>6</b><strong>Select.</strong> Elige la carpeta de la que se crearán los backups automáticos.</li>
+        <li><b>7</b><strong>Open backup folder.</strong> Abre la carpeta de backups en el Explorador de archivos.</li>
+        <li><b>8</b><strong>Interval.</strong> Define, en minutos, la frecuencia del backup automático.</li>
+        <li><b>9</b><strong>Copies to keep.</strong> Indica cuántas copias automáticas se guardan. Al alcanzar el límite, cada backup nuevo elimina el más antiguo.</li>
+      </ul>
+    </section>
+
+    <section id="notificaciones">
+      <div class="section-heading">
+        <span class="section-index">04</span>
+        <h2>Notificaciones y desinstalación</h2>
+      </div>
+      <p>Configura el aviso sonoro que se reproducirá al completar un backup.</p>
+      <figure class="image-frame">
+        <img src="i03.jpg" alt="Controles de sonido y botón Uninstall numerados del 10 al 14.">
+        <figcaption>Imagen 3. Notificaciones de audio y desinstalación.</figcaption>
+      </figure>
+      <ul class="reference-list">
+        <li><b>10</b><strong>Enable sounds.</strong> Activa o desactiva la notificación acústica al finalizar un backup.</li>
+        <li><b>11</b><strong>Backup completed sound.</strong> Permite elegir uno de los cinco sonidos incluidos o un sonido personalizado.</li>
+        <li><b>12</b><strong>Select WAV.</strong> Selecciona el archivo WAV que se desea reproducir.</li>
+        <li><b>13</b><strong>Test.</strong> Reproduce el sonido seleccionado para comprobarlo.</li>
+        <li><b>14</b><strong>Uninstall.</strong> Elimina el workspace central, todos los proyectos, sus backups y la configuración guardada.</li>
+      </ul>
+      <figure class="image-frame">
+        <img src="i07.jpg" alt="Diálogo de desinstalación con barra roja de confirmación mediante las teclas A y L.">
+        <figcaption>Imagen 4. Confirmación de desinstalación.</figcaption>
+      </figure>
+      <p class="note">
+        Para completar la desinstalación, mantén pulsadas las teclas <strong>A + L</strong> al mismo
+        tiempo durante cuatro segundos. Si sueltas cualquiera de las teclas, el contador se reinicia.
+      </p>
+    </section>
+
+    <section id="almacenamiento">
+      <div class="section-heading">
+        <span class="section-index">05</span>
+        <h2>Almacenamiento</h2>
+      </div>
+      <p>La sección Storage reúne el resumen del espacio disponible y el registro de backups.</p>
+      <figure class="image-frame">
+        <img src="i04.jpg" alt="Pantalla Storage con el espacio y el historial de backups numerados 15 y 16.">
+        <figcaption>Imagen 5. Espacio de almacenamiento e historial.</figcaption>
+      </figure>
+      <ul class="reference-list">
+        <li><b>15</b><strong>Storage.</strong> Muestra el espacio total, el usado por los backups del proyecto y el espacio libre del disco.</li>
+        <li><b>16</b><strong>Backup history.</strong> Registra la fecha, tipo, archivo ZIP, tamaño, resultado y posibles errores de cada backup.</li>
+      </ul>
+    </section>
+
+    <section id="backups">
+      <div class="section-heading">
+        <span class="section-index">06</span>
+        <h2>Backups automáticos y manuales</h2>
+      </div>
+      <p>
+        Desde la pestaña Backup puedes seleccionar el proyecto activo, iniciar la programación
+        automática o crear una copia manual en cualquier momento.
+      </p>
+      <figure class="image-frame">
+        <img src="i05.jpg" alt="Pantalla Backup con selector de proyecto, botón Start y Create now numerados del 17 al 19.">
+        <figcaption>Imagen 6. Controles de backup.</figcaption>
+      </figure>
+      <ul class="reference-list">
+        <li><b>17</b><strong>Project.</strong> Selecciona uno de los proyectos creados y carga sus rutas y opciones guardadas.</li>
+        <li><b>18</b><strong>Start / Stop.</strong> Al iniciar, se crea un backup y comienza la cuenta atrás. Pulsa Stop para detener la programación.</li>
+        <li><b>19</b><strong>Create now.</strong> Crea un backup manual. Puedes añadir una descripción opcional al nombre del archivo y no interfiere con el temporizador.</li>
+      </ul>
+
+      <div class="file-patterns">
+        <div>
+          <h3>Backup automático</h3>
+          <p><code>NOMBRE_PROYECTO_AAAA-MM-DD_HH-MM-SS.zip</code></p>
+          <p>Se guarda en la carpeta <code>Auto</code> del proyecto.</p>
+        </div>
+        <div>
+          <h3>Backup manual</h3>
+          <p><code>NOMBRE_PROYECTO_AAAA-MM-DD_HH-MM-SS_COMENTARIO.zip</code></p>
+          <p>Se guarda en la carpeta <code>Manual</code> del proyecto.</p>
+        </div>
+      </div>
+
+      <figure class="image-frame">
+        <img src="i06.jpg" alt="Temporizador activo con cuenta atrás y progreso circular numerado 20.">
+        <figcaption>Imagen 7. Cuenta atrás del backup automático.</figcaption>
+      </figure>
+      <ul class="reference-list">
+        <li><b>20</b><strong>Temporizador.</strong> Durante la programación automática muestra el tiempo restante y el avance de la cuenta atrás.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">AUTO BACKUP v2 · Manual de usuario</div>
+  </footer>
+  <script>
+    (() => {
+      const selector = document.getElementById("language-selector");
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const sections = Array.from(document.querySelectorAll("main section"));
+      const nodes = {
+        subtitle: document.querySelector(".subtitle"),
+        nav: Array.from(document.querySelectorAll(".main-nav a")),
+        navLabel: document.querySelector(".main-nav"),
+        intro: document.querySelector(".intro"),
+        headings: sections.map(section => section.querySelector("h2")),
+        paragraphs: Array.from(document.querySelectorAll("section > p:not(.note)")),
+        captions: Array.from(document.querySelectorAll("figcaption")),
+        references: Array.from(document.querySelectorAll(".reference-list li")),
+        note: document.querySelector(".note"),
+        patternHeadings: Array.from(document.querySelectorAll(".file-patterns h3")),
+        patternTexts: Array.from(document.querySelectorAll(".file-patterns p")),
+        images: Array.from(document.querySelectorAll(".image-frame img")),
+        footer: document.querySelector(".footer-inner")
+      };
+
+      const htmlValues = collection => collection.map(node => node.innerHTML);
+      const textValues = collection => collection.map(node => node.textContent);
+      const spanish = {
+        title: document.title,
+        description: metaDescription.content,
+        selectorLabel: selector.getAttribute("aria-label"),
+        navLabel: nodes.navLabel.getAttribute("aria-label"),
+        subtitle: nodes.subtitle.innerHTML,
+        nav: textValues(nodes.nav),
+        intro: nodes.intro.innerHTML,
+        headings: htmlValues(nodes.headings),
+        paragraphs: htmlValues(nodes.paragraphs),
+        captions: htmlValues(nodes.captions),
+        references: htmlValues(nodes.references),
+        note: nodes.note.innerHTML,
+        patternHeadings: htmlValues(nodes.patternHeadings),
+        patternTexts: htmlValues(nodes.patternTexts),
+        imageAlts: nodes.images.map(image => image.alt),
+        footer: nodes.footer.innerHTML
+      };
+
+      const english = {
+        title: "Auto Backup v2 | User manual",
+        description: "Auto Backup v2 user manual.",
+        selectorLabel: "Select language",
+        navLabel: "Tutorial navigation",
+        subtitle: "User manual",
+        nav: ["Setup", "Main screen", "Projects", "Notifications", "Storage", "Backups"],
+        intro: "<strong>Auto Backup v2</strong> creates automatic and manual backups for each project. This manual explains how to configure the workspace, manage projects, choose notifications, and check the available storage.",
+        headings: [
+          "Initial setup",
+          "Main screen",
+          "Projects",
+          "Notifications and uninstallation",
+          "Storage",
+          "Automatic and manual backups"
+        ],
+        paragraphs: [
+          "When you start the application for the first time, select the central folder where backups will be stored. All projects are saved in that location, using each project's name, together with its configuration.",
+          "You can run several instances of the application as long as each one works with a different project.",
+          "The top bar provides access to the three main areas of Auto Backup v2.",
+          "In <strong>Settings</strong>, you can configure the source folder, interval, and number of copies retained for the selected project.",
+          "Set up the sound notification that will play when a backup is completed.",
+          "The Storage section brings together the available space summary and the backup log.",
+          "From the Backup tab, you can select the active project, start automatic scheduling, or create a manual copy at any time."
+        ],
+        captions: [
+          "Image 1. Main navigation.",
+          "Image 2. Project controls.",
+          "Image 3. Audio notifications and uninstallation.",
+          "Image 4. Uninstallation confirmation.",
+          "Image 5. Storage space and history.",
+          "Image 6. Backup controls.",
+          "Image 7. Automatic backup countdown."
+        ],
+        references: [
+          "<b>1</b><strong>Backup.</strong> Starts or stops automatic backups and lets you create a manual backup.",
+          "<b>2</b><strong>Settings.</strong> Manages projects, working paths, and audio notifications.",
+          "<b>3</b><strong>Storage.</strong> Shows used space and the history of completed backups.",
+          "<b>4</b><strong>New.</strong> Creates a new project.",
+          "<b>5</b><strong>Rename.</strong> Changes the name of the selected project.",
+          "<b>6</b><strong>Select.</strong> Chooses the folder used to create automatic backups.",
+          "<b>7</b><strong>Open backup folder.</strong> Opens the backup folder in File Explorer.",
+          "<b>8</b><strong>Interval.</strong> Sets, in minutes, the automatic backup frequency.",
+          "<b>9</b><strong>Copies to keep.</strong> Sets how many automatic copies are kept. Once the limit is reached, each new backup deletes the oldest one.",
+          "<b>10</b><strong>Enable sounds.</strong> Enables or disables the sound notification when a backup finishes.",
+          "<b>11</b><strong>Backup completed sound.</strong> Lets you choose one of the five included sounds or a custom sound.",
+          "<b>12</b><strong>Select WAV.</strong> Selects the WAV file to play.",
+          "<b>13</b><strong>Test.</strong> Plays the selected sound so you can check it.",
+          "<b>14</b><strong>Uninstall.</strong> Deletes the central workspace, all projects, their backups, and the saved configuration.",
+          "<b>15</b><strong>Storage.</strong> Shows total space, the space used by the project's backups, and free disk space.",
+          "<b>16</b><strong>Backup history.</strong> Records the date, type, ZIP file, size, result, and any errors for each backup.",
+          "<b>17</b><strong>Project.</strong> Selects one of the created projects and loads its saved paths and options.",
+          "<b>18</b><strong>Start / Stop.</strong> When started, a backup is created and the countdown begins. Press Stop to end the schedule.",
+          "<b>19</b><strong>Create now.</strong> Creates a manual backup. You can add an optional description to the file name, and it does not interfere with the timer.",
+          "<b>20</b><strong>Timer.</strong> During automatic scheduling, it shows the remaining time and countdown progress."
+        ],
+        note: "To complete the uninstallation, hold <strong>A + L</strong> at the same time for four seconds. If you release either key, the countdown restarts.",
+        patternHeadings: ["Automatic backup", "Manual backup"],
+        patternTexts: [
+          "<code>PROJECT_NAME_YYYY-MM-DD_HH-MM-SS.zip</code>",
+          "It is saved in the project's <code>Auto</code> folder.",
+          "<code>PROJECT_NAME_YYYY-MM-DD_HH-MM-SS_COMMENT.zip</code>",
+          "It is saved in the project's <code>Manual</code> folder."
+        ],
+        imageAlts: [
+          "Main screen with the Backup, Settings, and Storage tabs highlighted.",
+          "Settings screen with project controls numbered from 4 to 9.",
+          "Sound controls and the Uninstall button numbered from 10 to 14.",
+          "Uninstallation dialog with a red confirmation bar using the A and L keys.",
+          "Storage screen with space usage and backup history numbered 15 and 16.",
+          "Backup screen with project selector, Start button, and Create now numbered from 17 to 19.",
+          "Active timer with countdown and circular progress numbered 20."
+        ],
+        footer: "AUTO BACKUP v2 · User manual"
+      };
+
+      const locales = { es: spanish, en: english };
+      const updateNodes = (collection, values, property = "innerHTML") => {
+        collection.forEach((node, index) => { node[property] = values[index]; });
+      };
+
+      const setLanguage = language => {
+        const activeLanguage = locales[language] ? language : "es";
+        const text = locales[activeLanguage];
+        document.documentElement.lang = activeLanguage;
+        document.title = text.title;
+        metaDescription.content = text.description;
+        selector.value = activeLanguage;
+        selector.setAttribute("aria-label", text.selectorLabel);
+        nodes.navLabel.setAttribute("aria-label", text.navLabel);
+        nodes.subtitle.innerHTML = text.subtitle;
+        updateNodes(nodes.nav, text.nav, "textContent");
+        nodes.intro.innerHTML = text.intro;
+        updateNodes(nodes.headings, text.headings);
+        updateNodes(nodes.paragraphs, text.paragraphs);
+        updateNodes(nodes.captions, text.captions);
+        updateNodes(nodes.references, text.references);
+        nodes.note.innerHTML = text.note;
+        updateNodes(nodes.patternHeadings, text.patternHeadings);
+        updateNodes(nodes.patternTexts, text.patternTexts);
+        nodes.images.forEach((image, index) => { image.alt = text.imageAlts[index]; });
+        nodes.footer.innerHTML = text.footer;
+        try {
+          localStorage.setItem("auto-backup-v2-language", activeLanguage);
+        } catch (error) {
+          // The tutorial remains functional if storage is unavailable.
+        }
+      };
+
+      let savedLanguage = "es";
+      try {
+        savedLanguage = localStorage.getItem("auto-backup-v2-language") || "es";
+      } catch (error) {
+        savedLanguage = "es";
+      }
+
+      selector.addEventListener("change", event => setLanguage(event.target.value));
+      setLanguage(savedLanguage);
+    })();
+  </script>
+</body>
+</html>

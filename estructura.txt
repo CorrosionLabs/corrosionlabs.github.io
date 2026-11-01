@@ -1,0 +1,197 @@
+Listado de rutas de carpetas para el volumen DATA_HD
+El número de serie del volumen es AE8B-FFE3
+D:\MIO\PROYECTOS\CORROSION LABS\WEB\GITCLONE\CORROSIONLABS.GITHUB.IO
+|   .gitignore
+|   android-chrome-192x192.png
+|   android-chrome-512x512.png
+|   apple-touch-icon.png
+|   corrosion-pass.pdf
+|   estructura.txt
+|   favicon-16x16.png
+|   favicon-32x32.png
+|   favicon.ico
+|   Generar arbol de archivos.bat
+|   index.html
+|   robots.txt
+|   site.webmanifest
+|   sitemap.xml
+|   tmp-http.err.log
+|   tmp-http.out.log
+|   
++---.agents
++---css
+|       style.css
+|       
++---data
+|       collections.json
+|       
++---docs
+|       GUIA_CONTENIDOS.md
+|       README.md
+|       textConexion.md
+|       
++---documentation
++---idea-collider
+|       app.js
+|       corrosion-pass.pdf
+|       decks.json
+|       index.html
+|       
++---img
+|   |   .gitkeep
+|   |   
+|   +---projects
+|   |   +---collections
+|   |   |   +---collection-01
+|   |   |   |       cover.jpg
+|   |   |   |       image-01.jpg
+|   |   |   |       image-02.jpg
+|   |   |   |       image-03.jpg
+|   |   |   |       
+|   |   |   +---el-servo-suave-libro
+|   |   |   |       cover.jpg
+|   |   |   |       
+|   |   |   +---the-soft-servo-book
+|   |   |   |       cover.jpg
+|   |   |   |       
+|   |   |   \---the-soft-servo-ost
+|   |   |           cover.jpg
+|   |   |           
+|   |   +---corpus
+|   |   |   +---branding
+|   |   |   |       corpus_submissum_logo.png
+|   |   |   |       
+|   |   |   \---releases
+|   |   |       \---respiracion-forzada
+|   |   |               corpus_respiracion_forzada_cover.jpg
+|   |   |               corpus_respiracion_forzada_thumb.jpg
+|   |   |               
+|   |   +---sacro
+|   |   |   +---branding
+|   |   |   |       sacro_servo_logo.png
+|   |   |   |       sacro_servo_symbol.png
+|   |   |   |       
+|   |   |   \---releases
+|   |   |       \---ejecuta
+|   |   |               img_01_300x300.jpg
+|   |   |               img_02_300x300.jpg
+|   |   |               
+|   |   \---zero
+|   |       +---branding
+|   |       |       zero_sala_logo.png
+|   |       |       
+|   |       \---releases
+|   |           \---ingravidad
+|   |                   coverZero_01.jpg
+|   |                   
+|   \---site
+|       +---backgrounds
+|       |       001.jpg
+|       |       002.jpg
+|       |       003.jpg
+|       |       004.jpg
+|       |       005.jpg
+|       |       006.jpg
+|       |       007.jpg
+|       |       009.jpg
+|       |       corpus.jpg
+|       |       
+|       \---branding
+|               corrosion_labs_logo.png
+|               
++---js
+|       contact-form.js
+|       project-archive.js
+|       project-news.js
+|       project-platforms.js
+|       releases.js
+|       
++---pages
+|   |   collections.html
+|   |   condiciones.html
+|   |   contacto.html
+|   |   corpus_submissum.html
+|   |   hub.html
+|   |   sacro_servo.html
+|   |   zero_sala.html
+|   |   
+|   \---internal
+|           almacen.html
+|           almacen_corpus.html
+|           almacen_zero.html
+|           
++---products
+|       collection-01.html
+|       el-servo-suave-libro.html
+|       the-soft-servo-book.html
+|       the-soft-servo-ost.html
+|       
++---resonancia
+|   |   index.html
+|   |   
+|   +---audio
+|   |   +---breaths
+|   |   |       .gitkeep
+|   |   |       
+|   |   +---choirs
+|   |   |       .gitkeep
+|   |   |       
+|   |   +---drones
+|   |   |       .gitkeep
+|   |   |       
+|   |   +---interference
+|   |   |       .gitkeep
+|   |   |       
+|   |   +---melodic_fragments
+|   |   |       .gitkeep
+|   |   |       
+|   |   +---organic_textures
+|   |   |       .gitkeep
+|   |   |       
+|   |   +---pulses
+|   |   |       .gitkeep
+|   |   |       
+|   |   \---rituals
+|   |           .gitkeep
+|   |           
+|   +---css
+|   |       style.css
+|   |       
+|   +---data
+|   |       audioManifest.json
+|   |       phrases.json
+|   |       
+|   \---js
+|           audioEngine.js
+|           config.js
+|           layerManager.js
+|           main.js
+|           phraseEngine.js
+|           random.js
+|           
++---strategies
+|       app.js
+|       cards.json
+|       index.html
+|       
++---synthetia
+|   |   index.html
+|   |   
+|   +---css
+|   |       style.css
+|   |       
+|   \---img
+|           cabe.jpg
+|           logo.jpg
+|           
+\---tools
+    |   collections-builder.html
+    |   collections_builder.py
+    |   generated-release.txt
+    |   release-builder.html
+    |   release_builder.py
+    |   
+    \---__pycache__
+            collections_builder.cpython-311.pyc
+            release_builder.cpython-311.pyc
+            
