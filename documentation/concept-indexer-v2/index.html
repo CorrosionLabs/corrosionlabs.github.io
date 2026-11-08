@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de usuario de Concept Indexer v2 para Obsidian.">
+  <title>Concept Indexer v2 | Manual de usuario</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --page: #191919;
+      --surface: #222222;
+      --surface-deep: #111111;
+      --line: #3d3d3d;
+      --text: #e8e8e8;
+      --muted: #aaaaaa;
+      --accent: #7549d8;
+      --accent-soft: #ac8cff;
+      --max-width: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--text);
+      font-family: "Cascadia Mono", "Consolas", "Courier New", monospace;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      background: #0e0e0e;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner,
+    .content,
+    .footer-inner {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      min-height: 164px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 30px 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--accent-soft);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 { line-height: 1.15; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      letter-spacing: .04em;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .language-placeholder {
+      width: 92px;
+      min-height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      color: #747474;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      user-select: none;
+    }
+
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(25, 25, 25, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .main-nav ul {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+      padding: 0;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      list-style: none;
+    }
+
+    .main-nav a {
+      display: block;
+      padding: 13px 12px;
+      color: var(--muted);
+      font-size: .82rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover,
+    .main-nav a:focus-visible {
+      color: var(--text);
+      outline: none;
+      box-shadow: inset 0 -2px 0 var(--accent);
+    }
+
+    .content { padding: 46px 0 64px; }
+
+    .intro {
+      max-width: 850px;
+      margin-bottom: 58px;
+      color: #d0d0d0;
+      font-size: 1.04rem;
+    }
+
+    .intro strong { color: var(--text); }
+
+    section {
+      scroll-margin-top: 58px;
+      padding: 34px 0 48px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .section-index {
+      color: var(--accent-soft);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3.5vw, 2.15rem);
+    }
+
+    h3 {
+      margin: 30px 0 10px;
+      color: #f0f0f0;
+      font-size: 1.05rem;
+    }
+
+    p { margin: 0 0 16px; }
+
+    .note {
+      margin: 22px 0 0;
+      padding: 14px 16px;
+      border-left: 3px solid var(--accent);
+      background: #1e1e1e;
+      color: #d7d7d7;
+    }
+
+    .image-frame {
+      margin: 28px auto 30px;
+      max-width: 920px;
+      background: var(--surface-deep);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .reference-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 26px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .reference-list li {
+      position: relative;
+      padding: 12px 0 12px 54px;
+      border-bottom: 1px solid #303030;
+      color: #d3d3d3;
+    }
+
+    .reference-list b {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      min-width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    code {
+      padding: 2px 5px;
+      background: #111;
+      color: #f2f2f2;
+      font-family: inherit;
+      font-size: .92em;
+    }
+
+    .file-patterns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 20px 0 0;
+    }
+
+    .file-patterns div {
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .file-patterns h3 { margin: 0 0 8px; }
+
+    .file-patterns p { margin: 0; color: var(--muted); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: #101010;
+      color: #808080;
+      font-size: .8rem;
+    }
+
+    .footer-inner { padding: 22px 0; }
+
+    @media (max-width: 700px) {
+      body { font-size: 15px; }
+      .header-inner { min-height: 140px; }
+      .reference-list,
+      .file-patterns { grid-template-columns: 1fr; }
+      .content { padding-top: 26px; }
+      section { padding: 28px 0 38px; }
+    }
+
+    @media (max-width: 440px) {
+      .header-inner,
+      .content,
+      .footer-inner,
+      .main-nav ul { width: min(calc(100% - 28px), var(--max-width)); }
+      .header-inner { gap: 12px; }
+      .language-placeholder { width: 74px; font-size: .7rem; }
+      .main-nav a { padding-inline: 9px; }
+      .section-heading { gap: 10px; }
+    }
+  
+    .manual-step {margin: 23px 0 34px; padding-left: 55px; position:relative;}
+    .manual-step h3 {margin:0 0 13px; font-size:1.18rem;}
+    .step-badge {position:absolute; left:0; top:-3px; width:38px; height:38px; border-radius:50%; background:var(--accent); color:#fff; display:grid;place-items:center;font-weight:700;}
+    .manual-step ul,.manual-step ol {padding-left:24px; margin:12px 0 20px;}
+    .manual-step li {margin:0 0 10px;}
+    .manual-step p {color:#d7d7d7;}
+    .manual-step .subheading {font-weight:700; color:var(--text); margin-top:22px; margin-bottom:8px;}
+    .image-frame img {width:100%; height:auto; object-fit:contain;}
+    .image-frame.portrait {max-width:580px;}
+    .image-frame.landscape {max-width:920px;}
+    .chapter-description {color:var(--muted);}
+    .note-section {border-left:3px solid var(--accent);padding-left:24px;}
+    @media(max-width:600px){.manual-step{padding-left:0;padding-top:45px}.step-badge{top:0}}
+</style>
+</head>
+<body>
+  <header class="site-header"><div class="header-inner"><div><p class="eyebrow">Corrosion Labs</p><h1>CONCEPT INDEXER v2</h1><p class="subtitle">Manual de usuario</p></div><div class="language-placeholder" aria-label="Idioma del manual">ES</div></div></header>
+  <nav class="main-nav" aria-label="Navegación del manual"><ul><li><a href="#inicio">Introducción</a></li><li><a href="#inicio-manual">Primeros pasos</a></li><li><a href="#configuracion">Configuración y mantenimiento</a></li><li><a href="#busqueda">Búsqueda de conceptos</a></li><li><a href="#procesamiento">Procesamiento e indexación</a></li><li><a href="#referencias">Referencias cruzadas</a></li><li><a href="#resultados">Resultados e índices cruzados</a></li><li><a href="#identificadores">Identificadores</a></li></ul></nav>
+  <main class="content"><section id="inicio"><div class="section-heading"><span class="section-index">00</span><h2>Introducción</h2></div><p><strong>Concept Indexer</strong> es un plugin para Obsidian que permite buscar, organizar y conectar conceptos dentro de tus notas Markdown, transformando una colección de documentos en una red de conocimiento interrelacionado.</p><p>Con <strong>Concept Indexer</strong> puedes localizar todas las apariciones de una palabra o expresión, crear enlaces internos (wikilinks), añadir etiquetas y generar automáticamente páginas maestras que reúnen las referencias encontradas.</p><p>El plugin también permite crear índices globales de conceptos y descubrir conexiones entre diferentes temas mediante referencias cruzadas, identificando los documentos y bloques de contenido que tienen en común.</p><p>Puedes trabajar con todo el vault o limitar las búsquedas a carpetas específicas, procesándolas de forma conjunta o independiente. Además, <strong>Concept Indexer</strong> respeta los contenidos protegidos, como los bloques de código, para evitar modificaciones no deseadas.</p><p>Las herramientas de mantenimiento permiten analizar los cambios realizados, identificar referencias compartidas y eliminar de forma controlada las modificaciones asociadas a una página maestra, conservando los elementos que deben permanecer intactos.</p><p><strong>Concept Indexer</strong> te ayuda a descubrir, construir y mantener las conexiones entre tus ideas, sin perder el control sobre tus documentos originales.</p></section><section id="inicio-manual"><div class="section-heading"><span class="section-index">01</span><h2>Primeros pasos</h2></div><p class="chapter-description">Abrir el plugin y acceder a sus opciones.</p><figure class="image-frame landscape"><img loading="lazy" src="01  1 -2.jpg" alt="Captura de Concept Indexer con las funciones 1 a 2 señaladas."><figcaption>Imagen 1. Primeros pasos. Referencias 1–2.</figcaption></figure><article class="manual-step" id="paso-1"><span class="step-badge">1</span><h3>Abrir Concept Indexer</h3><p>Para abrir <strong>Concept Indexer</strong>, haz clic en su icono situado en la barra lateral izquierda de Obsidian.</p><p>El plugin se abrirá en el panel lateral derecho, desde donde podrás buscar conceptos, indexar documentos y generar referencias cruzadas.</p><p>Puedes mantener el panel abierto mientras trabajas con tus notas.</p></article><article class="manual-step" id="paso-2"><span class="step-badge">2</span><h3>Acceder a la configuración</h3><p>Haz clic en el icono del engranaje, situado en la esquina superior derecha del panel de <strong>Concept Indexer</strong>.</p><p>Se abrirá la configuración del plugin, donde podrás seleccionar el idioma, establecer las carpetas y los nombres de los archivos de indexación, definir exclusiones y acceder a las herramientas de mantenimiento y limpieza.</p></article></section><section id="configuracion"><div class="section-heading"><span class="section-index">02</span><h2>Configuración y mantenimiento</h2></div><p class="chapter-description">Idioma, exclusiones y herramientas de limpieza.</p><figure class="image-frame portrait"><img loading="lazy" src="02  3-4-5-6-7-8-9-10-11.jpg" alt="Captura de Concept Indexer con las funciones 3 a 11 señaladas."><figcaption>Imagen 2. Configuración y mantenimiento. Referencias 3–11.</figcaption></figure><article class="manual-step" id="paso-3"><span class="step-badge">3</span><h3>Idioma</h3><p>Selecciona el idioma de la interfaz de <strong>Concept Indexer</strong>.</p><p>El plugin está disponible en ocho idiomas: inglés, español, francés, alemán, portugués de Brasil, polaco, japonés y chino simplificado.</p><p>El cambio de idioma se aplica al panel principal y a la configuración del plugin.</p></article><article class="manual-step" id="paso-4"><span class="step-badge">4</span><h3>Carpeta de páginas maestras</h3><p>Define el nombre de la carpeta donde <strong>Concept Indexer</strong> guardará las páginas maestras de los conceptos indexados.</p><p>Puedes utilizar el nombre predeterminado, <strong>Concept Indexer</strong>, o establecer uno personalizado.</p></article><article class="manual-step" id="paso-5"><span class="step-badge">5</span><h3>Nombre del índice global</h3><p>Establece el nombre del archivo Markdown que contendrá el índice general de conceptos.</p><p>El nombre predeterminado es Concept Index.md, aunque puedes utilizar otro nombre.</p></article><article class="manual-step" id="paso-6"><span class="step-badge">6</span><h3>Carpetas ignoradas</h3><p>Permite excluir carpetas de las búsquedas y del procesamiento de conceptos.</p><p>Introduce una ruta relativa al vault por línea. Todas sus subcarpetas quedarán excluidas automáticamente.</p><p>Esta opción resulta útil para evitar el procesamiento de plantillas, archivos históricos o carpetas con contenido que no deseas indexar.</p></article><article class="manual-step" id="paso-7"><span class="step-badge">7</span><h3>Conceptos excluidos</h3><p>Define una lista de conceptos que <strong>Concept Indexer</strong> debe ignorar.</p><p>Introduce un concepto por línea. La comparación no distingue entre mayúsculas y minúsculas.</p><p>Los conceptos excluidos no aparecerán en los resultados de búsqueda ni se procesarán.</p></article><article class="manual-step" id="paso-8"><span class="step-badge">8</span><h3>Analizar cambios</h3><p>El botón Analyze changes permite consultar los cambios registrados por <strong>Concept Indexer</strong>.</p><p>El informe muestra, para cada página maestra, su estado (existente o eliminada), el número de identificadores, hashtags y wikilinks registrados, las referencias compartidas y los elementos protegidos o creados por el plugin.</p><p>El análisis es informativo y no modifica ningún archivo.</p></article><article class="manual-step" id="paso-9"><span class="step-badge">9</span><h3>Seleccionar página maestra</h3><p>Selecciona la página maestra cuyos cambios deseas revisar antes de realizar una limpieza.</p><p>La lista incluye las páginas maestras con modificaciones registradas, incluso si el archivo original ha sido eliminado.</p></article><article class="manual-step" id="paso-10"><span class="step-badge">10</span><h3>Previsualizar limpieza</h3><p>El botón <strong>Preview cleanup</strong> permite examinar los cambios asociados a la página maestra seleccionada antes de ejecutar la limpieza.</p><p>Los elementos se clasifican en cuatro categorías:</p><ul><li>Remove: elementos creados por el plugin que pueden eliminarse.</li><li>Keep shared: elementos compartidos con otras páginas maestras que deben conservarse.</li><li>Keep protected: elementos preexistentes que no deben eliminarse.</li><li>Conflict: elementos que requieren revisión porque no coinciden con lo registrado.</li></ul><p>La previsualización no modifica los documentos ni el registro de cambios.</p></article><article class="manual-step" id="paso-11"><span class="step-badge">11</span><h3>Ejecutar limpieza</h3><p>El botón <strong>Execute cleanup</strong> inicia la limpieza de los cambios asociados a la página maestra seleccionada.</p><p>Antes de realizar modificaciones, <strong>Concept Indexer</strong> muestra una ventana de confirmación con un resumen de los elementos afectados.</p><p>Durante la limpieza, el plugin elimina los elementos creados por él cuando es seguro hacerlo, conserva los elementos compartidos y protegidos, actualiza sus asociaciones en el registro y mantiene los conflictos pendientes de revisión.</p><p>También genera una copia de seguridad .bak del registro de cambios antes de actualizarlo.</p></article></section><section id="busqueda"><div class="section-heading"><span class="section-index">03</span><h2>Búsqueda de conceptos</h2></div><p class="chapter-description">Introducir un concepto y localizarlo en las notas.</p><figure class="image-frame landscape"><img loading="lazy" src="03  12-13-14-15.jpg" alt="Captura de Concept Indexer con las funciones 12 a 15 señaladas."><figcaption>Imagen 3. Búsqueda de conceptos. Referencias 12–15.</figcaption></figure><article class="manual-step" id="paso-12"><span class="step-badge">12</span><h3>Modo de indexación</h3><p>El botón Index permite acceder a las funciones de búsqueda e indexación de conceptos.</p><p>Desde este modo puedes localizar conceptos en tus documentos, crear enlaces internos, añadir etiquetas y generar páginas maestras e índices globales.</p></article><article class="manual-step" id="paso-13"><span class="step-badge">13</span><h3>Introducir un concepto</h3><p>Escribe la palabra o expresión que deseas buscar en tus notas.</p><p><strong>Concept Indexer</strong> localizará sus apariciones dentro del ámbito seleccionado, sin distinguir entre mayúsculas y minúsculas.</p><p>Puedes buscar tanto palabras individuales como expresiones formadas por varias palabras.</p></article><article class="manual-step" id="paso-14"><span class="step-badge">14</span><h3>Utilizar texto seleccionado</h3><p>El botón Use permite utilizar directamente un fragmento de texto seleccionado en una nota abierta de Obsidian.</p><p>El texto seleccionado se copiará al campo del concepto, evitando tener que escribirlo manualmente.</p></article><article class="manual-step" id="paso-15"><span class="step-badge">15</span><h3>Buscar concepto</h3><p>Pulsa Search para localizar las apariciones del concepto en los documentos del ámbito seleccionado.</p><p>Los resultados muestran el número de notas encontradas, el total de apariciones y una lista de documentos con sus respectivas coincidencias.</p><p>Puedes hacer clic en cualquier resultado para abrir la nota correspondiente.</p><p>La búsqueda no modifica los documentos originales.</p></article></section><section id="procesamiento"><div class="section-heading"><span class="section-index">04</span><h2>Procesamiento e indexación</h2></div><p class="chapter-description">Enlaces, etiquetas, páginas maestras y selección del ámbito.</p><figure class="image-frame portrait"><img loading="lazy" src="04  16-17-18-19-20-21-22-23.jpg" alt="Captura de Concept Indexer con las funciones 16 a 23 señaladas."><figcaption>Imagen 4. Procesamiento e indexación. Referencias 16–23.</figcaption></figure><article class="manual-step" id="paso-16"><span class="step-badge">16</span><h3>Crear enlaces (Links)</h3><p>Activa esta opción para convertir las apariciones del concepto en enlaces internos (wikilinks) de Obsidian.</p><p>Los enlaces permiten acceder directamente a la página maestra del concepto desde los documentos originales.</p><p><strong>Concept Indexer</strong> evita modificar contenido protegido, como los bloques de código y los enlaces existentes.</p></article><article class="manual-step" id="paso-17"><span class="step-badge">17</span><h3>Crear página maestra (Master)</h3><p>Activa esta opción para crear o actualizar una página maestra que reúna las referencias al concepto encontrado.</p><p>La página maestra organiza las coincidencias por documento e incluye enlaces a los bloques de contenido correspondientes.</p><p>Al activar esta opción, también se crea o actualiza el índice global de conceptos.</p></article><article class="manual-step" id="paso-18"><span class="step-badge">18</span><h3>Añadir etiquetas (Hashtag)</h3><p>Activa esta opción para añadir automáticamente una etiqueta relacionada con el concepto a los documentos encontrados.</p><p>Las etiquetas permiten localizar y agrupar fácilmente las notas mediante las funciones habituales de Obsidian.</p><p>Si la etiqueta ya existe en un documento, <strong>Concept Indexer</strong> evita duplicarla.</p></article><article class="manual-step" id="paso-19"><span class="step-badge">19</span><h3>Modo de actualización de páginas maestras</h3><p>Selecciona cómo debe actualizarse una página maestra existente:</p><ul><li><strong>Expand</strong>: añade nuevas referencias y conserva las anteriores.</li><li><strong>Synchronize</strong>: actualiza las referencias para reflejar los resultados actuales de la búsqueda, retirando las que ya no correspondan.</li></ul><p>El modo seleccionado se aplica al procesar el concepto con la opción Master activada.</p></article><article class="manual-step" id="paso-20"><span class="step-badge">20</span><h3>Mostrar u ocultar el ámbito de búsqueda</h3><p>Pulsa la flecha situada junto a Scope para desplegar u ocultar las opciones de selección de carpetas.</p><p>Esta sección permite determinar qué documentos se incluirán en las búsquedas y en el procesamiento de conceptos.</p><p class="subheading">Selección del ámbito</p><ul><li><strong>Entire vault</strong>: busca el concepto en todos los documentos Markdown del vault, excepto aquellos pertenecientes a carpetas excluidas o reservadas para las páginas maestras.</li><li>Carpetas específicas: desactiva <strong>Entire vault</strong> y selecciona las carpetas que deseas analizar mediante el árbol de directorios. Puedes seleccionar varias carpetas simultáneamente. Las subcarpetas quedan incluidas automáticamente.</li></ul><p class="subheading">Modos de procesamiento</p><p>Cuando seleccionas varias carpetas, puedes elegir entre dos modos de trabajo:</p><ul><li><strong>Together</strong> (Conjunto): trata todas las carpetas seleccionadas como un único conjunto de documentos. Los resultados se agrupan y se genera una página maestra común para el concepto.</li><li><strong>Separate</strong> (Separado): analiza cada carpeta de forma independiente. Los resultados se muestran por separado y cada carpeta dispone de su propia página maestra y su correspondiente índice de conceptos.</li></ul><p class="subheading">Ejemplo práctico</p><p>Si seleccionas las carpetas Proyectos e Investigación para buscar el concepto «Inteligencia artificial»:</p><ul><li>Con <strong>Together</strong>, <strong>Concept Indexer</strong> reúne las coincidencias de ambas carpetas en una única página maestra.</li><li>Con <strong>Separate</strong>, genera una página maestra para «Inteligencia artificial» dentro de cada carpeta, manteniendo independientes sus referencias.</li></ul><p>La selección del ámbito permite adaptar <strong>Concept Indexer</strong> tanto a búsquedas generales como a proyectos que necesitan mantener sus índices organizados por separado.</p><p>Puedes volver a ocultar esta sección mediante la misma flecha sin perder la configuración seleccionada.</p></article><article class="manual-step" id="paso-21"><span class="step-badge">21</span><h3>Procesar concepto</h3><p>Pulsa <strong>Process concept</strong> para ejecutar las operaciones seleccionadas en Processing options: creación de enlaces internos, actualización de páginas maestras y adición de etiquetas.</p><p>El procesamiento se realiza sobre los documentos encontrados durante la búsqueda, respetando el ámbito de trabajo seleccionado y las opciones activadas.</p><p class="subheading">Confirmación del procesamiento</p><p>Antes de modificar los archivos, <strong>Concept Indexer</strong> muestra una ventana de confirmación con la siguiente información:</p><ul><li>Concept: palabra o expresión que se va a procesar.</li><li>Files found: número de documentos encontrados.</li><li>Occurrences found: número total de apariciones del concepto.</li><li>Processing options: operaciones que se ejecutarán, incluido el modo de actualización de las páginas maestras cuando corresponda.</li></ul><p>Puedes pulsar Cancel para cancelar la operación sin realizar cambios, o Process para confirmar y comenzar.</p><p class="subheading">Durante el procesamiento</p><p><strong>Concept Indexer</strong> ejecuta las operaciones seleccionadas y muestra una barra de progreso que permite seguir las distintas fases:</p><ol><li>Processing files: procesa los documentos encontrados, creando los enlaces y añadiendo las etiquetas solicitadas.</li><li>Updating master pages: crea o actualiza las páginas maestras con las referencias correspondientes.</li><li>Updating global index: actualiza los índices generales de conceptos.</li></ol><p>Las fases de actualización de páginas maestras e índices se ejecutan cuando está activada la opción Master.</p><p>El plugin evita modificar elementos protegidos, como bloques de código, enlaces existentes y otras estructuras que deben permanecer intactas.</p><p class="subheading">Resumen de resultados</p><p>Una vez finalizado el procesamiento, <strong>Concept Indexer</strong> muestra un informe con las operaciones realizadas:</p><ul><li>Files modified: archivos modificados.</li><li>Wikilinks created: enlaces internos creados.</li><li>Hashtags added: etiquetas añadidas.</li><li>Master pages created: páginas maestras nuevas.</li><li>Master pages updated: páginas maestras actualizadas.</li><li>Global indexes created: índices globales nuevos.</li><li>Global indexes updated: índices globales actualizados.</li></ul><p>Este resumen permite comprobar el alcance de las modificaciones realizadas.</p><p class="subheading">Procesamiento posterior</p><p>Puedes volver a buscar y procesar un mismo concepto para incorporar nuevos documentos o actualizar las referencias existentes.</p><p>El modo <strong>Expand</strong> permite ampliar progresivamente las páginas maestras, mientras que <strong>Synchronize</strong> ajusta sus referencias a los resultados actuales.</p><p><strong>Concept Indexer</strong> registra las modificaciones correspondientes para facilitar su posterior análisis y limpieza desde las herramientas de mantenimiento.</p></article><article class="manual-step" id="paso-22"><span class="step-badge">22</span><h3>Abrir página maestra</h3><p>El botón Open master page abre la página maestra correspondiente al concepto buscado.</p><p>Desde esta página puedes consultar los documentos relacionados y navegar directamente hasta los fragmentos donde aparece el concepto.</p><p>Si la página maestra todavía no existe, <strong>Concept Indexer</strong> mostrará un aviso.</p></article><article class="manual-step" id="paso-23"><span class="step-badge">23</span><h3>Abrir índice global</h3><p>El botón Open global index abre el índice general de conceptos correspondiente al ámbito seleccionado.</p><p>Este índice reúne las páginas maestras disponibles y proporciona acceso directo a los conceptos previamente indexados.</p></article></section><section id="referencias"><div class="section-heading"><span class="section-index">05</span><h2>Referencias cruzadas</h2></div><p class="chapter-description">Relacionar conceptos ya indexados.</p><figure class="image-frame landscape"><img loading="lazy" src="05  24-25-26.jpg" alt="Captura de Concept Indexer con las funciones 24 a 26 señaladas."><figcaption>Imagen 5. Referencias cruzadas. Referencias 24–26.</figcaption></figure><article class="manual-step" id="paso-24"><span class="step-badge">24</span><h3>Referencias cruzadas</h3><p>El botón Cross references permite descubrir relaciones entre dos o más conceptos previamente indexados.</p><p>Esta función identifica los documentos y bloques de contenido que tienen en común, facilitando la exploración de conexiones entre diferentes temas.</p></article><article class="manual-step" id="paso-25"><span class="step-badge">25</span><h3>Seleccionar conceptos</h3><p>Selecciona mediante las casillas las páginas maestras de los conceptos que deseas relacionar.</p><p>Debes seleccionar al menos dos conceptos, y todos deben pertenecer al mismo ámbito de indexación.</p></article><article class="manual-step" id="paso-26"><span class="step-badge">26</span><h3>Buscar coincidencias</h3><p>Pulsa <strong>Search matches</strong> para analizar las referencias compartidas entre los conceptos seleccionados.</p><p><strong>Concept Indexer</strong> mostrará los documentos y bloques relacionados que aparecen en todas las páginas maestras elegidas.</p><p>Puedes consultar los resultados antes de generar el índice de referencias cruzadas. La búsqueda no modifica ningún archivo.</p></article></section><section id="resultados"><div class="section-heading"><span class="section-index">06</span><h2>Resultados e índices cruzados</h2></div><p class="chapter-description">Consultar y guardar las relaciones encontradas.</p><figure class="image-frame portrait"><img loading="lazy" src="06  27-28.jpg" alt="Captura de Concept Indexer con las funciones 27 a 28 señaladas."><figcaption>Imagen 6. Resultados e índices cruzados. Referencias 27–28.</figcaption></figure><article class="manual-step" id="paso-27"><span class="step-badge">27</span><h3>Resultados de referencias cruzadas</h3><p>Después de pulsar <strong>Search matches</strong>, <strong>Concept Indexer</strong> muestra los elementos que tienen en común los conceptos seleccionados.</p><p>Los resultados se organizan en dos categorías:</p><ul><li>Related documents: documentos que aparecen en todas las páginas maestras seleccionadas.</li><li>Related blocks: bloques de contenido específicos que están referenciados por todos los conceptos seleccionados.</li></ul><p>El panel muestra el número de coincidencias de cada categoría y permite abrir directamente los documentos o bloques encontrados haciendo clic en sus enlaces.</p></article><article class="manual-step" id="paso-28"><span class="step-badge">28</span><h3>Generar índice de referencias cruzadas</h3><p>Pulsa <strong>Generate cross-reference index</strong> para crear un documento Markdown que reúna las coincidencias encontradas entre los conceptos seleccionados.</p><p>El índice incluye los documentos y bloques relacionados, organizados mediante enlaces internos de Obsidian.</p><p><strong>Concept Indexer</strong> también añade un enlace al nuevo índice en cada una de las páginas maestras seleccionadas.</p><p>Si el índice ya existe, se actualizará con los resultados actuales.</p><p>Esta función permite conservar las relaciones descubiertas y consultarlas posteriormente sin necesidad de repetir la búsqueda.</p></article></section><section id="identificadores" class="note-section"><div class="section-heading"><span class="section-index">!</span><h2>Nota importante · Identificadores de bloque</h2></div><p>Para crear referencias precisas entre documentos, <strong>Concept Indexer</strong> puede añadir identificadores de bloque a las notas Markdown.</p><p>Estos identificadores utilizan un formato como:</p><p><code>^citag-40be6v</code></p><p>Son identificadores compatibles con Obsidian que permiten enlazar directamente a un bloque de contenido específico, en lugar de abrir únicamente el documento completo.</p><p class="subheading">¿Por qué aparecen en mis notas?</p><p><strong>Concept Indexer</strong> los utiliza para construir las referencias de las páginas maestras y facilitar la navegación entre conceptos y fragmentos de texto.</p><p class="subheading">¿Se pueden eliminar?</p><p>No es recomendable eliminarlos manualmente mientras existan enlaces que dependan de ellos, ya que esas referencias podrían dejar de funcionar.</p><p><strong>Concept Indexer</strong> incorpora herramientas de mantenimiento para analizar y limpiar los elementos registrados. Estas herramientas distinguen entre identificadores creados por el plugin, elementos preexistentes y referencias compartidas, evitando eliminar aquellos que deben conservarse.</p><p>Importante: los identificadores forman parte del sistema de enlaces de Obsidian. No alteran el contenido conceptual de tus notas y permiten mantener referencias precisas entre documentos.</p></section></main>
+  <footer><div class="footer-inner">CONCEPT INDEXER v2 · Manual de usuario · Corrosion Labs</div></footer>
+</body>
+</html>
