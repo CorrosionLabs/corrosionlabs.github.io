@@ -37,7 +37,7 @@
 <body class="collections" translate="yes">
   <div class="container">
     <nav class="site-nav" aria-label="Indice principal">
-      <a href="../index.html">Inicio</a>
+      <a href="../corrosion-labs.html">Inicio</a>
       <a href="sacro_servo.html">Sacro Servo</a>
       <a href="zero_sala.html">Zero Sala</a>
       <a href="corpus_submissum.html">Corpus Submissum</a>
@@ -45,7 +45,7 @@
       <a href="contacto.html">Contacto</a>
       <a href="collections.html">Colecciones</a>
       <a href="../strategies/">Corrosion Strategies</a>
-      <a href="../idea-collider/">Colisionador de Ideas / Idea Collider</a>
+      <a href="../idea-collider/">Idea Collider</a>
       <a href="hub.html">Hub</a>
     </nav>
 
@@ -54,61 +54,12 @@
       <p class="tagline">Cartografía visual</p>
     </header>
     <main>
-      <section class="collections-featured-shell" aria-labelledby="collections-featured-title">
-        <div class="collections-section-heading">
-          <p class="collection-kicker">Selección</p>
-          <h2 id="collections-featured-title" class="collections-section-title">Destacados</h2>
-        </div>
-        <div class="collections-featured-grid">
-          <article class="collection-featured-card">
-            <a class="collection-featured-link" href="../products/el-servo-suave-libro.html">
-              <div class="collection-cover collection-featured-cover">
-                <img src="../img/projects/collections/el-servo-suave-libro/cover.jpg" alt="El servo suave" loading="lazy" decoding="async">
-              </div>
-              <div class="collection-featured-copy">
-                <p class="collection-meta">Libro / ES</p>
-                <h3 class="collection-featured-title">El servo suave (Libro)</h3>
-                <p class="collection-description">Me llaman el Operador.</p>
-              </div>
-            </a>
-          </article>
-          <article class="collection-featured-card">
-            <a class="collection-featured-link" href="../products/the-soft-servo-book.html">
-              <div class="collection-cover collection-featured-cover">
-                <img src="../img/projects/collections/the-soft-servo-book/cover.jpg" alt="The soft servo" loading="lazy" decoding="async">
-              </div>
-              <div class="collection-featured-copy">
-                <p class="collection-meta">Book / EN</p>
-                <h3 class="collection-featured-title">The soft servo (Book)</h3>
-                <p class="collection-description">They call me the Operator.</p>
-              </div>
-            </a>
-          </article>
-          <article class="collection-featured-card">
-            <a class="collection-featured-link" href="../products/the-soft-servo-ost.html">
-              <div class="collection-cover collection-featured-cover">
-                <img src="../img/projects/collections/the-soft-servo-ost/cover.jpg" alt="The soft servo OST" loading="lazy" decoding="async">
-              </div>
-              <div class="collection-featured-copy">
-                <p class="collection-meta">Música / Instrumental</p>
-                <h3 class="collection-featured-title">The soft servo OST</h3>
-                <p class="collection-description">Música concebida para acompañar la lectura de El servo suave.</p>
-              </div>
-            </a>
-          </article>
-        </div>
-      </section>
-
-      <section class="collections-catalog-shell" aria-labelledby="collections-catalog-title">
-        <div class="collections-section-heading">
-          <p class="collection-kicker">Catálogo</p>
-          <h2 id="collections-catalog-title" class="collections-section-title">Explorar colecciones</h2>
-        </div>
+      <section class="collections-catalog-shell">
 
         <div class="collections-toolbar" aria-label="Herramientas del catálogo">
           <label class="collections-search">
             <span>Buscar</span>
-            <input type="search" id="collections-search" placeholder="Título, descripción o año">
+            <input type="search" id="collections-search" placeholder="Buscar título, descripción o año...">
           </label>
           <div id="collections-filters" class="collections-filters"></div>
         </div>
@@ -209,7 +160,7 @@
 
       <script>
         (() => {
-          const config = {"initialVisible": 6, "filterGroups": [{"label": "Formato", "key": "category", "options": [{"value": "book", "label": "Book"}, {"value": "libro", "label": "Libro"}, {"value": "musica", "label": "Música"}, {"value": "visual", "label": "Visual"}]}, {"label": "Idioma", "key": "language", "options": [{"value": "en", "label": "EN"}, {"value": "es", "label": "ES"}, {"value": "instrumental", "label": "Instrumental"}]}, {"label": "Estado", "key": "status", "options": [{"value": "available", "label": "Disponible"}]}]};
+          const config = {"initialVisible": 10, "filterGroups": [{"label": "Formato", "key": "category", "options": [{"value": "book", "label": "Book"}, {"value": "libro", "label": "Libro"}, {"value": "musica", "label": "Música"}, {"value": "visual", "label": "Visual"}]}, {"label": "Idioma", "key": "language", "options": [{"value": "en", "label": "EN"}, {"value": "es", "label": "ES"}, {"value": "instrumental", "label": "Instrumental"}]}, {"label": "Estado", "key": "status", "options": [{"value": "available", "label": "Disponible"}]}]};
           const searchInput = document.querySelector("#collections-search");
           const filtersRoot = document.querySelector("#collections-filters");
           const results = document.querySelector("#collections-results");
@@ -228,41 +179,33 @@
           }
 
           const createFilterGroup = (group) => {
-            const wrapper = document.createElement("fieldset");
+            const wrapper = document.createElement("label");
             wrapper.className = "collections-filter-group";
 
-            const legend = document.createElement("legend");
-            legend.textContent = group.label;
-            wrapper.append(legend);
+            const label = document.createElement("span");
+            label.textContent = group.label;
+            wrapper.append(label);
 
-            const allButton = document.createElement("button");
-            allButton.type = "button";
-            allButton.className = "collections-filter-chip is-active";
-            allButton.dataset.key = group.key;
-            allButton.dataset.value = "";
-            allButton.textContent = "Todos";
-            wrapper.append(allButton);
+            const select = document.createElement("select");
+            select.className = "collections-filter-select";
+            select.name = group.key;
+            select.dataset.key = group.key;
+
+            const allOption = document.createElement("option");
+            allOption.value = "";
+            allOption.textContent = "Todos";
+            select.append(allOption);
 
             group.options.forEach((option) => {
-              const button = document.createElement("button");
-              button.type = "button";
-              button.className = "collections-filter-chip";
-              button.dataset.key = group.key;
-              button.dataset.value = option.value;
-              button.textContent = option.label;
-              wrapper.append(button);
+              const selectOption = document.createElement("option");
+              selectOption.value = option.value;
+              selectOption.textContent = option.label;
+              select.append(selectOption);
             });
+
+            wrapper.append(select);
 
             return wrapper;
-          };
-
-          const syncFilterButtons = () => {
-            const buttons = filtersRoot.querySelectorAll(".collections-filter-chip");
-            buttons.forEach((button) => {
-              const key = button.dataset.key;
-              const value = button.dataset.value || "";
-              button.classList.toggle("is-active", state[key] === value);
-            });
           };
 
           const getMatches = () => cards.filter((card) => {
@@ -295,14 +238,13 @@
             filtersRoot.append(createFilterGroup(group));
           });
 
-          filtersRoot.addEventListener("click", (event) => {
-            const button = event.target.closest(".collections-filter-chip");
-            if (!button) {
+          filtersRoot.addEventListener("change", (event) => {
+            const select = event.target.closest(".collections-filter-select");
+            if (!select) {
               return;
             }
-            state[button.dataset.key] = button.dataset.value || "";
+            state[select.dataset.key] = select.value;
             state.visible = config.initialVisible;
-            syncFilterButtons();
             applyFilters();
           });
 
@@ -317,7 +259,6 @@
             applyFilters();
           });
 
-          syncFilterButtons();
           applyFilters();
         })();
       </script>
@@ -326,14 +267,11 @@
 
     <footer class="footer">
       <p class="footer-actions">
-        <a href="hub.html">Volver al Hub</a>
-        <a href="../index.html">Inicio</a>
-      </p>
-      <p class="footer-actions">
         <a href="../corrosion-pass.pdf" download>CORROSION PASS &middot; DESCARGAR PASE</a>
       </p>
     </footer>
 
   </div>
+  <script src="../js/footer-nav.js"></script>
 </body>
 </html>

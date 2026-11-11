@@ -1,254 +1,146 @@
 <!DOCTYPE html>
-<html lang="es" translate="yes">
+<html lang="es">
 <head>
-  <!-- Metadatos básicos -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Corrosion Labs</title>
+  <style>
+    @font-face {
+      font-family: "Blogger Sans-Light";
+      src: url("fonts/Blogger Sans-Light.ttf") format("truetype");
+      font-display: swap;
+    }
 
-  <title>CORROSION LABS</title>
-  <meta name="description" content="Laboratorio creativo de inteligencia artificial aplicada a procesos visuales y sonoros: carne, cable y óxido.">
-  <meta name="theme-color" content="#0b0b0b">
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="canonical" href="https://corrosionlabs.github.io/">
+    @font-face {
+      font-family: "Terminal F4";
+      src: url("fonts/Terminal F4.ttf") format("truetype");
+      font-display: swap;
+    }
 
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://corrosionlabs.github.io/">
-  <meta property="og:title" content="CORROSION LABS">
-  <meta property="og:description" content="Laboratorio creativo de inteligencia artificial aplicada a procesos visuales y sonoros: carne, cable y óxido.">
-  <meta property="og:image" content="https://corrosionlabs.github.io/img/site/backgrounds/005.jpg">
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CORROSION LABS">
-  <meta name="twitter:description" content="Laboratorio creativo de inteligencia artificial aplicada a procesos visuales y sonoros: carne, cable y óxido.">
-  <meta name="twitter:image" content="https://corrosionlabs.github.io/img/site/backgrounds/005.jpg">
+    body {
+      display: grid;
+      min-height: 100vh;
+      place-items: start center;
+      overflow: hidden;
+      background: #c1c1c1;
+      cursor: pointer;
+      transition: opacity 0.5s ease;
+    }
 
-  <!-- Hoja de estilos principal -->
-  <link rel="stylesheet" href="css/style.css">
-  <script
-    data-goatcounter="https://corrosionlabs.goatcounter.com/count"
-    async
-    src="https://gc.zgo.at/count.js">
-  </script>
+    body.is-exiting { opacity: 0; }
 
-  <!-- Fuente tipográfica -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    @keyframes corrosion-drop {
+      0% { transform: translateY(-110vh); }
+      75% { transform: translateY(0); }
+      84% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes corrosion-fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+      gap: 0;
+    }
+
+    .hero img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: min(900px, calc(100vw - 2rem));
+      max-height: 65vh;
+      object-fit: contain;
+      animation: corrosion-drop 1.6s ease-out both;
+    }
+
+    .hero p {
+      max-width: 100%;
+      margin: 0.5rem 0 0;
+      color: #303030;
+      font-family: "Blogger Sans-Light", sans-serif;
+      font-size: clamp(0.9rem, 2vw, 1.25rem);
+      text-align: center;
+      opacity: 0;
+      animation: corrosion-fade-in 1.2s ease-out 2.8s forwards;
+    }
+
+    .hero h1 {
+      max-width: 100%;
+      margin: 1.5rem 0 0;
+      color: #303030;
+      font-family: "Terminal F4", sans-serif;
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 400;
+      text-align: center;
+      opacity: 0;
+      animation: corrosion-fade-in 1.2s ease-out 1.6s forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body { transition: none; }
+
+      .hero img,
+      .hero h1,
+      .hero p {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+    }
+  </style>
 </head>
+<body>
+  <main class="hero">
+    <img src="img/site/backgrounds/cabe.jpg" alt="">
+    <h1>CORROSION LABS</h1>
+    <p>Nous rendons l'inquiétant fonctionnel.</p>
+  </main>
+  <script>
+    (() => {
+      let hasEntered = false;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const autoEntry = window.setTimeout(startEntry, 8000);
 
-<body class="home" translate="yes">
+      function startEntry() {
+        if (hasEntered) {
+          return;
+        }
 
-  <!-- Contenedor principal -->
-  <div class="container">
+        hasEntered = true;
+        window.clearTimeout(autoEntry);
 
-    <!-- =========================
-         IDENTIDAD / CABECERA
-    ========================== -->
-    <nav class="site-nav" aria-label="Índice principal">
-      <a href="index.html" aria-current="page">Inicio</a>
-      <a href="pages/sacro_servo.html">Sacro Servo</a>
-      <a href="pages/zero_sala.html">Zero Sala</a>
-      <a href="pages/corpus_submissum.html">Corpus Submissum</a>
-      <a href="pages/condiciones.html">Condiciones</a>
-      <a href="pages/contacto.html">Contacto</a>
-      <a href="pages/collections.html">Colecciones</a>
-      <a href="strategies/">Corrosion Strategies</a>
-      <a href="idea-collider/">Colisionador de Ideas / Idea Collider</a>
-      <a href="pages/hub.html">Hub</a>
-    </nav>
+        if (reduceMotion) {
+          window.location.href = "corrosion-labs.html";
+          return;
+        }
 
-    <header class="identity">
-      <img src="img/site/branding/corrosion_labs_logo.png" alt="Corrosion Labs icon" class="logo" width="256" height="256" decoding="async">
-      <h1>CORROSION LABS</h1>
-      <p class="tagline">Carne. Cable. Óxido.</p>
-    </header>
+        document.body.classList.add("is-exiting");
+        window.setTimeout(() => {
+          window.location.href = "corrosion-labs.html";
+        }, 500);
+      }
 
-    <!-- =========================
-         MANIFIESTO BILINGÜE
-    ========================== -->
-    <section class="bilingual">
-
-      <div class="pair">
-
-        <!-- Versión Español -->
-        <article class="es" lang="es" translate="yes">
-          <p>
-            CORROSION LABS es un laboratorio creativo orientado a la investigación
-            y aplicación de inteligencia artificial en procesos de generación
-            visual y sonora, operando en entornos donde la tecnología muestra
-            signos evidentes de desgaste y saturación.
-          </p>
-
-          <p>
-            El trabajo se desarrolla mediante la integración de distintas disciplinas,
-            combinando sistemas de imagen y sonido dentro de estructuras técnicas
-            heredadas, modificadas y forzadas más allá de su uso previsto.
-            Los medios no se tratan como soportes neutrales,
-            sino como superficies sometidas a tensión constante.
-          </p>
-
-          <p>
-            Los procesos se basan en iteración, repetición y variación dirigida.
-            Se privilegian comportamientos inestables, desviaciones funcionales
-            y resultados ásperos frente a modelos pulidos, eficientes
-            o destinados a consumo pasivo.
-          </p>
-
-          <p>
-            La degradación, el ruido y la pérdida progresiva de coherencia
-            no se consideran anomalías a corregir,
-            sino consecuencias inevitables de sistemas explotados
-            hasta sus límites operativos.
-          </p>
-
-          <p>
-            La inteligencia artificial no actúa como agente autónomo
-            ni como entidad creativa independiente.
-            Funciona como infraestructura instrumental,
-            sujeta a control humano, intervención directa
-            y decisiones que asumen responsabilidad sobre el resultado.
-          </p>
-
-          <p>
-            Sin dirección humana, el sistema se limita a repetir patrones vacíos.
-          </p>
-        </article>
-
-        <!-- Versión Inglés -->
-        <article class="en" lang="en" translate="yes">
-          <p>
-            CORROSION LABS is a creative laboratory focused on the research
-            and application of artificial intelligence in visual and sonic
-            generation processes, operating within environments where
-            technology shows clear signs of wear and saturation.
-          </p>
-
-          <p>
-            The work is developed through the integration of multiple disciplines,
-            combining image and sound systems within technical structures
-            that are inherited, modified, and pushed beyond their intended use.
-            Media are not treated as neutral supports,
-            but as surfaces subjected to constant tension.
-          </p>
-
-          <p>
-            Processes are based on iteration, repetition, and directed variation.
-            Unstable behaviors, functional deviations, and abrasive results
-            are favored over polished, efficient models
-            or outputs designed for passive consumption.
-          </p>
-
-          <p>
-            Degradation, noise, and the progressive loss of coherence
-            are not considered anomalies to be corrected,
-            but inevitable consequences of systems
-            exploited to their operational limits.
-          </p>
-
-          <p>
-            Artificial intelligence does not act as an autonomous agent
-            nor as an independent creative entity.
-            It functions as instrumental infrastructure,
-            subject to human control, direct intervention,
-            and decisions that assume responsibility for the outcome.
-          </p>
-
-          <p>
-            Without human direction, the system is limited
-            to the repetition of empty patterns.
-          </p>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- =========================
-         ENTIDADES / PROYECTOS
-    ========================== -->
-    <section class="projects">
-
-      <h2 class="section-title">
-        PROYECTOS
-      </h2>
-
-      <div class="project-grid">
-
-        <!-- Proyecto: Sacro Servo -->
-        <a href="pages/sacro_servo.html" class="project-card">
-          <span class="project-card-media">
-            <img
-              src="img/projects/sacro/branding/sacro_servo_logo.png"
-              alt="Sacro Servo"
-              class="project-thumb-sacro"
-              width="601"
-              height="601"
-              loading="lazy"
-              decoding="async"
-            >
-          </span>
-          <span class="project-card-body">
-            <span class="project-card-title">SACRO SERVO</span>
-            <span class="project-card-text">Ritual, control y automatización sonora.</span>
-          </span>
-        </a>
-
-        <!-- Proyecto: Zero Sala -->
-        <a href="pages/zero_sala.html" class="project-card">
-          <span class="project-card-media">
-            <img
-              src="img/projects/zero/branding/zero_sala_logo.png"
-              alt="Zero Sala"
-              class="project-thumb-zero"
-              width="400"
-              height="400"
-              loading="lazy"
-              decoding="async"
-            >
-          </span>
-          <span class="project-card-body">
-            <span class="project-card-title">ZERO SALA</span>
-            <span class="project-card-text">Drones, resonancias y permanencia acústica.</span>
-          </span>
-        </a>
-
-        <!-- Proyecto: Corpus Submissum -->
-        <a href="pages/corpus_submissum.html" class="project-card">
-          <span class="project-card-media">
-            <img
-              src="img/projects/corpus/branding/corpus_submissum_logo.png"
-              alt="Corpus Submissum"
-              class="project-thumb-corpus"
-              width="1600"
-              height="1600"
-              loading="lazy"
-              decoding="async"
-            >
-          </span>
-          <span class="project-card-body">
-            <span class="project-card-title">CORPUS SUBMISSUM</span>
-            <span class="project-card-text">Sonido sin voluntad.</span>
-          </span>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- =========================
-         PIE / CIERRE
-    ========================== -->
-    <footer class="footer">
-      <p>
-        No todo lo que se conecta debe ser comprendido.
-      </p>
-      <p class="footer-actions">
-        <a href="corrosion-pass.pdf" download>CORROSION PASS &middot; DESCARGAR PASE</a>
-      </p>
-    </footer>
-
-  </div>
-
+      document.addEventListener("click", startEntry);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          startEntry();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

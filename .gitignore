@@ -2,3 +2,8 @@ __pycache__/
 *.pyc
 tools/generated-release.txt
 tools/*.zip
+tools/
+.vscode
+estructura.txt
+Generar arbol de archivos.bat
+docs/
