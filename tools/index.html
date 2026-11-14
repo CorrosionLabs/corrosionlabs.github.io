@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es" translate="yes">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>TOOLS | Corrosion Labs</title>
+  <meta name="description" content="Herramientas desarrolladas por Corrosion Labs.">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://corrosionlabs.github.io/tools/">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .tools-catalog {
+      display: grid;
+      gap: 1.25rem;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .tool-card {
+      display: grid;
+      grid-template-columns: minmax(130px, 180px) minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+      padding: 1.5rem;
+      background: #adadad;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    }
+
+    .tool-media {
+      display: grid;
+      place-items: center;
+      min-height: 130px;
+    }
+
+    .tool-media img {
+      width: min(100%, 150px);
+      aspect-ratio: 1;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .tool-content {
+      display: grid;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .tool-heading {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.6rem 1rem;
+    }
+
+    .tool-heading h2 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      text-align: left;
+    }
+
+    .tool-platform {
+      color: #555555;
+      font-size: 0.9rem;
+    }
+
+    .tool-description {
+      max-width: 52rem;
+      line-height: 1.65;
+    }
+
+    .tool-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 0.25rem;
+    }
+
+    .tool-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.5rem;
+      padding: 0.65rem 0.95rem;
+      background: #c1c1c1;
+      border-radius: 6px;
+      box-shadow: var(--button-shadow);
+      text-decoration: none;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .tool-links a:hover,
+    .tool-links a:focus-visible {
+      box-shadow: var(--content-shadow-hover);
+      text-decoration: none;
+    }
+
+    .tools-footer-link {
+      color: #555555;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    .tools-footer-link:hover,
+    .tools-footer-link:focus-visible {
+      color: #1a1a1a;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 560px) {
+      .tool-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.25rem;
+      }
+
+      .tool-media {
+        min-height: 0;
+      }
+
+      .tool-media img {
+        width: 120px;
+      }
+
+      .tool-links {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .tool-links a {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="tools" translate="yes">
+  <div class="container">
+    <nav class="site-nav" aria-label="Índice principal"></nav>
+
+    <header class="identity-minimal">
+      <h1>TOOLS</h1>
+      <p class="tagline">Herramientas desarrolladas por Corrosion Labs</p>
+    </header>
+
+    <main>
+      <section class="tools-catalog" aria-label="Catálogo de aplicaciones">
+        <article class="tool-card">
+          <div class="tool-media">
+            <img src="https://raw.githubusercontent.com/CorrosionLabs/Auto-Backup-v2/main/logo.png" alt="Icono de Auto Backup v2" width="150" height="150" loading="lazy" decoding="async">
+          </div>
+          <div class="tool-content">
+            <div class="tool-heading">
+              <h2>Auto Backup v2</h2>
+              <span class="tool-platform">Windows</span>
+            </div>
+            <p class="tool-description">Gestor de copias de seguridad automáticas y manuales, con configuración por proyecto, historial y verificación de archivos ZIP.</p>
+            <nav class="tool-links" aria-label="Enlaces de Auto Backup v2">
+              <a href="https://github.com/CorrosionLabs/Auto-Backup-v2" target="_blank" rel="noopener noreferrer">Repositorio</a>
+              <a href="https://corrosionlabs.github.io/documentation/auto-backup-v2/" target="_blank" rel="noopener noreferrer">Documentación</a>
+              <a href="https://github.com/CorrosionLabs/Auto-Backup-v2/releases/latest" target="_blank" rel="noopener noreferrer">Descargar</a>
+            </nav>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-actions">
+        <a class="tools-footer-link" href="./" aria-current="page">TOOLS · CATÁLOGO</a>
+      </p>
+      <p class="footer-actions">
+        <a href="../corrosion-pass.pdf" download>CORROSION PASS · DESCARGAR PASE</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="../js/footer-nav.js"></script>
+</body>
+</html>

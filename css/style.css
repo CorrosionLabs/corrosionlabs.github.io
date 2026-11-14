@@ -54,22 +54,69 @@ a, button, input, textarea { color: inherit; }
 :focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 img { max-width: 100%; height: auto; }
 
-.container { max-width: 1100px; min-height: 100vh; margin: 0 auto; padding: 6vh 3rem 8vh; display: flex; flex-direction: column; }
+.container { max-width: 1100px; min-height: 100vh; margin: 0 auto; padding: calc(6vh + 48px) 3rem 8vh; display: flex; flex-direction: column; }
 
 .site-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.65rem;
-  margin: -6vh calc(50% - 50vw) 4.5rem;
-  padding: 0.7rem 0.9rem;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 48px;
+  margin: 0;
+  padding: 0 0.75rem;
   background: #202020;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
-.site-nav a {
+.site-nav-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  color: #c1c1c1;
+  background: transparent;
+  border: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.site-nav-toggle:focus-visible {
+  outline: 2px solid #c1c1c1;
+  outline-offset: -4px;
+}
+.site-nav-panel {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 22rem);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: 0.6rem;
+  background: #303030;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.5rem);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+}
+.site-nav.is-open .site-nav-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+.site-nav-panel a {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  width: 100%;
   min-height: 2.35rem;
   padding: 0.54rem 0.82rem;
   color: #c1c1c1;
@@ -79,21 +126,21 @@ img { max-width: 100%; height: auto; }
   transition: background-color 0.2s ease;
 }
 
-.site-nav a:visited,
-.site-nav a:active,
-.site-nav a[aria-current="page"] {
+.site-nav-panel a:visited,
+.site-nav-panel a:active,
+.site-nav-panel a[aria-current="page"] {
   color: #c1c1c1;
   text-decoration: none;
 }
 
-.site-nav a:hover {
+.site-nav-panel a:hover {
   color: #c1c1c1;
   border-color: transparent;
   background: #303030;
   text-decoration: none;
 }
 
-.site-nav a:focus-visible {
+.site-nav-panel a:focus-visible {
   outline: 2px solid #c1c1c1;
   outline-offset: 2px;
   text-decoration: none;
@@ -317,8 +364,7 @@ body.strategies .container { height: 100vh; }
 .footer-actions a[href$="corrosion-pass.pdf"]:hover { color: #1a1a1a; text-decoration: underline; }
 
 @media (max-width: 900px) {
-  .container { padding: 8vh 2rem; }
-  .site-nav { margin: -8vh calc(50% - 50vw) 3rem; }
+  .container { padding: calc(8vh + 48px) 2rem 8vh; }
   .pair, .project-columns, .retention-block, .hub-layout, .contact-layout { grid-template-columns: 1fr; }
   .bilingual::before, .project-layout::before { display: none; }
   .project-grid { grid-template-columns: 1fr; }
@@ -333,9 +379,7 @@ body.strategies .container { height: 100vh; }
 }
 
 @media (max-width: 520px) {
-  .container { padding: 6vh 1.2rem; }
-  .site-nav { margin: -6vh calc(50% - 50vw) 3rem; }
-  .site-nav a { flex: 0 1 auto; font-size: 0.68rem; letter-spacing: 0.1em; }
+  .container { padding: calc(6vh + 48px) 1.2rem 6vh; }
   h1, h2 { font-size: clamp(1.5rem, 8.5vw, 1.9rem); }
   .logo { width: 76px; }
   body.home .logo { width: var(--logo-home-width-mobile); }
