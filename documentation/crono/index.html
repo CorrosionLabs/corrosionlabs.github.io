@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Manual de usuario de CRONO. Cronometraje industrial de ciclos automatizados.">
+<title>CRONO | Manual de usuario</title>
+<style>
+    :root {
+      color-scheme: dark;
+      --page: #191919;
+      --surface: #222222;
+      --surface-deep: #111111;
+      --line: #3d3d3d;
+      --text: #e8e8e8;
+      --muted: #aaaaaa;
+      --accent: #ffa500;
+      --accent-soft: #ffc04d;
+      --max-width: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--text);
+      font-family: "Cascadia Mono", "Consolas", "Courier New", monospace;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      background: #0e0e0e;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner,
+    .content,
+    .footer-inner {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      min-height: 164px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 30px 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--accent-soft);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 { line-height: 1.15; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      letter-spacing: .04em;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .language-placeholder {
+      width: 92px;
+      min-height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      color: #747474;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      user-select: none;
+    }
+
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(25, 25, 25, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .main-nav ul {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+      padding: 0;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      list-style: none;
+    }
+
+    .main-nav a {
+      display: block;
+      padding: 13px 12px;
+      color: var(--muted);
+      font-size: .82rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover,
+    .main-nav a:focus-visible {
+      color: var(--text);
+      outline: none;
+      box-shadow: inset 0 -2px 0 var(--accent);
+    }
+
+    .content { padding: 46px 0 64px; }
+
+    .intro {
+      max-width: 850px;
+      margin-bottom: 58px;
+      color: #d0d0d0;
+      font-size: 1.04rem;
+    }
+
+    .intro strong { color: var(--text); }
+
+    section {
+      scroll-margin-top: 58px;
+      padding: 34px 0 48px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .section-index {
+      color: var(--accent-soft);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3.5vw, 2.15rem);
+    }
+
+    h3 {
+      margin: 30px 0 10px;
+      color: #f0f0f0;
+      font-size: 1.05rem;
+    }
+
+    p { margin: 0 0 16px; }
+
+    .note {
+      margin: 22px 0 0;
+      padding: 14px 16px;
+      border-left: 3px solid var(--accent);
+      background: #1e1e1e;
+      color: #d7d7d7;
+    }
+
+    .image-frame {
+      margin: 28px auto 30px;
+      max-width: 920px;
+      background: var(--surface-deep);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .reference-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 26px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .reference-list li {
+      position: relative;
+      padding: 12px 0 12px 54px;
+      border-bottom: 1px solid #303030;
+      color: #d3d3d3;
+    }
+
+    .reference-list b {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      min-width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    code {
+      padding: 2px 5px;
+      background: #111;
+      color: #f2f2f2;
+      font-family: inherit;
+      font-size: .92em;
+    }
+
+    .file-patterns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 20px 0 0;
+    }
+
+    .file-patterns div {
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .file-patterns h3 { margin: 0 0 8px; }
+
+    .file-patterns p { margin: 0; color: var(--muted); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: #101010;
+      color: #808080;
+      font-size: .8rem;
+    }
+
+    .footer-inner { padding: 22px 0; }
+
+    @media (max-width: 700px) {
+      body { font-size: 15px; }
+      .header-inner { min-height: 140px; }
+      .reference-list,
+      .file-patterns { grid-template-columns: 1fr; }
+      .content { padding-top: 26px; }
+      section { padding: 28px 0 38px; }
+    }
+
+    @media (max-width: 440px) {
+      .header-inner,
+      .content,
+      .footer-inner,
+      .main-nav ul { width: min(calc(100% - 28px), var(--max-width)); }
+      .header-inner { gap: 12px; }
+      .language-placeholder { width: 74px; font-size: .7rem; }
+      .main-nav a { padding-inline: 9px; }
+      .section-heading { gap: 10px; }
+    }
+  
+    .manual-step {margin: 23px 0 34px; padding-left: 55px; position:relative;}
+    .manual-step h3 {margin:0 0 13px; font-size:1.18rem;}
+    .step-badge {position:absolute; left:0; top:-3px; width:38px; height:38px; border-radius:50%; background:var(--accent); color:#fff; display:grid;place-items:center;font-weight:700;}
+    .manual-step ul,.manual-step ol {padding-left:24px; margin:12px 0 20px;}
+    .manual-step li {margin:0 0 10px;}
+    .manual-step p {color:#d7d7d7;}
+    .manual-step .subheading {font-weight:700; color:var(--text); margin-top:22px; margin-bottom:8px;}
+    .image-frame img {width:100%; height:auto; object-fit:contain;}
+    .image-frame.portrait {max-width:580px;}
+    .image-frame.landscape {max-width:920px;}
+    .chapter-description {color:var(--muted);}
+    .note-section {border-left:3px solid var(--accent);padding-left:24px;}
+    @media(max-width:600px){.manual-step{padding-left:0;padding-top:45px}.step-badge{top:0}}
+
+.language-placeholder{background:#171717;color:var(--text);padding:7px;cursor:pointer;min-height:42px;}
+.manual-step{max-width:930px;}
+.manual-step p{line-height:1.75;}
+.manual-step ul{color:#d7d7d7;}
+.manual-step .subheading{color:var(--accent-soft);}
+.image-frame.portrait{max-width:580px;background:transparent;border:0;}
+.image-frame.portrait img{width:100%;height:auto;}
+.language-panel[hidden]{display:none!important;}
+.section-heading{margin-bottom:14px;}
+.manual-step + .manual-step{border-top:1px solid #303030;padding-top:24px;}
+.manual-step + .manual-step .step-badge{top:22px;}
+@media(max-width:600px){.manual-step+.manual-step .step-badge{top:18px;}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="header-inner"><div><p class="eyebrow">Corrosion Labs</p><h1>CRONO</h1><p class="subtitle" id="subtitle">Manual de usuario</p></div><select class="language-placeholder" id="language-selector" aria-label="Seleccionar idioma"><option value="es">ES</option><option value="en">EN</option></select></div></header>
+<nav class="main-nav" id="main-nav" aria-label="Navegación del manual"><ul><li><a data-section="intro" href="#intro-es">Introducción</a></li><li><a data-section="main" href="#main-es">Pantalla principal</a></li><li><a data-section="settings" href="#settings-es">Configuración</a></li><li><a data-section="log" href="#log-es">Registro de tiempos</a></li><li><a data-section="projects" href="#projects-es">Proyectos</a></li></ul></nav>
+<main class="content"><div class="language-panel" id="panel-es" lang="es">
+<section id="intro-es"><div class="section-heading"><span class="section-index">00</span><h2>Introducción</h2></div><p>CRONO es una aplicación de cronometraje diseñada específicamente para el análisis y la medición de tiempos de ciclo en entornos de automatización industrial.</p><p>Su principal objetivo es facilitar la medición de los tiempos de funcionamiento de estaciones automatizadas, células robotizadas y procesos industriales repetitivos, proporcionando una herramienta ágil, precisa y adaptable a las necesidades del trabajo en planta.</p><p>La aplicación permite realizar mediciones tanto en segundos como en centésimas de minuto, una unidad habitual en los estudios de tiempos industriales, y establecer valores objetivo para evaluar el rendimiento de los ciclos.</p><p>Mediante la creación de perfiles de trabajo, CRONO permite organizar las mediciones de diferentes estaciones, robots o procesos, manteniendo sus configuraciones y registros de tiempo de forma independiente.</p><p>Los tiempos registrados pueden exportarse para su posterior análisis, facilitando su utilización en estudios de productividad, optimización de procesos, equilibrado de líneas y seguimiento de tiempos de ciclo.</p><p>Su interfaz está concebida para ofrecer un manejo directo e intuitivo en dispositivos móviles, permitiendo realizar mediciones cómodamente a pie de máquina, sin interferir en el trabajo del operario.</p><p>CRONO combina sencillez de uso, flexibilidad y funcionalidad industrial en una herramienta orientada a la toma de datos en condiciones reales de producción.</p><p>¡Además, con un botón bien grande!</p></section>
+<section id="main-es"><div class="section-heading"><span class="section-index">01</span><h2>Pantalla principal</h2></div><p class="chapter-description">Controles y lecturas de la pantalla principal.</p>
+<p>La pantalla principal de CRONO concentra el acceso a las funciones esenciales de la aplicación. Desde ella es posible configurar el cronometraje, consultar los registros y gestionar los distintos perfiles o proyectos de trabajo.</p>
+<figure class="image-frame portrait"><img src="01a_web.jpg" alt="Pantalla de CRONO con los controles 1 a 3 numerados." loading="lazy"><figcaption>Imagen: Referencias 1–3.</figcaption></figure>
+<article class="manual-step" id="step-es-1"><span class="step-badge">1</span><h3>CONFIG</h3><p>El botón CONFIG da acceso al panel de configuración de la aplicación.</p><p>Desde este apartado se definen los parámetros de trabajo del perfil activo, entre ellos:</p><ul><li>el modo de cronometraje;</li><li>la unidad principal de medida;</li><li>el valor objetivo o target;</li><li>el idioma;</li><li>y otras opciones generales, como el uso de sonido.</li></ul><p>La configuración se guarda asociada al proyecto activo, lo que permite adaptar CRONO a distintos procesos, estaciones o robots sin necesidad de reconfigurar la aplicación en cada uso.</p></article>
+<article class="manual-step" id="step-es-2"><span class="step-badge">2</span><h3>LOG</h3><p>El botón LOG abre el registro de tiempos medidos.</p><p>En este apartado se pueden consultar los ciclos registrados, visualizar el promedio de los tiempos y representar su evolución mediante una gráfica. También permite excluir el último ciclo del análisis cuando la medición se haya interrumpido antes de completar el proceso, así como exportar los datos para su tratamiento posterior.</p><p>El registro constituye la base de análisis de CRONO, ya que permite revisar de forma inmediata el comportamiento del ciclo medido y conservar la trazabilidad de los resultados.</p></article>
+<article class="manual-step" id="step-es-3"><span class="step-badge">3</span><h3>PROJECTS</h3><p>El botón PROJECTS permite gestionar los distintos perfiles de trabajo de la aplicación.</p><p>Cada proyecto puede almacenar de forma independiente:</p><ul><li>su nombre;</li><li>la configuración de cronometraje;</li><li>la unidad de medida utilizada;</li><li>el target asociado;</li><li>y el historial de tiempos registrado.</li></ul><p>Gracias a este sistema, es posible preparar perfiles específicos para diferentes estaciones automatizadas, robots o procesos, y cambiar entre ellos de forma rápida según la necesidad de la medición.</p></article>
+<figure class="image-frame portrait"><img src="01b_web.jpg" alt="Pantalla de CRONO con los controles 4 a 6 numerados." loading="lazy"><figcaption>Imagen: Referencias 4–6.</figcaption></figure>
+<article class="manual-step" id="step-es-4"><span class="step-badge">4</span><h3>Perfil activo</h3><p>Muestra el nombre del perfil de trabajo seleccionado.</p><p>Cada perfil permite identificar la estación automatizada, robot o proceso cuyos tiempos se están midiendo. En este ejemplo, el perfil activo es BASE.</p></article>
+<article class="manual-step" id="step-es-5"><span class="step-badge">5</span><h3>Cronómetro principal</h3><p>Muestra el tiempo transcurrido durante el ciclo de medición.</p><p>El valor se presenta en gran formato para facilitar su lectura a pie de máquina. La unidad principal puede configurarse en segundos o centésimas de minuto, según las necesidades del estudio de tiempos.</p></article>
+<article class="manual-step" id="step-es-6"><span class="step-badge">6</span><h3>Unidad secundaria</h3><p>Muestra simultáneamente el tiempo en la unidad alternativa, permitiendo consultar ambas medidas sin modificar la configuración.</p><p>De esta manera, es posible trabajar con segundos y centésimas de minuto y comparar sus valores durante la medición.</p></article>
+<figure class="image-frame portrait"><img src="01c_web.jpg" alt="Pantalla de CRONO con los controles 7 a 10 numerados." loading="lazy"><figcaption>Imagen: Referencias 7–10.</figcaption></figure>
+<article class="manual-step" id="step-es-7"><span class="step-badge">7</span><h3>Tiempo objetivo (TARGET)</h3><p>Muestra el tiempo de ciclo establecido como referencia para el perfil activo.</p><p>Este valor permite comparar las mediciones realizadas con el tiempo previsto para la estación automatizada o el robot.</p><p>El tiempo objetivo se expresa en la unidad principal seleccionada en la configuración.</p></article>
+<article class="manual-step" id="step-es-8"><span class="step-badge">8</span><h3>Último ciclo (LAST CYCLE)</h3><p>Muestra el tiempo registrado en el último ciclo completado.</p><p>Permite consultar inmediatamente el resultado de la medición anterior, facilitando la comparación entre ciclos consecutivos.</p></article>
+<article class="manual-step" id="step-es-9"><span class="step-badge">9</span><h3>Botón START</h3><p>Inicia el cronometraje del ciclo.</p><p>El botón principal permite controlar la medición mediante pulsaciones sucesivas, según el modo de funcionamiento seleccionado en la configuración.</p><p>Su gran superficie facilita el accionamiento rápido durante la observación de procesos automatizados.</p></article>
+<article class="manual-step" id="step-es-10"><span class="step-badge">10</span><h3>Botón RESET</h3><p>Permite reiniciar el cronómetro y devolver el contador a cero.</p><p>Se utiliza para preparar una nueva medición o descartar el tiempo transcurrido cuando sea necesario, de acuerdo con el modo de cronometraje seleccionado.</p></article>
+</section>
+<section id="settings-es"><div class="section-heading"><span class="section-index">02</span><h2>Configuración</h2></div><p class="chapter-description">Ajustes del cronometraje y preferencias.</p>
+<figure class="image-frame portrait"><img src="02_web.jpg" alt="Pantalla de CRONO con los controles 11 a 11 numerados." loading="lazy"><figcaption>Imagen: Referencia 11.</figcaption></figure>
+<article class="manual-step" id="step-es-11"><span class="step-badge">11</span><h3>Modo de cronometraje (Timing mode)</h3><p>Permite seleccionar el comportamiento del cronómetro según el tipo de medición que se desea realizar.</p><p class="subheading">Start / Stop</p><p>Modo convencional de cronometraje. La primera pulsación inicia la medición y la siguiente detiene el contador, registrando el tiempo del ciclo.</p><p>Es adecuado para mediciones puntuales o procesos en los que es necesario iniciar y detener el cronómetro manualmente.</p><p class="subheading">Start / Reset</p><p>Modo orientado a la medición de ciclos consecutivos en estaciones automatizadas y robots.</p><p>La primera pulsación inicia el cronómetro. Cada pulsación posterior registra el tiempo del ciclo completado y reinicia inmediatamente el contador, comenzando una nueva medición sin detener el cronometraje.</p><p>Este modo resulta especialmente útil para analizar procesos repetitivos de producción, ya que permite registrar ciclos sucesivos con una única pulsación entre mediciones.</p></article>
+<figure class="image-frame portrait"><img src="03_web.jpg" alt="Pantalla de CRONO con los controles 12 a 12 numerados." loading="lazy"><figcaption>Imagen: Referencia 12.</figcaption></figure>
+<article class="manual-step" id="step-es-12"><span class="step-badge">12</span><h3>Unidad principal (Primary unit)</h3><p>Permite seleccionar la unidad de tiempo utilizada como referencia principal durante las mediciones.</p><p class="subheading">Seconds (segundos)</p><p>Muestra el tiempo en segundos, con una resolución de dos decimales.</p><p class="subheading">Centiseconds (centésimas de minuto)</p><p>Muestra el tiempo en centésimas de minuto, una unidad utilizada habitualmente en estudios de tiempos y análisis de ciclos industriales.</p><p>Una centésima de minuto equivale a 0,6 segundos.</p><p>La unidad seleccionada se muestra en el contador principal, mientras que la unidad alternativa aparece debajo, en un tamaño más reducido.</p><p>El tiempo objetivo (target) también se expresa en la unidad principal seleccionada, manteniendo la coherencia entre las mediciones y los valores de referencia.</p></article>
+<figure class="image-frame portrait"><img src="04_web.jpg" alt="Pantalla de CRONO con los controles 13 a 14 numerados." loading="lazy"><figcaption>Imagen: Referencias 13–14.</figcaption></figure>
+<article class="manual-step" id="step-es-13"><span class="step-badge">13</span><h3>Tiempo objetivo (Target)</h3><p>Permite establecer el tiempo de ciclo de referencia para el perfil de trabajo activo.</p><p>El valor se introduce en la unidad principal seleccionada, segundos o centésimas de minuto.</p><p>Este parámetro facilita la comparación entre los tiempos reales registrados y el tiempo previsto para el proceso, permitiendo identificar desviaciones respecto al objetivo establecido.</p></article>
+<article class="manual-step" id="step-es-14"><span class="step-badge">14</span><h3>Idioma (Language)</h3><p>Permite seleccionar el idioma de la interfaz de CRONO.</p><p>La aplicación dispone de cuatro idiomas:</p><ul><li>Inglés</li><li>Francés</li><li>Español</li><li>Alemán</li></ul><p>El idioma seleccionado se aplica a los menús, controles y mensajes de la aplicación, facilitando su utilización en entornos industriales internacionales.</p></article>
+<figure class="image-frame portrait"><img src="05_web.jpg" alt="Pantalla de CRONO con los controles 15 a 16 numerados." loading="lazy"><figcaption>Imagen: Referencias 15–16.</figcaption></figure>
+<article class="manual-step" id="step-es-15"><span class="step-badge">15</span><h3>Sonido (Sound)</h3><p>Permite activar o desactivar las señales acústicas de CRONO.</p><p>La aplicación dispone de tres tipos de sonido, diseñados para proporcionar información inmediata durante el cronometraje sin necesidad de consultar continuamente la pantalla.</p><ul><li>Inicio de medición: señal acústica que confirma la puesta en marcha del cronómetro.</li><li>Ciclo dentro del objetivo: sonido de confirmación cuando el tiempo registrado es igual o inferior al tiempo objetivo (target).</li><li>Ciclo fuera del objetivo: sonido de advertencia cuando el tiempo registrado supera el valor establecido como objetivo.</li></ul><p>Estas señales permiten identificar rápidamente el resultado de cada ciclo, facilitando el seguimiento de estaciones automatizadas y procesos robotizados.</p><p>SOUND ON activa las señales acústicas y SOUND OFF permite realizar las mediciones en silencio.</p></article>
+<article class="manual-step" id="step-es-16"><span class="step-badge">16</span><h3>Confirmar configuración (ACCEPT)</h3><p>Guarda los parámetros seleccionados y regresa a la pantalla principal del cronómetro.</p><p>Los cambios realizados se aplican a las siguientes mediciones, permitiendo adaptar el funcionamiento de CRONO a las necesidades del proceso analizado.</p></article>
+</section>
+<section id="log-es"><div class="section-heading"><span class="section-index">03</span><h2>Registro de tiempos (LOG)</h2></div><p class="chapter-description">Consulta, análisis y exportación de mediciones.</p>
+<p>El registro de tiempos permite consultar y analizar las mediciones realizadas durante una sesión de cronometraje. Incluye estadísticas, una representación gráfica de los ciclos y herramientas para exportar los resultados.</p>
+<figure class="image-frame portrait"><img src="06_web.jpg" alt="Pantalla de CRONO con los controles 17 a 23 numerados." loading="lazy"><figcaption>Imagen: Referencias 17–23.</figcaption></figure>
+<article class="manual-step" id="step-es-17"><span class="step-badge">17</span><h3>Borrar registro (CLEAR)</h3><p>Elimina los tiempos registrados, permitiendo comenzar una nueva serie de mediciones.</p><p>Esta operación resulta útil al iniciar un nuevo estudio o repetir una toma de tiempos desde cero.</p></article>
+<article class="manual-step" id="step-es-18"><span class="step-badge">18</span><h3>Excluir último ciclo (Exclude last cycle)</h3><p>Permite excluir el último ciclo registrado del cálculo de los resultados.</p><p>Esta función es especialmente útil cuando la última medición corresponde a un ciclo incompleto, una interrupción del proceso o una toma de tiempos que no se desea considerar.</p></article>
+<article class="manual-step" id="step-es-19"><span class="step-badge">19</span><h3>Tiempo medio (Average)</h3><p>Muestra el promedio de los tiempos registrados, expresado en la unidad principal seleccionada.</p><p>El cálculo permite obtener una referencia del comportamiento general del proceso, reduciendo la influencia de las variaciones entre ciclos individuales.</p></article>
+<article class="manual-step" id="step-es-20"><span class="step-badge">20</span><h3>Gráfica de tiempos</h3><p>Representa visualmente la evolución de los tiempos de ciclo registrados.</p><p>La línea continua muestra las mediciones sucesivas, mientras que la línea discontinua indica el tiempo objetivo (target).</p><p>Esta representación permite identificar rápidamente variaciones, tendencias y desviaciones respecto al tiempo de referencia.</p></article>
+<article class="manual-step" id="step-es-21"><span class="step-badge">21</span><h3>Tiempo de ciclo</h3><p>Muestra los tiempos individuales registrados, ordenados por número de ciclo.</p><p>Los valores se presentan con un código de colores que facilita su interpretación:</p><ul><li>Verde: tiempo igual o inferior al objetivo establecido.</li><li>Rojo: tiempo superior al objetivo establecido.</li></ul><p>Esta identificación visual permite reconocer inmediatamente los ciclos que cumplen el tiempo previsto y aquellos que presentan desviaciones.</p></article>
+<article class="manual-step" id="step-es-22"><span class="step-badge">22</span><h3>Exportar datos (EXPORT CSV)</h3><p>Permite exportar el registro de mediciones a un archivo CSV, compatible con hojas de cálculo y herramientas de análisis de datos.</p><p>Esta función facilita el tratamiento posterior de los resultados, la elaboración de informes de productividad y la comparación de tiempos entre diferentes sesiones de trabajo.</p></article>
+<article class="manual-step" id="step-es-23"><span class="step-badge">23</span><h3>Cerrar registro (ACCEPT)</h3><p>Cierra la ventana del registro y regresa a la pantalla principal de CRONO.</p><p>Los tiempos registrados permanecen disponibles para su consulta y análisis posterior.</p></article>
+</section>
+<section id="projects-es"><div class="section-heading"><span class="section-index">04</span><h2>Gestión de proyectos (PROJECTS)</h2></div><p class="chapter-description">Perfiles de trabajo y datos almacenados.</p>
+<p>CRONO permite organizar las mediciones mediante proyectos independientes, facilitando el trabajo con diferentes estaciones automatizadas, células robotizadas o procesos industriales.</p><p>Cada proyecto conserva su configuración y los tiempos registrados, permitiendo recuperar las condiciones de trabajo de cada estudio.</p>
+<figure class="image-frame portrait"><img src="07_web.jpg" alt="Pantalla de CRONO con los controles 24 a 29 numerados." loading="lazy"><figcaption>Imagen: Referencias 24–29.</figcaption></figure>
+<article class="manual-step" id="step-es-24"><span class="step-badge">24</span><h3>Lista de proyectos</h3><p>Muestra los proyectos disponibles en la aplicación.</p><p>Al seleccionar uno de ellos, se accede a las opciones de gestión, desde las que es posible cargarlo, actualizarlo, cambiar su nombre, exportarlo o eliminarlo.</p></article>
+<article class="manual-step" id="step-es-25"><span class="step-badge">25</span><h3>Nuevo proyecto (NEW PROJECT)</h3><p>Permite crear un nuevo proyecto de trabajo.</p><p>Cada proyecto dispone de un nombre identificativo y puede mantener su propia configuración de cronometraje, tiempo objetivo y registro de mediciones.</p></article>
+<article class="manual-step" id="step-es-26"><span class="step-badge">26</span><h3>Importar proyectos (IMPORT)</h3><p>Permite incorporar proyectos previamente exportados desde CRONO.</p><p>Esta función facilita la recuperación de configuraciones y registros, así como el intercambio de proyectos entre dispositivos.</p></article>
+<article class="manual-step" id="step-es-27"><span class="step-badge">27</span><h3>Exportar todos (EXPORT ALL)</h3><p>Genera un archivo que contiene todos los proyectos almacenados en la aplicación, incluyendo sus configuraciones y registros de tiempos.</p><p>Es especialmente útil para realizar copias de seguridad, transferir datos a otro dispositivo o conservar el historial de los estudios realizados.</p></article>
+<article class="manual-step" id="step-es-28"><span class="step-badge">28</span><h3>Eliminar todos (DELETE ALL)</h3><p>Permite eliminar todos los proyectos y sus registros almacenados.</p><p>Esta operación requiere confirmación para evitar la pérdida accidental de información.</p><p>Importante: antes de realizar una eliminación general, se recomienda utilizar EXPORT ALL para conservar una copia de seguridad.</p></article>
+<article class="manual-step" id="step-es-29"><span class="step-badge">29</span><h3>Cerrar (ACCEPT)</h3><p>Cierra la ventana de gestión de proyectos y regresa a la pantalla principal de CRONO.</p></article>
+<figure class="image-frame portrait"><img src="08_web.jpg" alt="Pantalla de CRONO con los controles 30 a 30 numerados." loading="lazy"><figcaption>Imagen: Referencia 30.</figcaption></figure>
+<article class="manual-step" id="step-es-30"><span class="step-badge">30</span><h3>Nombre del proyecto (Project name)</h3><p>Al seleccionar NEW PROJECT, CRONO solicita un nombre para identificar el nuevo proyecto.</p><p>Se recomienda utilizar una denominación que permita reconocer fácilmente la estación automatizada, célula robotizada o proceso que se va a analizar.</p><p>Por ejemplo: Línea 1 - Robot de soldadura.</p><p>Una vez introducido el nombre, el botón ACCEPT confirma la creación del proyecto, mientras que CANCEL permite regresar sin guardar los cambios.</p><p>Cada proyecto puede conservar su propia configuración de cronometraje y registro de tiempos, facilitando la organización de diferentes estudios de ciclos industriales.</p></article>
+<figure class="image-frame portrait"><img src="09_web.jpg" alt="Pantalla de CRONO con los controles 31 a 36 numerados." loading="lazy"><figcaption>Imagen: Referencias 31–36.</figcaption></figure>
+<p>Al seleccionar un proyecto de la lista, CRONO muestra las operaciones disponibles para administrar su configuración y sus datos.</p>
+<article class="manual-step" id="step-es-31"><span class="step-badge">31</span><h3>Cargar proyecto (LOAD)</h3><p>Activa el proyecto seleccionado para realizar mediciones.</p><p>CRONO recupera su configuración y su registro de tiempos, permitiendo continuar el estudio con los parámetros asociados a ese proyecto.</p></article>
+<article class="manual-step" id="step-es-32"><span class="step-badge">32</span><h3>Actualizar proyecto (UPDATE)</h3><p>Guarda la configuración actual de CRONO en el proyecto seleccionado, sustituyendo su configuración anterior.</p><p>Esta función permite aplicar los ajustes realizados a un proyecto existente sin necesidad de crear uno nuevo.</p></article>
+<article class="manual-step" id="step-es-33"><span class="step-badge">33</span><h3>Cambiar nombre (RENAME)</h3><p>Permite modificar el nombre del proyecto sin necesidad de crear otro.</p><p>Resulta útil para corregir denominaciones o adaptar la identificación de una estación, robot o proceso.</p></article>
+<article class="manual-step" id="step-es-34"><span class="step-badge">34</span><h3>Exportar proyecto (EXPORT)</h3><p>Genera un archivo con los datos del proyecto seleccionado, incluyendo su configuración y los tiempos registrados.</p><p>Permite realizar copias de seguridad, transferir el proyecto a otro dispositivo o compartirlo con otros usuarios de CRONO.</p></article>
+<article class="manual-step" id="step-es-35"><span class="step-badge">35</span><h3>Eliminar proyecto (DELETE)</h3><p>Elimina el proyecto seleccionado y sus registros asociados.</p><p>La aplicación solicita confirmación antes de ejecutar esta operación para evitar eliminaciones accidentales.</p></article>
+<article class="manual-step" id="step-es-36"><span class="step-badge">36</span><h3>Volver (BACK)</h3><p>Regresa a la lista de proyectos sin realizar ninguna operación.</p></article>
+</section>
+</div><div class="language-panel" id="panel-en" lang="en" hidden>
+<section id="intro-en"><div class="section-heading"><span class="section-index">00</span><h2>Introduction</h2></div><p>CRONO is a timing application specifically designed to analyse and measure cycle times in industrial automation environments.</p><p>Its purpose is to make it easy to measure the operating cycles of automated stations, robotic cells and repetitive industrial processes, providing a fast, precise and adaptable tool for shop-floor work.</p><p>The application measures times in both seconds and hundredths of a minute, a standard unit in industrial time studies, and lets you establish target values to assess cycle performance.</p><p>With work profiles, CRONO organizes measurements from different stations, robots and processes, keeping their settings and time records separate.</p><p>Recorded times can be exported for further analysis, supporting productivity studies, process optimization, line balancing and cycle-time monitoring.</p><p>The interface is designed for straightforward use on mobile devices, so measurements can be taken directly at the machine without interfering with operations.</p><p>CRONO combines ease of use, flexibility and industrial functionality in a tool intended for data collection under real production conditions.</p><p>And it even has a nice big button!</p></section>
+<section id="main-en"><div class="section-heading"><span class="section-index">01</span><h2>Main screen</h2></div><p class="chapter-description">The main controls and readouts of CRONO.</p>
+<p>The main screen provides access to the essential functions of CRONO. From here you can configure timing, review recorded measurements and manage work profiles.</p>
+<figure class="image-frame portrait"><img src="01a_web.jpg" alt="CRONO screen highlighting controls 1 to 3." loading="lazy"><figcaption>Figure: References 1–3.</figcaption></figure>
+<article class="manual-step" id="step-en-1"><span class="step-badge">1</span><h3>CONFIG</h3><p>Opens the application configuration panel.</p><p>Here you can define the active profile’s timing mode, primary time unit, target time, language and sound settings.</p><p>The configuration is associated with the active project, allowing CRONO to be adapted to different processes, stations or robots without setting everything up again each time.</p></article>
+<article class="manual-step" id="step-en-2"><span class="step-badge">2</span><h3>LOG</h3><p>Opens the list of recorded cycle times.</p><p>You can review measured cycles and their average, view their development in a chart, exclude the last cycle from the analysis if the measurement was interrupted, and export data for further processing.</p><p>The log provides an immediate overview of cycle behaviour and a record of the measurements.</p></article>
+<article class="manual-step" id="step-en-3"><span class="step-badge">3</span><h3>PROJECTS</h3><p>Opens work-profile management.</p><p>Each project can independently store its name, timing configuration, chosen time unit, target and recorded cycle history.</p><p>This lets you prepare separate profiles for different automated stations, robots or processes and switch between them as needed.</p></article>
+<figure class="image-frame portrait"><img src="01b_web.jpg" alt="CRONO screen highlighting controls 4 to 6." loading="lazy"><figcaption>Figure: References 4–6.</figcaption></figure>
+<article class="manual-step" id="step-en-4"><span class="step-badge">4</span><h3>Active profile</h3><p>Displays the name of the currently selected work profile.</p><p>A profile identifies the station, robot or process being measured. In this example, the active profile is BASE.</p></article>
+<article class="manual-step" id="step-en-5"><span class="step-badge">5</span><h3>Main stopwatch</h3><p>Displays elapsed time during the measurement cycle.</p><p>The large digits are easy to read at the machine. The primary unit can be configured as seconds or hundredths of a minute.</p></article>
+<article class="manual-step" id="step-en-6"><span class="step-badge">6</span><h3>Secondary unit</h3><p>Simultaneously displays the time in the alternative unit without changing the settings.</p><p>You can therefore consult and compare seconds and hundredths of a minute throughout the measurement.</p></article>
+<figure class="image-frame portrait"><img src="01c_web.jpg" alt="CRONO screen highlighting controls 7 to 10." loading="lazy"><figcaption>Figure: References 7–10.</figcaption></figure>
+<article class="manual-step" id="step-en-7"><span class="step-badge">7</span><h3>Target time (TARGET)</h3><p>Displays the reference cycle time set for the active profile.</p><p>This allows measured times to be compared with the planned cycle time for a station or robot.</p><p>The target is expressed in the selected primary time unit.</p></article>
+<article class="manual-step" id="step-en-8"><span class="step-badge">8</span><h3>Last cycle (LAST CYCLE)</h3><p>Displays the time recorded for the most recently completed cycle.</p><p>It allows immediate comparison between consecutive measurements.</p></article>
+<article class="manual-step" id="step-en-9"><span class="step-badge">9</span><h3>START button</h3><p>Starts cycle timing.</p><p>Successive presses of the large main button control the measurement according to the timing mode selected in the settings.</p><p>Its large surface makes it easy to operate quickly while observing automated processes.</p></article>
+<article class="manual-step" id="step-en-10"><span class="step-badge">10</span><h3>RESET button</h3><p>Resets the stopwatch to zero.</p><p>Use it to prepare another measurement or discard the elapsed time when required, according to the selected timing mode.</p></article>
+</section>
+<section id="settings-en"><div class="section-heading"><span class="section-index">02</span><h2>Configuration</h2></div><p class="chapter-description">Set how cycle times are recorded and displayed.</p>
+<figure class="image-frame portrait"><img src="02_web.jpg" alt="CRONO screen highlighting controls 11 to 11." loading="lazy"><figcaption>Figure: Reference 11.</figcaption></figure>
+<article class="manual-step" id="step-en-11"><span class="step-badge">11</span><h3>Timing mode</h3><p>Selects how the stopwatch behaves for the type of measurement being performed.</p><p class="subheading">Start / Stop: The first press starts timing; the next stops the counter and records the cycle time. Suitable for individual measurements and processes that need manual starting and stopping.</p><p class="subheading">Start / Reset: The first press starts timing. Every subsequent press records the completed cycle and immediately restarts the counter, with no pause between cycles. This is particularly useful for repetitive production processes.</p></article>
+<figure class="image-frame portrait"><img src="03_web.jpg" alt="CRONO screen highlighting controls 12 to 12." loading="lazy"><figcaption>Figure: Reference 12.</figcaption></figure>
+<article class="manual-step" id="step-en-12"><span class="step-badge">12</span><h3>Primary unit</h3><p>Selects the time unit used as the main reference during measurements.</p><p class="subheading">Seconds: Displays time in seconds with two decimal places.</p><p class="subheading">Centiseconds (hundredths of a minute): A unit widely used in industrial time studies. One hundredth of a minute equals 0.6 seconds.</p><p>The chosen unit appears in the large main display; the other unit is shown below at a smaller size. The target time uses the selected primary unit as well.</p></article>
+<figure class="image-frame portrait"><img src="04_web.jpg" alt="CRONO screen highlighting controls 13 to 14." loading="lazy"><figcaption>Figure: References 13–14.</figcaption></figure>
+<article class="manual-step" id="step-en-13"><span class="step-badge">13</span><h3>Target time</h3><p>Sets the reference cycle time for the active work profile.</p><p>Enter the value in the selected primary unit, either seconds or hundredths of a minute.</p><p>This enables comparison between recorded cycle times and the planned time, making deviations from the target easier to identify.</p></article>
+<article class="manual-step" id="step-en-14"><span class="step-badge">14</span><h3>Language</h3><p>Selects the language used throughout CRONO.</p><p>The application supports English, French, Spanish and German.</p><p>The selected language applies to menus, controls and messages, allowing use in international industrial environments.</p></article>
+<figure class="image-frame portrait"><img src="05_web.jpg" alt="CRONO screen highlighting controls 15 to 16." loading="lazy"><figcaption>Figure: References 15–16.</figcaption></figure>
+<article class="manual-step" id="step-en-15"><span class="step-badge">15</span><h3>Sound</h3><p>Enables or disables CRONO’s audible signals.</p><p>Three sounds provide immediate feedback without requiring constant attention to the display:</p><ul><li>Measurement start: Confirms that the stopwatch has started.</li><li>Cycle within target: Confirms that the recorded time is equal to or below the target.</li><li>Cycle above target: Warns that the recorded time exceeds the target.</li></ul><p>SOUND ON enables these signals; SOUND OFF allows silent operation.</p></article>
+<article class="manual-step" id="step-en-16"><span class="step-badge">16</span><h3>Confirm settings (ACCEPT)</h3><p>Saves the selected parameters and returns to the main stopwatch screen.</p><p>Changes apply to subsequent measurements, adapting CRONO to the process being analysed.</p></article>
+</section>
+<section id="log-en"><div class="section-heading"><span class="section-index">03</span><h2>Time log (LOG)</h2></div><p class="chapter-description">Review, analyse and export cycle-time measurements.</p>
+<p>The log lets you examine cycle times measured during a timing session. It includes statistics, a chart and export tools.</p>
+<figure class="image-frame portrait"><img src="06_web.jpg" alt="CRONO screen highlighting controls 17 to 23." loading="lazy"><figcaption>Figure: References 17–23.</figcaption></figure>
+<article class="manual-step" id="step-en-17"><span class="step-badge">17</span><h3>Clear log (CLEAR)</h3><p>Deletes the recorded cycle times, allowing a new series of measurements to begin.</p><p>Useful when starting a new study or repeating a time study from zero.</p></article>
+<article class="manual-step" id="step-en-18"><span class="step-badge">18</span><h3>Exclude last cycle</h3><p>Excludes the most recently recorded cycle from the results calculation.</p><p>Useful when the last measurement was incomplete, the process was interrupted, or a recorded time should not be included.</p></article>
+<article class="manual-step" id="step-en-19"><span class="step-badge">19</span><h3>Average time (Average)</h3><p>Displays the average of the recorded cycle times in the selected primary unit.</p><p>This provides a general reference for process behaviour and reduces the influence of differences between individual cycles.</p></article>
+<article class="manual-step" id="step-en-20"><span class="step-badge">20</span><h3>Cycle-time chart</h3><p>Plots how recorded cycle times change throughout the measurement session.</p><p>The solid line represents successive measurements, while the dashed line marks the target time.</p><p>The chart makes variations, trends and deviations from the reference time easy to identify.</p></article>
+<article class="manual-step" id="step-en-21"><span class="step-badge">21</span><h3>Cycle time</h3><p>Lists individual recorded times by cycle number.</p><ul><li>Green: Time equal to or below the target.</li><li>Red: Time above the target.</li></ul><p>This colour coding makes compliant cycles and deviations immediately visible.</p></article>
+<article class="manual-step" id="step-en-22"><span class="step-badge">22</span><h3>Export data (EXPORT CSV)</h3><p>Exports the measurement log to a CSV file compatible with spreadsheets and data-analysis tools.</p><p>This supports subsequent analysis, productivity reports and comparisons between measurement sessions.</p></article>
+<article class="manual-step" id="step-en-23"><span class="step-badge">23</span><h3>Close log (ACCEPT)</h3><p>Closes the log and returns to the CRONO main screen.</p><p>Recorded cycle times remain available for later review and analysis.</p></article>
+</section>
+<section id="projects-en"><div class="section-heading"><span class="section-index">04</span><h2>Project management (PROJECTS)</h2></div><p class="chapter-description">Manage work profiles and stored data.</p>
+<p>CRONO organizes measurements into independent projects for automated stations, robotic cells and industrial processes. Each project retains its settings and time records.</p>
+<figure class="image-frame portrait"><img src="07_web.jpg" alt="CRONO screen highlighting controls 24 to 29." loading="lazy"><figcaption>Figure: References 24–29.</figcaption></figure>
+<article class="manual-step" id="step-en-24"><span class="step-badge">24</span><h3>Project list</h3><p>Displays the projects available in the application.</p><p>Select a project to open its management options: load, update, rename, export or delete.</p></article>
+<article class="manual-step" id="step-en-25"><span class="step-badge">25</span><h3>New project (NEW PROJECT)</h3><p>Creates a new work project.</p><p>Each project has an identifying name and can retain its own timing settings, target and measurement log.</p></article>
+<article class="manual-step" id="step-en-26"><span class="step-badge">26</span><h3>Import projects (IMPORT)</h3><p>Imports projects previously exported from CRONO.</p><p>This enables recovery of settings and records and the transfer of projects between devices.</p></article>
+<article class="manual-step" id="step-en-27"><span class="step-badge">27</span><h3>Export all (EXPORT ALL)</h3><p>Creates a file containing every stored project, including their settings and cycle-time records.</p><p>Useful for backups, transferring data to another device or archiving completed studies.</p></article>
+<article class="manual-step" id="step-en-28"><span class="step-badge">28</span><h3>Delete all (DELETE ALL)</h3><p>Deletes all stored projects and their associated records.</p><p>Confirmation is required to prevent accidental data loss.</p><p>Important: Use EXPORT ALL first if you want to keep a backup.</p></article>
+<article class="manual-step" id="step-en-29"><span class="step-badge">29</span><h3>Close (ACCEPT)</h3><p>Closes project management and returns to the CRONO main screen.</p></article>
+<figure class="image-frame portrait"><img src="08_web.jpg" alt="CRONO screen highlighting controls 30 to 30." loading="lazy"><figcaption>Figure: Reference 30.</figcaption></figure>
+<article class="manual-step" id="step-en-30"><span class="step-badge">30</span><h3>Project name</h3><p>When NEW PROJECT is selected, CRONO asks for a name to identify the new project.</p><p>Choose a name that clearly identifies the automated station, robotic cell or process, for example: Line 1 - Welding robot.</p><p>Press ACCEPT to create the project or CANCEL to return without saving.</p><p>Each project can store its own timing settings and cycle-time records.</p></article>
+<figure class="image-frame portrait"><img src="09_web.jpg" alt="CRONO screen highlighting controls 31 to 36." loading="lazy"><figcaption>Figure: References 31–36.</figcaption></figure>
+<p>Select a project from the list to view the available operations for managing its settings and data.</p>
+<article class="manual-step" id="step-en-31"><span class="step-badge">31</span><h3>Load project (LOAD)</h3><p>Activates the selected project for measurements.</p><p>CRONO restores its configuration and recorded times so that the study can continue with the settings associated with that project.</p></article>
+<article class="manual-step" id="step-en-32"><span class="step-badge">32</span><h3>Update project (UPDATE)</h3><p>Saves CRONO’s current configuration into the selected project, replacing that project’s previous configuration.</p><p>This applies current settings to an existing project without creating a new one.</p></article>
+<article class="manual-step" id="step-en-33"><span class="step-badge">33</span><h3>Rename project (RENAME)</h3><p>Changes the project name without creating another project.</p><p>Useful for correcting or updating the identification of a station, robot or process.</p></article>
+<article class="manual-step" id="step-en-34"><span class="step-badge">34</span><h3>Export project (EXPORT)</h3><p>Creates a file containing the selected project’s configuration and recorded times.</p><p>Useful for backups, transferring a project to another device or sharing it with other CRONO users.</p></article>
+<article class="manual-step" id="step-en-35"><span class="step-badge">35</span><h3>Delete project (DELETE)</h3><p>Deletes the selected project and its associated records.</p><p>The application requests confirmation before proceeding to prevent accidental deletion.</p></article>
+<article class="manual-step" id="step-en-36"><span class="step-badge">36</span><h3>Back (BACK)</h3><p>Returns to the project list without performing any operation.</p></article>
+</section>
+</div></main>
+<footer><div class="footer-inner" id="footer-text">CRONO · Manual de usuario · Corrosion Labs</div></footer>
+<script>
+(()=>{
+ const select=document.getElementById('language-selector');
+ const nav=document.getElementById('main-nav');
+ const labels={es:['Introducción','Pantalla principal','Configuración','Registro de tiempos','Proyectos'],en:['Introduction','Main screen','Configuration','Time log','Projects']};
+ function setLang(lang){
+  lang=labels[lang]?lang:'es';
+  document.documentElement.lang=lang;
+  document.getElementById('panel-es').hidden=(lang!=='es');
+  document.getElementById('panel-en').hidden=(lang!=='en');
+  select.value=lang;
+  select.setAttribute('aria-label',lang==='es'?'Seleccionar idioma':'Select language');
+  nav.setAttribute('aria-label',lang==='es'?'Navegación del manual':'Manual navigation');
+  document.getElementById('subtitle').textContent=lang==='es'?'Manual de usuario':'User manual';
+  document.getElementById('footer-text').textContent='CRONO · '+(lang==='es'?'Manual de usuario':'User manual')+' · Corrosion Labs';
+  document.title='CRONO | '+(lang==='es'?'Manual de usuario':'User manual');
+  document.querySelector('meta[name="description"]').content=lang==='es'?'Manual de usuario de CRONO. Cronometraje industrial de ciclos automatizados.':'CRONO user manual. Industrial cycle timing for automated stations and robots.';
+  [...nav.querySelectorAll('a')].forEach((a,i)=>{a.textContent=labels[lang][i];a.href='#'+a.dataset.section+'-'+lang;});
+  try{localStorage.setItem('crono-manual-language',lang);}catch(_){}
+ }
+ select.addEventListener('change',()=>{const old=select.value==='es'?'en':'es';setLang(select.value);if(location.hash.endsWith('-'+old))history.replaceState(null,'',location.hash.slice(0,-2)+select.value);});
+ const requested=new URLSearchParams(location.search).get('lang');
+ let saved='es';try{saved=localStorage.getItem('crono-manual-language')||'es';}catch(_){}
+ setLang(labels[requested]?requested:saved);
+})();
+</script>
+</body>
+</html>
