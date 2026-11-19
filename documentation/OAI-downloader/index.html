@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Manual de usuario de OAI-Downloader, herramienta de copia de seguridad de conversaciones y recursos de ChatGPT." name="description"/>
+<title>OAI-Downloader | Manual de usuario</title>
+<link href="../manual.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="site-header"><div class="header-inner"><div>
+<p class="eyebrow">Corrosion Labs</p>
+<h1>OAI-Downloader</h1>
+<p class="subtitle" id="subtitle">Manual de usuario</p>
+</div><select aria-label="Seleccionar idioma" class="language-placeholder" id="language-selector"><option value="es">ES</option><option value="en">EN</option></select></div></header>
+<nav aria-label="Navegación del manual" class="main-nav" id="main-nav"><ul>
+<li><a data-section="introduccion" href="#introduccion-es">Introducción</a></li>
+<li><a data-section="system" href="#system-es">System</a></li>
+<li><a data-section="analysis" href="#analysis-es">Analysis</a></li>
+<li><a data-section="inventory" href="#inventory-es">Inventory</a></li>
+<li><a data-section="download" href="#download-es">Download</a></li>
+<li><a data-section="cleanup" href="#cleanup-es">Cleanup</a></li>
+<li><a data-section="ayuda" href="#ayuda-es">Ayuda e información</a></li>
+</ul></nav>
+<main class="content">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="language-panel" id="panel-es" lang="es"><section id="introduccion-es"><div class="section-heading"><span class="section-index">00</span><h2>Introducción</h2></div><div class="manual-copy">
+<p><strong>OAI-Downloader</strong> es una aplicación gratuita desarrollada por <strong>Corrosion Labs</strong> para realizar copias de seguridad locales de las conversaciones y recursos almacenados en una cuenta de ChatGPT.</p>
+<p>Su objetivo es <strong>permitir al usuario conservar y controlar sus propios datos sin depender exclusivamente de la exportación oficial de OpenAI</strong>.</p>
+<h3>¿Por qué hemos creado OAI-Downloader?</h3>
+<p>Porque recuperar nuestros propios datos de ChatGPT se había convertido en una experiencia desesperante.</p>
+<p>OpenAI ofrece un sistema oficial de exportación que, en teoría, permite descargar el historial de conversaciones y los datos asociados a una cuenta. En la práctica, nuestra experiencia fue bastante menos satisfactoria.</p>
+<p><strong>Exportaciones que no llegaban, descargas incompletas, archivos corruptos y copias de seguridad que resultaban inutilizables.</strong></p>
+<p>Cuando una cuenta acumula años de conversaciones, proyectos, documentos e imágenes, estos problemas dejan de ser una simple molestia técnica. Se convierten en un riesgo real de pérdida de información.</p>
+<p>Y lo más absurdo es que estamos hablando de nuestros propios datos.</p>
+<p>No debería ser necesario recurrir a soluciones improvisadas para recuperar información que hemos generado y almacenado durante meses o años en un servicio por el que, en muchos casos, estamos pagando.</p>
+<p>Después de varios intentos fallidos con la exportación oficial, decidimos construir nuestra propia herramienta.</p>
+<p><strong>OAI-Downloader no nació para hacer más cómoda una función que ya existía. Nació porque necesitábamos una alternativa que funcionara.</strong></p>
+<p>Una aplicación capaz de examinar la cuenta, identificar sus contenidos, descargarlos progresivamente, registrar los errores y continuar una operación interrumpida sin tener que empezar de cero.</p>
+<p>En definitiva, recuperar el control sobre nuestra información.</p>
+<p>Porque resulta bastante irónico que una empresa dedicada a desarrollar algunas de las tecnologías más avanzadas del mundo no consiga ofrecer una descarga fiable de los datos de sus usuarios.</p>
+<h3>¿Qué hace?</h3>
+<ol>
+<li><strong>System:</strong> comprueba la conexión y configura la carpeta de trabajo.</li>
+<li><strong>Analysis:</strong> identifica proyectos y conversaciones, y distingue los contenidos nuevos, modificados y sin cambios.</li>
+<li><strong>Inventory:</strong> crea un inventario local de conversaciones y recursos.</li>
+<li><strong>Download:</strong> descarga los recursos pendientes y registra los resultados para actualizaciones posteriores.</li>
+</ol>
+<p>El procedimiento permite <strong>copias incrementales</strong>, evita descargar de nuevo archivos ya guardados y admite seleccionar proyectos concretos.</p>
+<h3>Diseñado para grandes volúmenes de información</h3>
+<p>Incluye modos de descarga, procesamiento paralelo, seguimiento de progreso y opciones de recuperación para operaciones largas. El inventario diferencia recursos descargados, pendientes, no disponibles y fallidos.</p>
+<h3>Una herramienta de conservación, no de exportación documental</h3>
+<p>OAI-Downloader se centra en recuperar y conservar información original de ChatGPT. La transformación de las conversaciones a formatos de lectura corresponde a herramientas posteriores, como <strong>OpenAI Obsidian Processor</strong>.</p>
+<h3>Independencia y control</h3>
+<p>Funciona localmente y permite elegir la ubicación de las copias. No sustituye a ChatGPT ni modifica los contenidos de la cuenta.</p>
+<p><strong>Los proyectos, las conversaciones y los materiales construidos con estas herramientas no deberían depender de un único servicio para seguir existiendo.</strong></p>
+<p><em>OAI-Downloader es un proyecto independiente de Corrosion Labs y no está afiliado a OpenAI.</em></p>
+</div></section><section id="system-es"><div class="section-heading"><span class="section-index">01</span><h2>System: configuración inicial</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: System: configuración inicial" loading="lazy" src="01.jpg"/><figcaption>01.jpg · System: configuración inicial</figcaption></figure>
+<div class="manual-copy"><p>La pantalla <strong>System</strong> es el punto de partida de OAI-Downloader. Permite comprobar la conexión con ChatGPT y establecer la carpeta donde se almacenarán los datos descargados.</p>
+<h3>Estado de conexión</h3>
+<p>El campo <strong>Status</strong> muestra el estado actual de la conexión. <em>No credentials</em> indica que todavía no se han configurado las credenciales.</p>
+<h3>Carpeta de datos</h3>
+<p><strong>Data folder</strong> muestra la ubicación de almacenamiento. El botón <strong>Change</strong> permite elegir otra carpeta.</p>
+<h3>Opciones de conexión</h3>
+<ul>
+<li><strong>Check connection:</strong> comprueba las credenciales disponibles.</li>
+<li><strong>Connect to ChatGPT:</strong> inicia el procedimiento de conexión.</li>
+<li><strong>Manual connection:</strong> permite configurar la conexión manualmente.</li>
+</ul>
+<h3>Etapas</h3>
+<p><strong>System → Analysis → Inventory → Download</strong>. El proceso es secuencial: cada etapa depende de la anterior. <strong>Cleanup</strong> es opcional. Tras comprobar la conexión, <strong>Next</strong> permite avanzar.</p>
+</div></section><section id="detail-01a-es"><div class="section-heading"><span class="section-index">01a</span><h2>Barra de navegación</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Barra de navegación" loading="lazy" src="01a.jpg" style="max-width: 1360px"/><figcaption>01a.jpg · Barra de navegación</figcaption></figure>
+<div class="manual-copy"><p>La barra superior identifica las etapas y ofrece acceso a las funciones generales.</p>
+<ul>
+<li><strong>System:</strong> conexión y carpeta de trabajo.</li>
+<li><strong>Analysis:</strong> análisis de proyectos y conversaciones.</li>
+<li><strong>Inventory:</strong> inventario de recursos.</li>
+<li><strong>Download:</strong> descarga de archivos.</li>
+<li><strong>Cleanup:</strong> limpieza opcional.</li>
+</ul>
+<p>Los indicadores de color muestran el estado: <strong>verde</strong>, etapa completada; <strong>naranja</strong>, en curso; <strong>rojo</strong>, pendiente. No es posible ejecutar una fase antes de completar las anteriores.</p>
+<p>El icono <strong>?</strong> abre la ayuda contextual, el selector <strong>English</strong> permite cambiar el idioma y el icono circular señala actividad de la aplicación.</p>
+</div></section><section id="detail-01b-es"><div class="section-heading"><span class="section-index">01b</span><h2>Estado de conexión</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Estado de conexión" loading="lazy" src="01b.jpg" style="max-width: 994px"/><figcaption>01b.jpg · Estado de conexión</figcaption></figure>
+<div class="manual-copy"><p><strong>Status</strong> indica si OAI-Downloader dispone de las credenciales necesarias para conectarse a ChatGPT.</p>
+<p><strong>No credentials</strong>, acompañado de un indicador gris, significa que la aplicación no dispone de credenciales de acceso. Para conectarse es necesario utilizar una de las opciones disponibles en <strong>System</strong>.</p>
+</div></section><section id="detail-01c-es"><div class="section-heading"><span class="section-index">01c</span><h2>Carpeta de datos</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Carpeta de datos" loading="lazy" src="01c.jpg" style="max-width: 1766px"/><figcaption>01c.jpg · Carpeta de datos</figcaption></figure>
+<div class="manual-copy"><p><strong>Data folder</strong> muestra la ubicación de la carpeta local de trabajo. En ella se almacenan los datos y archivos descargados.</p>
+<p>El botón <strong>Change</strong> permite seleccionar otra ubicación. Es recomendable utilizar una carpeta dedicada a OAI-Downloader, con espacio suficiente para las descargas, especialmente si hay numerosos archivos multimedia.</p>
+</div></section><section id="detail-01d-es"><div class="section-heading"><span class="section-index">01d</span><h2>Conexión manual mediante cookies</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Conexión manual mediante cookies" loading="lazy" src="01d.jpg" style="max-width: 1980px"/><figcaption>01d.jpg · Conexión manual mediante cookies</figcaption></figure>
+<div class="manual-copy"><p><strong>Manual connection</strong> permite establecer la conexión cuando no se utiliza el procedimiento automático mediante navegador.</p>
+<h3>Obtener la cookie de sesión</h3>
+<ol>
+<li>Abre <a href="https://chatgpt.com/">ChatGPT</a> e inicia sesión.</li>
+<li>Pulsa <strong>F12</strong> para abrir las herramientas de desarrollador.</li>
+<li>Entra en <strong>Network</strong> (Red) y recarga la página.</li>
+<li>Selecciona una petición dirigida a <code>chatgpt.com</code>.</li>
+<li>En <strong>Request Headers</strong>, localiza <strong>Cookie</strong>.</li>
+<li>Copia el valor completo, sin el prefijo <code>Cookie:</code>.</li>
+<li>Pégalo en <strong>Cookie header value</strong> dentro de OAI-Downloader.</li>
+<li>Pulsa <strong>Save and check</strong> para comprobar la conexión.</li>
+</ol>
+<p><strong>Seguridad:</strong> las cookies son credenciales privadas que pueden permitir el acceso a tu cuenta. No las compartas ni las muestres en capturas.</p>
+</div></section><section id="detail-02-es"><div class="section-heading"><span class="section-index">02</span><h2>System: conexión establecida</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: System: conexión establecida" loading="lazy" src="02.jpg"/><figcaption>02.jpg · System: conexión establecida</figcaption></figure>
+<div class="manual-copy"><p>Una vez verificada la conexión, <strong>System</strong> muestra los datos de la cuenta conectada.</p>
+<ul>
+<li><strong>Status: Connected:</strong> indicador verde de conexión activa.</li>
+<li><strong>User:</strong> usuario asociado a la cuenta.</li>
+<li><strong>Email:</strong> correo electrónico de la cuenta.</li>
+<li><strong>Data folder:</strong> carpeta local elegida.</li>
+</ul>
+<p>El indicador verde bajo <strong>System</strong> confirma que la fase ha terminado. <strong>Next</strong> queda habilitado para avanzar a <strong>Analysis</strong>.</p>
+</div></section><section id="analysis-es"><div class="section-heading"><span class="section-index">03</span><h2>Analysis: análisis de proyectos</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Analysis: análisis de proyectos" loading="lazy" src="03.jpg"/><figcaption>03.jpg · Analysis: análisis de proyectos</figcaption></figure>
+<div class="manual-copy"><p><strong>Analysis</strong> consulta los proyectos de la cuenta y determina cuántas conversaciones contiene cada uno.</p>
+<p>El análisis comienza automáticamente al entrar en la pantalla.</p>
+<ul>
+<li><strong>Barra de progreso:</strong> avance de la operación.</li>
+<li><strong>Status:</strong> estado actual; naranja indica operación en curso.</li>
+<li><strong>Refresh projects:</strong> vuelve a consultar los proyectos.</li>
+<li><strong>Wait between requests (s):</strong> espera entre solicitudes a ChatGPT.</li>
+</ul>
+<p>El valor de la imagen es <strong>0,5 segundos</strong>. Aumentarlo reduce la frecuencia de peticiones, aunque alarga el análisis. <strong>Next</strong> permanece deshabilitado hasta completar la etapa.</p>
+</div></section><section id="detail-03a-es"><div class="section-heading"><span class="section-index">03a</span><h2>Actualización de proyectos</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Actualización de proyectos" loading="lazy" src="03a.jpg" style="max-width: 386px"/><figcaption>03a.jpg · Actualización de proyectos</figcaption></figure>
+<div class="manual-copy"><p><strong>Refresh projects</strong> permite repetir el análisis de los proyectos y conversaciones cuando se han añadido, eliminado o reorganizado contenidos.</p>
+<p>El indicador <strong>Status</strong> muestra la situación de la operación: <strong>gris</strong>, inactiva o pendiente; <strong>naranja</strong>, en curso; <strong>verde</strong>, completada.</p>
+<p>La actualización requiere una conexión válida con ChatGPT.</p>
+</div></section><section id="detail-03b-es"><div class="section-heading"><span class="section-index">03b</span><h2>Consulta de proyectos en curso</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Consulta de proyectos en curso" loading="lazy" src="03b.jpg" style="max-width: 1854px"/><figcaption>03b.jpg · Consulta de proyectos en curso</figcaption></figure>
+<div class="manual-copy"><p>Durante el análisis, OAI-Downloader recupera información de los proyectos y conversaciones.</p>
+<ul>
+<li><strong>Barra de progreso:</strong> avance de las consultas.</li>
+<li><strong>Indicador naranja:</strong> actividad en curso.</li>
+<li><strong>Fetching projects...:</strong> recuperación de los datos de proyectos.</li>
+</ul>
+<p>La duración depende del número de proyectos y conversaciones, de la conexión y del intervalo entre solicitudes. <strong>Next</strong> permanece deshabilitado mientras el análisis continúa.</p>
+</div></section><section id="detail-04-es"><div class="section-heading"><span class="section-index">04</span><h2>Analysis: resultados y selección</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Analysis: resultados y selección" loading="lazy" src="04.jpg"/><figcaption>04.jpg · Analysis: resultados y selección</figcaption></figure>
+<div class="manual-copy"><p>Al terminar el análisis, <strong>Status</strong> muestra <strong>Completed</strong> en verde y aparece un resumen de los datos.</p>
+<h3>Resumen</h3>
+<ul>
+<li><strong>Total projects:</strong> proyectos identificados.</li>
+<li><strong>Conversations in projects:</strong> conversaciones encontradas en ellos.</li>
+</ul>
+<p>La captura muestra <strong>32 proyectos y 540 conversaciones</strong>.</p>
+<h3>Lista de proyectos</h3>
+<p>Cada proyecto muestra su nombre y número de conversaciones. <strong>Root</strong> agrupa las conversaciones sin proyecto.</p>
+<ul>
+<li><strong>New:</strong> conversaciones nuevas.</li>
+<li><strong>Modified:</strong> conversaciones modificadas desde la última descarga.</li>
+<li><strong>Unchanged:</strong> conversaciones sin cambios.</li>
+<li><strong>Failed:</strong> conversaciones con errores previos.</li>
+</ul>
+<h3>Selección</h3>
+<p><strong>Download all</strong> selecciona todos los proyectos. Las casillas individuales permiten elegir únicamente algunos; el contador muestra el total incluido en la selección. <strong>Next</strong> lleva a <strong>Inventory</strong>.</p>
+</div></section><section id="detail-04a-es"><div class="section-heading"><span class="section-index">04a</span><h2>Selección de proyectos</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Selección de proyectos" loading="lazy" src="04a.jpg" style="max-width: 536px"/><figcaption>04a.jpg · Selección de proyectos</figcaption></figure>
+<div class="manual-copy"><p>La casilla <strong>Download all</strong> selecciona todos los proyectos simultáneamente. También se pueden marcar proyectos individuales.</p>
+<p><strong>Root</strong> agrupa las conversaciones no asociadas a ningún proyecto y puede incluirse o excluirse de forma independiente.</p>
+<p><strong>No selection</strong> indica que todavía no se ha elegido ningún proyecto. Al marcar proyectos se actualiza el contador de conversaciones seleccionadas.</p>
+</div></section><section id="inventory-es"><div class="section-heading"><span class="section-index">05</span><h2>Inventory: generación del inventario</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Inventory: generación del inventario" loading="lazy" src="05.jpg"/><figcaption>05.jpg · Inventory: generación del inventario</figcaption></figure>
+<div class="manual-copy"><p><strong>Inventory</strong> prepara el inventario local de las conversaciones y recursos de los proyectos seleccionados.</p>
+<ul>
+<li>Procesa las conversaciones incluidas en la selección.</li>
+<li>Identifica los recursos y archivos asociados.</li>
+<li>Actualiza la información de la base de datos local.</li>
+<li>Prepara los datos para la descarga posterior.</li>
+</ul>
+<p><strong>Esta etapa todavía no descarga archivos adjuntos.</strong></p>
+<p><strong>Generate inventory</strong> inicia el proceso. Antes de comenzar, <strong>Status</strong> indica <strong>Pending</strong>, la barra está vacía y <strong>Next</strong> permanece deshabilitado. La duración depende de la cantidad y complejidad de las conversaciones.</p>
+</div></section><section id="detail-05a-es"><div class="section-heading"><span class="section-index">05a</span><h2>Generación y restauración del inventario</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Generación y restauración del inventario" loading="lazy" src="05a.jpg" style="max-width: 900px"/><figcaption>05a.jpg · Generación y restauración del inventario</figcaption></figure>
+<div class="manual-copy"><h3>Generate inventory</h3>
+<p>Crea un inventario nuevo a partir de la selección realizada en <strong>Analysis</strong> y actualiza la información local sobre conversaciones y recursos.</p>
+<h3>Restore last inventory</h3>
+<p>Recupera el último inventario guardado sin repetir la generación. Resulta útil al continuar una descarga interrumpida.</p>
+<p><strong>Importante:</strong> restaurar un inventario no lo actualiza. Para incorporar conversaciones o recursos nuevos o modificados, debe generarse uno nuevo.</p>
+</div></section><section id="detail-06-es"><div class="section-heading"><span class="section-index">06</span><h2>Inventory: resultados del inventario</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Inventory: resultados del inventario" loading="lazy" src="06.jpg"/><figcaption>06.jpg · Inventory: resultados del inventario</figcaption></figure>
+<div class="manual-copy"><p>Al finalizar, <strong>Status</strong> muestra <strong>Completed</strong> en verde.</p>
+<h3>Detected inventory</h3>
+<ul>
+<li><strong>Conversations:</strong> conversaciones procesadas.</li>
+<li><strong>References:</strong> referencias a recursos presentes en las conversaciones.</li>
+<li><strong>Resources:</strong> recursos distintos identificados.</li>
+</ul>
+<p>La captura muestra <strong>604 conversaciones, 11.410 referencias y 10.584 recursos</strong>. Un recurso puede tener varias referencias.</p>
+<h3>Already indexed</h3>
+<p>Información que ya estaba registrada en la base de datos local.</p>
+<h3>New</h3>
+<p>Conversaciones y recursos detectados como nuevos durante la operación. En el ejemplo hay <strong>7.656 recursos nuevos</strong>.</p>
+<h3>Download status</h3>
+<ul>
+<li><strong>Pending downloads:</strong> recursos pendientes de descarga.</li>
+<li><strong>Failed:</strong> recursos con errores registrados.</li>
+</ul>
+<p>En el ejemplo hay <strong>7.656 pendientes</strong> y <strong>0 errores</strong>. <strong>Next</strong> conduce a <strong>Download</strong>.</p>
+<p><strong>Importante:</strong> el inventario puede detenerse aparentemente durante mucho tiempo si una conversación contiene muchos archivos o imágenes generadas. Eso no implica necesariamente un bloqueo.</p>
+</div></section><section id="detail-06a-es"><div class="section-heading"><span class="section-index">06a</span><h2>Gestión y diagnóstico del inventario</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Gestión y diagnóstico del inventario" loading="lazy" src="06a.jpg" style="max-width: 1406px"/><figcaption>06a.jpg · Gestión y diagnóstico del inventario</figcaption></figure>
+<div class="manual-copy"><p>La pantalla ofrece tres operaciones:</p>
+<ul>
+<li><strong>Generate inventory:</strong> genera un inventario nuevo y actualiza los registros locales.</li>
+<li><strong>Restore last inventory:</strong> recupera el último inventario guardado.</li>
+<li><strong>Diagnose download failures:</strong> inicia un diagnóstico de recursos con errores de descarga.</li>
+</ul>
+<p>El diagnóstico es una operación distinta de la generación del inventario y de la descarga.</p>
+</div></section><section id="download-es"><div class="section-heading"><span class="section-index">07</span><h2>Download: descarga de recursos</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Download: descarga de recursos" loading="lazy" src="07.jpg"/><figcaption>07.jpg · Download: descarga de recursos</figcaption></figure>
+<div class="manual-copy"><p><strong>Download</strong> permite recuperar los recursos pendientes registrados en el inventario y almacenarlos en la carpeta de datos.</p>
+<p>La captura muestra <strong>Safe mode</strong>, con <strong>1 worker</strong> y <strong>5 segundos entre recursos</strong>, una configuración conservadora.</p>
+<p><strong>Download</strong> inicia la transferencia.</p>
+<p>Durante la operación aparecen <strong>Status</strong>, <strong>Current project</strong>, <strong>Current resource/file</strong> y <strong>Progress</strong>. Antes de empezar, el estado es <strong>Pending</strong> y el progreso <strong>0 / 0</strong>.</p>
+<p>La duración depende del número y tamaño de los archivos, la velocidad de la conexión y el modo elegido. Los archivos multimedia y las imágenes generadas pueden requerir mucho tiempo.</p>
+</div></section><section id="detail-07a-es"><div class="section-heading"><span class="section-index">07a</span><h2>Modos de descarga</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Modos de descarga" loading="lazy" src="07a.jpg" style="max-width: 808px"/><figcaption>07a.jpg · Modos de descarga</figcaption></figure>
+<div class="manual-copy"><h3>Safe mode</h3>
+<p><strong>1 worker</strong> y <strong>5 segundos</strong> entre recursos. Reduce la frecuencia de solicitudes y es útil con conexiones inestables.</p>
+<h3>Optimal</h3>
+<p><strong>3 workers</strong> y <strong>0,5 segundos</strong> entre recursos. Permite procesar varios archivos simultáneamente.</p>
+<h3>Manual</h3>
+<p>Permite ajustar individualmente los parámetros.</p>
+<h3>Automatic recovery</h3>
+<p>Activa o desactiva la recuperación automática frente a interrupciones y errores.</p>
+<p>Tras elegir la configuración, pulsa <strong>Download</strong>. Como orientación, <strong>Optimal</strong> es adecuado en condiciones normales; <strong>Safe mode</strong>, cuando surgen problemas de conexión o limitaciones del servidor.</p>
+</div></section><section id="detail-07b-es"><div class="section-heading"><span class="section-index">07b</span><h2>Configuración manual de descarga</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Configuración manual de descarga" loading="lazy" src="07b.jpg" style="max-width: 820px"/><figcaption>07b.jpg · Configuración manual de descarga</figcaption></figure>
+<div class="manual-copy"><p>El modo <strong>Manual</strong> permite ajustar las descargas.</p>
+<h3>Threads</h3>
+<p>Número de trabajadores que pueden procesar recursos en paralelo. Con <strong>1</strong> se procesa un recurso a la vez; los valores superiores permiten varios simultáneamente, pero generan más solicitudes.</p>
+<h3>Wait between resources (s)</h3>
+<p>Tiempo de espera entre recursos. La imagen muestra <strong>2,0 segundos</strong>. Un intervalo mayor reduce la frecuencia de solicitudes.</p>
+<h3>Automatic recovery</h3>
+<p>Activa o desactiva la recuperación automática ante errores e interrupciones.</p>
+<p>Si aparecen errores frecuentes, puede reducirse el número de trabajadores y aumentarse la espera entre recursos.</p>
+</div></section><section id="detail-08-es"><div class="section-heading"><span class="section-index">08</span><h2>Download: descarga en curso</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Download: descarga en curso" loading="lazy" src="08.jpg"/><figcaption>08.jpg · Download: descarga en curso</figcaption></figure>
+<div class="manual-copy"><p>Durante la descarga se muestra el progreso global y la actividad de cada trabajador.</p>
+<h3>Total progress</h3>
+<p>Indica los recursos procesados frente al total previsto. La captura muestra <strong>1.203 recursos</strong>.</p>
+<h3>Seguimiento por trabajador</h3>
+<ul>
+<li><strong>Thread:</strong> identificador del trabajador.</li>
+<li><strong>Current project:</strong> proyecto actual.</li>
+<li><strong>Current resource/file:</strong> identificador del recurso.</li>
+<li><strong>Progress:</strong> avance de ese trabajador.</li>
+<li><strong>Status:</strong> acción actual.</li>
+<li><strong>Unavailable:</strong> recursos no recuperables contabilizados.</li>
+</ul>
+<p>Entre los estados están <strong>Downloading resources</strong> y <strong>Waiting between resources</strong>. Los trabajadores funcionan independientemente.</p>
+<h3>Detener y continuar</h3>
+<p><strong>Stop</strong> interrumpe la descarga. El registro local permite continuar después sin repetir todos los recursos ya procesados.</p>
+<p><strong>Importante:</strong> un archivo grande, especialmente una imagen generada o un archivo multimedia, puede mantener un trabajador en el mismo elemento durante mucho tiempo sin que exista un bloqueo.</p>
+</div></section><section id="detail-08a-es"><div class="section-heading"><span class="section-index">08a</span><h2>Estadísticas de descarga</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Estadísticas de descarga" loading="lazy" src="08a.jpg" style="max-width: 736px"/><figcaption>08a.jpg · Estadísticas de descarga</figcaption></figure>
+<div class="manual-copy"><p>Los contadores distinguen el resultado de los recursos procesados:</p>
+<ul>
+<li><strong>Downloaded:</strong> descargados correctamente (<strong>132</strong> en la captura).</li>
+<li><strong>Already saved:</strong> ya almacenados localmente (<strong>6.932</strong>).</li>
+<li><strong>Unavailable:</strong> no accesibles para su recuperación (<strong>312</strong>).</li>
+<li><strong>Failed:</strong> descargas terminadas con error (<strong>232</strong>).</li>
+</ul>
+<p>Los errores <strong>Failed</strong> no implican necesariamente la pérdida definitiva del recurso: algunos pueden ser temporales y permitir nuevos intentos.</p>
+</div></section><section id="cleanup-es"><div class="section-heading"><span class="section-index">09</span><h2>Cleanup: limpieza de datos locales</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Cleanup: limpieza de datos locales" loading="lazy" src="09.jpg"/><figcaption>09.jpg · Cleanup: limpieza de datos locales</figcaption></figure>
+<div class="manual-copy"><p><strong>Cleanup</strong> reúne las funciones opcionales de limpieza y mantenimiento. No es necesaria para completar las descargas.</p>
+<p><strong>Clear local data</strong> inicia la limpieza de la información local utilizada por OAI-Downloader.</p>
+<p><strong>Precaución:</strong> no equivale a borrar conversaciones ni archivos de la cuenta de ChatGPT.</p>
+<p>La pantalla indica que las herramientas de auditoría y limpieza se ampliarán en versiones futuras. Esta sección no ofrece actualmente una función para eliminar contenidos de los servidores de ChatGPT.</p>
+</div></section><section id="detail-09a-es"><div class="section-heading"><span class="section-index">09a</span><h2>Confirmación de limpieza</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Confirmación de limpieza" loading="lazy" src="09a.jpg" style="max-width: 1168px"/><figcaption>09a.jpg · Confirmación de limpieza</figcaption></figure>
+<div class="manual-copy"><p><strong>Clear local data</strong> abre una confirmación que detalla los datos afectados.</p>
+<h3>Se eliminan</h3>
+<ul>
+<li>Base de datos SQLite.</li>
+<li>Estados locales de procesos.</li>
+<li>Índices de conversaciones y recursos.</li>
+<li>Datos de respaldo del estado local.</li>
+</ul>
+<h3>Se conservan</h3>
+<ul>
+<li>Configuración de la aplicación.</li>
+<li>Carpeta de trabajo seleccionada.</li>
+<li>Cookies de autenticación.</li>
+<li>Sesión del navegador.</li>
+</ul>
+<h3>Also delete downloaded files</h3>
+<p>Esta casilla incluye los archivos descargados en la limpieza. Si no se marca, los archivos se conservan aunque desaparezcan los índices locales que permiten gestionarlos.</p>
+<h3>Confirmación</h3>
+<p>La operación exige mantener pulsadas <strong>A + L durante 4 segundos</strong>. <strong>Cancel</strong> abandona la operación sin eliminar los datos.</p>
+<p><strong>Advertencia:</strong> afecta a datos del equipo, no a los existentes en ChatGPT.</p>
+</div></section><section id="ayuda-es"><div class="section-heading"><span class="section-index">10</span><h2>Ayuda contextual</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Ayuda contextual" loading="lazy" src="10.jpg"/><figcaption>10.jpg · Ayuda contextual</figcaption></figure>
+<div class="manual-copy"><p>OAI-Downloader ofrece ayuda contextual desde el icono <strong>?</strong> de la barra superior.</p>
+<p>Una vez activada, al situar el cursor sobre un elemento aparece una explicación de su función. En la captura se muestra la ayuda de <strong>Status</strong>, que indica si la sesión de ChatGPT está preparada para utilizarse.</p>
+<p>Este sistema permite identificar controles sin consultar continuamente el manual.</p>
+</div></section><section id="detail-11-es"><div class="section-heading"><span class="section-index">11</span><h2>Selección de idioma</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Selección de idioma" loading="lazy" src="11.jpg"/><figcaption>11.jpg · Selección de idioma</figcaption></figure>
+<div class="manual-copy"><p>El menú de la barra superior permite elegir entre <strong>English</strong>, <strong>Español</strong> y <strong>Français</strong>.</p>
+<p>Pulsa el idioma actual y selecciona otro para cambiar los textos de la interfaz.</p>
+<p>El cambio afecta a los controles, estados y mensajes de la aplicación; no modifica los datos descargados ni el contenido original de las conversaciones.</p>
+</div></section><section id="detail-12-es"><div class="section-heading"><span class="section-index">12</span><h2>Información de la aplicación</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Información de la aplicación" loading="lazy" src="12.jpg"/><figcaption>12.jpg · Información de la aplicación</figcaption></figure>
+<div class="manual-copy"><p>La ventana de información identifica la aplicación, su versión y los recursos oficiales del proyecto.</p>
+<ul>
+<li><strong>Aplicación:</strong> OAI-Downloader.</li>
+<li><strong>Versión:</strong> 0.7.18 en la captura.</li>
+<li><strong>Descripción:</strong> aplicación local para conservar conversaciones y recursos de ChatGPT.</li>
+<li><strong>Desarrollador:</strong> Corrosion Labs.</li>
+<li><strong>Project repository:</strong> enlace al repositorio del proyecto.</li>
+<li><strong>YouTube tutorial:</strong> enlace al tutorial en vídeo.</li>
+</ul>
+<p>La ventana se abre desde el icono de información de la barra superior y se cierra con <strong>×</strong>.</p>
+</div></section></div><div class="language-panel" hidden="" id="panel-en" lang="en"><section id="introduccion-en"><div class="section-heading"><span class="section-index">00</span><h2>Introduction</h2></div><div class="manual-copy"><p><strong>OAI-Downloader</strong> is a free application developed by <strong>Corrosion Labs</strong> to create local backups of conversations and resources stored in a ChatGPT account.</p><p>Its goal is to <strong>help users retain and control their own data without relying exclusively on OpenAI's official export</strong>.</p><h3>Why did we create OAI-Downloader?</h3>
+<p>Because retrieving our own ChatGPT data had become an exasperating experience.</p>
+<p>OpenAI provides an official export system that, in theory, lets users download their conversation history and associated account data. In practice, our experience was considerably less satisfactory.</p>
+<p><strong>Exports that never arrived, incomplete downloads, corrupted files, and backups that turned out to be unusable.</strong></p>
+<p>When an account contains years of conversations, projects, documents, and images, these problems stop being a minor technical inconvenience. They become a genuine risk of losing information.</p>
+<p>And the most absurd part is that we're talking about our own data.</p>
+<p>We shouldn't have to resort to makeshift solutions to retrieve information we've created and stored for months or years on a service that, in many cases, we're paying for.</p>
+<p>After several failed attempts with the official export, we decided to build our own tool.</p>
+<p><strong>OAI-Downloader wasn't created to make an existing feature more convenient. It was created because we needed an alternative that actually worked.</strong></p>
+<p>An application that could examine an account, identify its contents, download them progressively, log errors, and resume an interrupted operation without starting over.</p>
+<p>In short, to regain control of our information.</p>
+<p>Because it's rather ironic that a company developing some of the world's most advanced technology can't provide a reliable download of its users' data.</p>
+<h3>What does it do?</h3><ol><li><strong>System:</strong> checks the connection and configures the working folder.</li><li><strong>Analysis:</strong> identifies projects and conversations, distinguishing new, modified and unchanged content.</li><li><strong>Inventory:</strong> creates a local inventory of conversations and resources.</li><li><strong>Download:</strong> downloads pending resources and records results for future updates.</li></ol><p>This workflow supports <strong>incremental backups</strong>, avoids downloading already saved files again and allows you to select individual projects.</p><h3>Designed for large amounts of information</h3><p>It includes download modes, parallel processing, progress tracking and recovery options for long operations. The inventory distinguishes downloaded, pending, unavailable and failed resources.</p><h3>A preservation tool, not a document exporter</h3><p>OAI-Downloader focuses on retrieving and preserving original information from ChatGPT. Converting conversations into readable document formats is handled by downstream tools such as <strong>OpenAI Obsidian Processor</strong>.</p><h3>Independence and control</h3><p>It runs locally and lets you choose where backups are stored. It neither replaces ChatGPT nor modifies the content of the account.</p><p>Projects, conversations and materials created with these tools should not depend on a single service to keep existing.</p><p>OAI-Downloader is an independent Corrosion Labs project and is not affiliated with OpenAI.</p></div></section><section id="system-en"><div class="section-heading"><span class="section-index">01</span><h2>System: initial setup</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: System: initial setup" loading="lazy" src="01.jpg"/><figcaption>01.jpg · System: initial setup</figcaption></figure>
+<div class="manual-copy"><p>The <strong>System</strong> screen is OAI-Downloader's starting point. It lets you check the connection to ChatGPT and choose where downloaded data will be stored.</p><h3>Connection status</h3><p>The <strong>Status</strong> field shows the current connection status. <strong>No credentials</strong> means that access credentials have not yet been configured.</p><h3>Data folder</h3><p><strong>Data folder</strong> displays the storage location. The <strong>Change</strong> button lets you choose another folder.</p><h3>Connection options</h3><ul><li><strong>Check connection:</strong> checks the available credentials.</li><li><strong>Connect to ChatGPT:</strong> starts the connection procedure.</li><li><strong>Manual connection:</strong> lets you set up the connection manually.</li></ul><h3>Stages</h3><p><strong>System → Analysis → Inventory → Download</strong>. The process is sequential: each stage depends on the previous one. <strong>Cleanup</strong> is optional. Once the connection has been checked, <strong>Next</strong> lets you proceed.</p></div></section><section id="detail-01a-en"><div class="section-heading"><span class="section-index">01a</span><h2>Navigation bar</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Navigation bar" loading="lazy" src="01a.jpg" style="max-width: 1360px"/><figcaption>01a.jpg · Navigation bar</figcaption></figure>
+<div class="manual-copy"><p>The top bar identifies the stages and provides access to general functions.</p><ul><li><strong>System:</strong> connection and working folder.</li><li><strong>Analysis:</strong> project and conversation analysis.</li><li><strong>Inventory:</strong> resource inventory.</li><li><strong>Download:</strong> file downloads.</li><li><strong>Cleanup:</strong> optional cleanup.</li></ul><p>Color indicators show progress: <strong>green</strong> means completed, <strong>orange</strong> means in progress and <strong>red</strong> means pending. You cannot run a stage before completing the preceding stages.</p><p>The <strong>?</strong> icon opens contextual help, the <strong>English</strong> selector changes the interface language and the circular icon shows application activity.</p></div></section><section id="detail-01b-en"><div class="section-heading"><span class="section-index">01b</span><h2>Connection status</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Connection status" loading="lazy" src="01b.jpg" style="max-width: 994px"/><figcaption>01b.jpg · Connection status</figcaption></figure>
+<div class="manual-copy"><p><strong>Status</strong> indicates whether OAI-Downloader has the credentials required to connect to ChatGPT.</p><p><strong>No credentials</strong>, with a gray indicator, means the application does not have access credentials. Use one of the options in <strong>System</strong> to connect.</p></div></section><section id="detail-01c-en"><div class="section-heading"><span class="section-index">01c</span><h2>Data folder</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Data folder" loading="lazy" src="01c.jpg" style="max-width: 1766px"/><figcaption>01c.jpg · Data folder</figcaption></figure>
+<div class="manual-copy"><p><strong>Data folder</strong> shows the local working folder where downloaded data and files are stored.</p><p>The <strong>Change</strong> button lets you select another location. We recommend using a dedicated OAI-Downloader folder with sufficient free space, particularly when there are many media files.</p></div></section><section id="detail-01d-en"><div class="section-heading"><span class="section-index">01d</span><h2>Manual connection using cookies</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Manual connection using cookies" loading="lazy" src="01d.jpg" style="max-width: 1980px"/><figcaption>01d.jpg · Manual connection using cookies</figcaption></figure>
+<div class="manual-copy"><p><strong>Manual connection</strong> allows you to connect without using the automatic browser-based procedure.</p><h3>Get the session cookie</h3><ol><li>Open <a href="https://chatgpt.com/">ChatGPT</a> and sign in.</li><li>Press <strong>F12</strong> to open developer tools.</li><li>Open <strong>Network</strong> and reload the page.</li><li>Select a request to <code>chatgpt.com</code>.</li><li>Under <strong>Request Headers</strong>, locate <strong>Cookie</strong>.</li><li>Copy the complete value without the <code>Cookie:</code> prefix.</li><li>Paste it into <strong>Cookie header value</strong> in OAI-Downloader.</li><li>Press <strong>Save and check</strong> to verify the connection.</li></ol><p><strong>Security:</strong> cookies are private credentials that may grant access to your account. Never share them or show them in screenshots.</p></div></section><section id="detail-02-en"><div class="section-heading"><span class="section-index">02</span><h2>System: connected</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: System: connected" loading="lazy" src="02.jpg"/><figcaption>02.jpg · System: connected</figcaption></figure>
+<div class="manual-copy"><p>Once the connection has been verified, <strong>System</strong> displays details of the connected account.</p><ul><li><strong>Status: Connected:</strong> green indicator showing an active connection.</li><li><strong>User:</strong> user associated with the account.</li><li><strong>Email:</strong> account email address.</li><li><strong>Data folder:</strong> selected local folder.</li></ul><p>The green indicator under <strong>System</strong> confirms that the stage is complete. <strong>Next</strong> becomes available to proceed to <strong>Analysis</strong>.</p></div></section><section id="analysis-en"><div class="section-heading"><span class="section-index">03</span><h2>Analysis: project analysis</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Analysis: project analysis" loading="lazy" src="03.jpg"/><figcaption>03.jpg · Analysis: project analysis</figcaption></figure>
+<div class="manual-copy"><p><strong>Analysis</strong> queries the account's projects and determines how many conversations each contains.</p><p>Analysis starts automatically when you open this screen.</p><ul><li><strong>Progress bar:</strong> operation progress.</li><li><strong>Status:</strong> current state; orange means the operation is running.</li><li><strong>Refresh projects:</strong> queries the projects again.</li><li><strong>Wait between requests (s):</strong> delay between requests to ChatGPT.</li></ul><p>The image shows <strong>0.5 seconds</strong>. Increasing this interval reduces request frequency but makes analysis take longer. <strong>Next</strong> stays disabled until this stage finishes.</p></div></section><section id="detail-03a-en"><div class="section-heading"><span class="section-index">03a</span><h2>Refreshing projects</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Refreshing projects" loading="lazy" src="03a.jpg" style="max-width: 386px"/><figcaption>03a.jpg · Refreshing projects</figcaption></figure>
+<div class="manual-copy"><p><strong>Refresh projects</strong> repeats the analysis after projects or conversations have been added, deleted or reorganized.</p><p>The <strong>Status</strong> indicator shows the operation's state: <strong>gray</strong> for inactive or pending, <strong>orange</strong> for in progress and <strong>green</strong> for completed.</p><p>Refreshing requires a valid ChatGPT connection.</p></div></section><section id="detail-03b-en"><div class="section-heading"><span class="section-index">03b</span><h2>Fetching projects</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Fetching projects" loading="lazy" src="03b.jpg" style="max-width: 1854px"/><figcaption>03b.jpg · Fetching projects</figcaption></figure>
+<div class="manual-copy"><p>During analysis, OAI-Downloader retrieves information about projects and conversations.</p><ul><li><strong>Progress bar:</strong> progress of requests.</li><li><strong>Orange indicator:</strong> operation in progress.</li><li><strong>Fetching projects...:</strong> project data is being retrieved.</li></ul><p>The duration depends on the number of projects and conversations, connection speed and the interval between requests. <strong>Next</strong> stays disabled during analysis.</p></div></section><section id="detail-04-en"><div class="section-heading"><span class="section-index">04</span><h2>Analysis: results and selection</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Analysis: results and selection" loading="lazy" src="04.jpg"/><figcaption>04.jpg · Analysis: results and selection</figcaption></figure>
+<div class="manual-copy"><p>When analysis finishes, <strong>Status</strong> displays <strong>Completed</strong> in green along with a summary.</p><h3>Summary</h3><ul><li><strong>Total projects:</strong> projects identified.</li><li><strong>Conversations in projects:</strong> conversations found in those projects.</li></ul><p>The screenshot shows <strong>32 projects and 540 conversations</strong>.</p><h3>Project list</h3><p>Each project displays its name and conversation count. <strong>Root</strong> groups conversations that do not belong to any project.</p><ul><li><strong>New:</strong> new conversations.</li><li><strong>Modified:</strong> conversations changed since the last download.</li><li><strong>Unchanged:</strong> conversations with no changes.</li><li><strong>Failed:</strong> conversations with previous errors.</li></ul><h3>Selection</h3><p><strong>Download all</strong> selects all projects. Individual checkboxes let you choose specific projects; the counter shows the total conversations included. <strong>Next</strong> leads to <strong>Inventory</strong>.</p></div></section><section id="detail-04a-en"><div class="section-heading"><span class="section-index">04a</span><h2>Selecting projects</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Selecting projects" loading="lazy" src="04a.jpg" style="max-width: 536px"/><figcaption>04a.jpg · Selecting projects</figcaption></figure>
+<div class="manual-copy"><p><strong>Download all</strong> selects every project at once. You can also select projects individually.</p><p><strong>Root</strong> groups conversations not associated with a project and may be included or excluded independently.</p><p><strong>No selection</strong> indicates that no project has been chosen. Selecting projects updates the selected conversation count.</p></div></section><section id="inventory-en"><div class="section-heading"><span class="section-index">05</span><h2>Inventory: generating the inventory</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Inventory: generating the inventory" loading="lazy" src="05.jpg"/><figcaption>05.jpg · Inventory: generating the inventory</figcaption></figure>
+<div class="manual-copy"><p><strong>Inventory</strong> prepares the local inventory of conversations and resources in the selected projects.</p><ul><li>Processes conversations in the selection.</li><li>Identifies associated resources and files.</li><li>Updates information in the local database.</li><li>Prepares data for subsequent downloads.</li></ul><p>This stage <strong>does not download attachments yet</strong>.</p><p><strong>Generate inventory</strong> starts the process. Before it begins, <strong>Status</strong> shows <strong>Pending</strong>, the bar is empty and <strong>Next</strong> remains disabled. Duration depends on the number and complexity of the conversations.</p></div></section><section id="detail-05a-en"><div class="section-heading"><span class="section-index">05a</span><h2>Generating and restoring the inventory</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Generating and restoring the inventory" loading="lazy" src="05a.jpg" style="max-width: 900px"/><figcaption>05a.jpg · Generating and restoring the inventory</figcaption></figure>
+<div class="manual-copy"><h3>Generate inventory</h3><p>Creates a new inventory from the selection made in <strong>Analysis</strong> and updates locally stored information about conversations and resources.</p><h3>Restore last inventory</h3><p>Recovers the last saved inventory without generating it again. This is useful when resuming an interrupted download.</p><p><strong>Important:</strong> restoring an inventory does not update it. To include new or modified conversations or resources, generate a new inventory.</p></div></section><section id="detail-06-en"><div class="section-heading"><span class="section-index">06</span><h2>Inventory: results</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Inventory: results" loading="lazy" src="06.jpg"/><figcaption>06.jpg · Inventory: results</figcaption></figure>
+<div class="manual-copy"><p>When the process finishes, <strong>Status</strong> displays <strong>Completed</strong> in green.</p><h3>Detected inventory</h3><ul><li><strong>Conversations:</strong> conversations processed.</li><li><strong>References:</strong> resource references found in conversations.</li><li><strong>Resources:</strong> distinct resources identified.</li></ul><p>The screenshot shows <strong>604 conversations, 11,410 references and 10,584 resources</strong>. One resource may be referenced several times.</p><h3>Already indexed</h3><p>Information already recorded in the local database.</p><h3>New</h3><p>Conversations and resources identified as new during the operation. The example shows <strong>7,656 new resources</strong>.</p><h3>Download status</h3><ul><li><strong>Pending downloads:</strong> resources still awaiting download.</li><li><strong>Failed:</strong> resources with recorded errors.</li></ul><p>The example shows <strong>7,656 pending and 0 failed</strong>. <strong>Next</strong> leads to <strong>Download</strong>.</p><p><strong>Important:</strong> inventory generation may appear to stall for a long time if a conversation contains many files or generated images. This does not necessarily mean it has frozen.</p></div></section><section id="detail-06a-en"><div class="section-heading"><span class="section-index">06a</span><h2>Inventory management and diagnostics</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Inventory management and diagnostics" loading="lazy" src="06a.jpg" style="max-width: 1406px"/><figcaption>06a.jpg · Inventory management and diagnostics</figcaption></figure>
+<div class="manual-copy"><p>The screen offers three operations:</p><ul><li><strong>Generate inventory:</strong> creates a new inventory and updates local records.</li><li><strong>Restore last inventory:</strong> retrieves the most recently saved inventory.</li><li><strong>Diagnose download failures:</strong> starts a diagnosis of resources with download errors.</li></ul><p>Diagnostics are separate from both inventory generation and downloading.</p></div></section><section id="download-en"><div class="section-heading"><span class="section-index">07</span><h2>Download: resources</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Download: resources" loading="lazy" src="07.jpg"/><figcaption>07.jpg · Download: resources</figcaption></figure>
+<div class="manual-copy"><p><strong>Download</strong> retrieves pending resources recorded in the inventory and stores them in the data folder.</p><p>The screenshot shows <strong>Safe mode</strong>, with <strong>1 worker and 5 seconds between resources</strong>, a conservative configuration.</p><p><strong>Download</strong> starts the transfer.</p><p>During the operation, the screen shows <strong>Status</strong>, <strong>Current project</strong>, <strong>Current resource/file</strong> and <strong>Progress</strong>. Before starting, the state is <strong>Pending</strong> and progress is <strong>0 / 0</strong>.</p><p>Duration depends on the number and size of files, connection speed and selected mode. Media files and generated images may take a long time.</p></div></section><section id="detail-07a-en"><div class="section-heading"><span class="section-index">07a</span><h2>Download modes</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Download modes" loading="lazy" src="07a.jpg" style="max-width: 808px"/><figcaption>07a.jpg · Download modes</figcaption></figure>
+<div class="manual-copy"><h3>Safe mode</h3><p><strong>1 worker</strong> and <strong>5 seconds</strong> between resources. Reduces request frequency and is useful on unstable connections.</p><h3>Optimal</h3><p><strong>3 workers</strong> and <strong>0.5 seconds</strong> between resources. Allows several files to be processed simultaneously.</p><h3>Manual</h3><p>Lets you adjust the parameters individually.</p><h3>Automatic recovery</h3><p>Enables or disables automatic recovery from interruptions and errors.</p><p>After choosing the settings, press <strong>Download</strong>. As a guide, <strong>Optimal</strong> suits normal conditions, while <strong>Safe mode</strong> can help with connection problems or server limits.</p></div></section><section id="detail-07b-en"><div class="section-heading"><span class="section-index">07b</span><h2>Manual download settings</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Manual download settings" loading="lazy" src="07b.jpg" style="max-width: 820px"/><figcaption>07b.jpg · Manual download settings</figcaption></figure>
+<div class="manual-copy"><p><strong>Manual</strong> mode lets you adjust downloading behavior.</p><h3>Threads</h3><p>Number of workers that can process resources in parallel. With <strong>1</strong>, one resource is processed at a time. Higher values enable simultaneous processing but generate more requests.</p><h3>Wait between resources (s)</h3><p>Delay between resources. The screenshot shows <strong>2.0 seconds</strong>. A longer interval reduces request frequency.</p><h3>Automatic recovery</h3><p>Enables or disables automatic recovery after errors or interruptions.</p><p>If errors occur frequently, reduce the worker count and increase the delay between resources.</p></div></section><section id="detail-08-en"><div class="section-heading"><span class="section-index">08</span><h2>Download: in progress</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Download: in progress" loading="lazy" src="08.jpg"/><figcaption>08.jpg · Download: in progress</figcaption></figure>
+<div class="manual-copy"><p>While downloading, OAI-Downloader shows overall progress and the activity of each worker.</p><h3>Total progress</h3><p>Shows processed resources relative to the expected total. The screenshot shows <strong>1,203 resources</strong>.</p><h3>Tracking each worker</h3><ul><li><strong>Thread:</strong> worker identifier.</li><li><strong>Current project:</strong> current project.</li><li><strong>Current resource/file:</strong> current resource identifier.</li><li><strong>Progress:</strong> that worker's progress.</li><li><strong>Status:</strong> current action.</li><li><strong>Unavailable:</strong> count of resources that cannot be retrieved.</li></ul><p>Possible states include <strong>Downloading resources</strong> and <strong>Waiting between resources</strong>. Workers operate independently.</p><h3>Stopping and resuming</h3><p><strong>Stop</strong> interrupts the download. Local records allow the process to resume later without repeating every previously processed resource.</p><p><strong>Important:</strong> a large file, particularly a generated image or media file, may keep a worker on the same item for a long time without indicating a freeze.</p></div></section><section id="detail-08a-en"><div class="section-heading"><span class="section-index">08a</span><h2>Download statistics</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Download statistics" loading="lazy" src="08a.jpg" style="max-width: 736px"/><figcaption>08a.jpg · Download statistics</figcaption></figure>
+<div class="manual-copy"><p>The counters distinguish the results of processed resources:</p><ul><li><strong>Downloaded:</strong> successfully downloaded (<strong>132</strong> in the screenshot).</li><li><strong>Already saved:</strong> previously saved locally (<strong>6,932</strong>).</li><li><strong>Unavailable:</strong> not accessible for retrieval (<strong>312</strong>).</li><li><strong>Failed:</strong> downloads ending in an error (<strong>232</strong>).</li></ul><p><strong>Failed</strong> does not necessarily mean a resource is permanently lost: some errors may be temporary and allow another attempt.</p></div></section><section id="cleanup-en"><div class="section-heading"><span class="section-index">09</span><h2>Cleanup: local data</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Cleanup: local data" loading="lazy" src="09.jpg"/><figcaption>09.jpg · Cleanup: local data</figcaption></figure>
+<div class="manual-copy"><p><strong>Cleanup</strong> provides optional cleanup and maintenance functions. It is not required to complete downloads.</p><p><strong>Clear local data</strong> starts clearing the local information used by OAI-Downloader.</p><p><strong>Caution:</strong> this is not the same as deleting conversations or files from your ChatGPT account.</p><p>The screen notes that audit and cleanup tools will be expanded in future versions. This section currently offers no function to delete content from ChatGPT's servers.</p></div></section><section id="detail-09a-en"><div class="section-heading"><span class="section-index">09a</span><h2>Cleanup confirmation</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Cleanup confirmation" loading="lazy" src="09a.jpg" style="max-width: 1168px"/><figcaption>09a.jpg · Cleanup confirmation</figcaption></figure>
+<div class="manual-copy"><p><strong>Clear local data</strong> opens a confirmation describing the affected information.</p><h3>Deleted</h3><ul><li>SQLite database.</li><li>Local process states.</li><li>Conversation and resource indexes.</li><li>Backup data for the local state.</li></ul><h3>Preserved</h3><ul><li>Application settings.</li><li>Selected working folder.</li><li>Authentication cookies.</li><li>Browser session.</li></ul><h3>Also delete downloaded files</h3><p>This checkbox includes downloaded files in the cleanup. If unchecked, the files remain even though the local indexes used to manage them are deleted.</p><h3>Confirmation</h3><p>You must hold <strong>A + L for 4 seconds</strong> to confirm. <strong>Cancel</strong> exits without deleting anything.</p><p><strong>Warning:</strong> this affects data on your computer, not data stored in ChatGPT.</p></div></section><section id="ayuda-en"><div class="section-heading"><span class="section-index">10</span><h2>Contextual help</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Contextual help" loading="lazy" src="10.jpg"/><figcaption>10.jpg · Contextual help</figcaption></figure>
+<div class="manual-copy"><p>OAI-Downloader offers contextual help through the <strong>?</strong> icon in the top bar.</p><p>When enabled, hovering over an element displays an explanation of its function. The screenshot shows the help text for <strong>Status</strong>, indicating whether the ChatGPT session is ready for use.</p><p>This lets you identify controls without repeatedly consulting the manual.</p></div></section><section id="detail-11-en"><div class="section-heading"><span class="section-index">11</span><h2>Language selection</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Language selection" loading="lazy" src="11.jpg"/><figcaption>11.jpg · Language selection</figcaption></figure>
+<div class="manual-copy"><p>The menu in the top bar lets you choose <strong>English</strong>, <strong>Español</strong> or <strong>Français</strong>.</p><p>Click the current language and select another to change the interface text.</p><p>This changes the application's controls, statuses and messages; it does not modify downloaded data or the original content of conversations.</p></div></section><section id="detail-12-en"><div class="section-heading"><span class="section-index">12</span><h2>Application information</h2></div>
+<figure class="image-frame wide"><img alt="OAI-Downloader: Application information" loading="lazy" src="12.jpg"/><figcaption>12.jpg · Application information</figcaption></figure>
+<div class="manual-copy"><p>The information window identifies the application, its version and official project resources.</p><ul><li><strong>Application:</strong> OAI-Downloader.</li><li><strong>Version:</strong> 0.7.18 in the screenshot.</li><li><strong>Description:</strong> local application for preserving ChatGPT conversations and resources.</li><li><strong>Developer:</strong> Corrosion Labs.</li><li><strong>Project repository:</strong> link to the project repository.</li><li><strong>YouTube tutorial:</strong> link to the video tutorial.</li></ul><p>Open the window from the information icon in the top bar and close it using <strong>×</strong>.</p></div></section></div></main>
+<footer><div class="footer-inner" id="footer-text">OAI-Downloader · Manual de usuario · Corrosion Labs</div></footer>
+<script>(()=>{
+  const select=document.getElementById('language-selector');
+  const nav=document.getElementById('main-nav');
+  const labels={es:['Introducción','System','Analysis','Inventory','Download','Cleanup','Ayuda e información'],en:['Introduction','System','Analysis','Inventory','Download','Cleanup','Help and information']};
+  function setLang(lang){
+    lang=labels[lang]?lang:'es';
+    document.documentElement.lang=lang;
+    document.getElementById('panel-es').hidden=lang!=='es';
+    document.getElementById('panel-en').hidden=lang!=='en';
+    select.value=lang;
+    select.setAttribute('aria-label',lang==='es'?'Seleccionar idioma':'Select language');
+    nav.setAttribute('aria-label',lang==='es'?'Navegación del manual':'Manual navigation');
+    document.getElementById('subtitle').textContent=lang==='es'?'Manual de usuario':'User manual';
+    document.getElementById('footer-text').textContent='OAI-Downloader · '+(lang==='es'?'Manual de usuario':'User manual')+' · Corrosion Labs';
+    document.title='OAI-Downloader | '+(lang==='es'?'Manual de usuario':'User manual');
+    document.querySelector('meta[name="description"]').content=lang==='es'?'Manual de usuario de OAI-Downloader, herramienta de copia de seguridad de conversaciones y recursos de ChatGPT.':'OAI-Downloader user manual, a tool for backing up ChatGPT conversations and resources.';
+    [...nav.querySelectorAll('a')].forEach((a,i)=>{a.textContent=labels[lang][i];a.href='#'+a.dataset.section+'-'+lang;});
+    try{localStorage.setItem('oai-downloader-manual-language',lang);}catch(_){}
+  }
+  select.addEventListener('change',()=>{
+    const old=select.value==='es'?'en':'es';
+    setLang(select.value);
+    if(location.hash.endsWith('-'+old)) history.replaceState(null,'',location.hash.slice(0,-2)+select.value);
+  });
+  const requested=new URLSearchParams(location.search).get('lang');
+  let saved='es';try{saved=localStorage.getItem('oai-downloader-manual-language')||'es';}catch(_){}
+  setLang(labels[requested]?requested:saved);
+})();</script></body></html>
