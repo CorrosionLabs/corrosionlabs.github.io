@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Manual de usuario de OAI-Processor: procesamiento y exportación de copias de seguridad de ChatGPT a Obsidian y HTML." name="description"/>
+<title>OAI-Processor | Manual de usuario</title>
+<link href="../manual.css" rel="stylesheet"/>
+<style>
+.credential-notice { margin: 1.25rem 0; padding: 1rem 1.25rem; border-left: 4px solid #b92121; background: rgba(185, 33, 33, 0.09); }
+.credential-notice p { margin: 0; }
+</style>
+</head>
+<body>
+<header class="site-header"><div class="header-inner"><div>
+<p class="eyebrow">Corrosion Labs</p>
+<h1>OAI-Processor</h1>
+<p class="subtitle" id="subtitle">Manual de usuario</p>
+</div><select aria-label="Seleccionar idioma" class="language-placeholder" id="language-selector"><option value="es">ES</option><option value="en">EN</option></select></div></header>
+<nav aria-label="Navegación del manual" class="main-nav" id="main-nav"><ul><li><a data-section="introduccion" href="#introduccion-es">Introducción</a></li><li><a data-section="section-00" href="#section-00-es">Inicio</a></li><li><a data-section="section-01" href="#section-01-es">Conectar</a></li><li><a data-section="section-02" href="#section-02-es">Procesar</a></li><li><a data-section="section-03" href="#section-03-es">Proyectos</a></li><li><a data-section="section-04" href="#section-04-es">Resultados</a></li><li><a data-section="section-05" href="#section-05-es">Exportar</a></li><li><a data-section="section-06a" href="#section-06a-es">Obsidian</a></li><li><a data-section="section-07" href="#section-07-es">Progreso</a></li><li><a data-section="section-08" href="#section-08-es">Limpiar</a></li><li><a data-section="section-09" href="#section-09-es">Ayuda</a></li><li><a data-section="section-10" href="#section-10-es">Idioma</a></li><li><a data-section="section-11" href="#section-11-es">Información</a></li></ul></nav>
+<main class="content"><div class="language-panel" id="panel-es" lang="es"><section id="introduccion-es"><div class="section-heading"><span class="section-index">00</span><h2>Introducción</h2></div><div class="manual-copy"><h2>¿Qué es OAI-Processor?</h2>
+<p><strong>OAI-Processor</strong> es una aplicación desarrollada por <strong>Corrosion Labs</strong> para procesar, organizar y exportar las conversaciones y recursos de ChatGPT a formatos que permitan consultarlos y conservarlos fuera de la plataforma de OpenAI.</p>
+<p>El programa trabaja con copias de seguridad locales, especialmente las obtenidas mediante <strong>OAI-Downloader</strong>, y permite transformar su contenido en documentos organizados, conservando la estructura de proyectos, conversaciones y recursos asociados.</p>
+<p>Su funcionamiento se divide en <strong>dos etapas principales e independientes</strong>:</p>
+<h3>1. Procesamiento de la información</h3>
+<p>En esta primera etapa, OAI-Processor analiza los datos de la copia de seguridad y los prepara para su posterior exportación.</p>
+<p>El programa identifica los proyectos y conversaciones, organiza sus contenidos y establece las relaciones con los recursos asociados, como imágenes, archivos de audio, vídeos y documentos.</p>
+<p>El resultado es una estructura de información procesada que puede reutilizarse en distintas exportaciones sin necesidad de repetir todo el procesamiento.</p>
+<h3>2. Exportación a diferentes formatos</h3>
+<p>Una vez procesada la información, OAI-Processor permite exportarla al formato de destino seleccionado.</p>
+<p>Actualmente dispone de dos opciones:</p>
+<ul>
+<li><p><strong>Obsidian:</strong> genera documentos Markdown organizados para su integración en una vault de Obsidian, conservando las relaciones entre conversaciones, proyectos y recursos.</p>
+</li>
+<li><p><strong>HTML:</strong> genera una versión de los contenidos en formato HTML para su consulta fuera de ChatGPT.</p>
+</li>
+</ul>
+<p>Durante la exportación pueden configurarse distintas opciones, como la selección de recursos, la conversión de archivos multimedia o la personalización de determinados elementos del contenido.</p>
+<h3>¿Por qué separar el procesamiento y la exportación?</h3>
+<p>Esta separación es una característica fundamental de OAI-Processor.</p>
+<p><strong>Procesar significa preparar la información. Exportar significa decidir cómo y dónde utilizarla.</strong></p>
+<p>Gracias a ello, una misma copia de seguridad procesada puede exportarse varias veces, a diferentes formatos o destinos, sin tener que reconstruir toda la información desde el principio.</p>
+<p>OAI-Processor permite así transformar un backup de ChatGPT en un archivo documental organizado, consultable y gestionable por el usuario, sin depender de la interfaz original de OpenAI.</p>
+</div></section><section id="section-00-es"><div class="section-heading"><span class="section-index">00</span><h2>Inicio y configuración inicial</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Inicio y configuración inicial" loading="lazy" src="00.jpg"/><figcaption>00 · Inicio y configuración inicial</figcaption></figure><div class="manual-copy"><p>Al ejecutar <strong>OAI-Processor</strong>, aparece una ventana de inicio (<em>launcher</em>) desde la que se configura y arranca la aplicación.</p>
+<p>El launcher detecta automáticamente el sistema operativo y permite seleccionar el idioma de la interfaz entre <strong>español, inglés y francés</strong>.</p>
+<h2>Primera ejecución</h2>
+<p>La primera vez que se inicia OAI-Processor, es necesario seleccionar la carpeta que contiene la copia de seguridad de ChatGPT.</p>
+<p>Mediante el botón <strong>Seleccionar carpeta</strong>, el usuario indica la ubicación del backup que desea procesar.</p>
+<p>Al pulsar <strong>Iniciar aplicación</strong>, se guarda esta ubicación en un archivo <code>settings.json</code>, que permite recordarla en futuras ejecuciones.</p>
+<p>Este archivo se almacena en la carpeta de configuración local del sistema operativo, independientemente de los datos del backup.</p>
+<h2>Ejecuciones posteriores</h2>
+<p>Una vez configurada la aplicación, el launcher presenta una ventana simplificada con dos opciones:</p>
+<ul>
+<li><p><strong>Iniciar aplicación:</strong> abre OAI-Processor utilizando la configuración guardada.</p>
+</li>
+<li><p><strong>Borrar configuración local:</strong> elimina la configuración almacenada, previa confirmación, sin borrar las copias de seguridad, los archivos procesados ni las exportaciones.</p>
+</li>
+</ul>
+<p>Después de borrar la configuración, el launcher vuelve a mostrar la pantalla de configuración inicial para seleccionar una nueva carpeta.</p>
+<p><strong>Importante:</strong> borrar la configuración local no equivale a eliminar los datos de trabajo ni a desinstalar la aplicación.</p>
+</div></section><section id="section-01-es"><div class="section-heading"><span class="section-index">01</span><h2>Conexión con la copia de seguridad</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Conexión con la copia de seguridad" loading="lazy" src="01.jpg"/><figcaption>01 · Conexión con la copia de seguridad</figcaption></figure><div class="manual-copy"><p>La pantalla <strong>Conectar</strong> permite seleccionar la carpeta raíz del backup de ChatGPT que utilizaremos como origen de los datos.</p>
+<p>Esta carpeta debe contener la copia de seguridad original, obtenida mediante <strong>OAI-Downloader</strong>.</p>
+<h2>Selección de la carpeta</h2>
+<p>El botón <strong>Seleccionar carpeta</strong> abre el explorador de archivos para elegir la ubicación del backup.</p>
+<p>Una vez seleccionada, OAI-Processor muestra dos rutas:</p>
+<ul>
+<li><p><strong>Carpeta del backup:</strong> ubicación de los archivos originales descargados.</p>
+</li>
+<li><p><strong>Carpeta de trabajo:</strong> directorio <code>process</code>, donde se almacenará la información procesada por la aplicación.</p>
+</li>
+</ul>
+<p>Si la carpeta de trabajo no existe, el programa la crea automáticamente.</p>
+<h2>Estado de conexión</h2>
+<p>En la parte inferior aparece un indicador que informa del estado de la conexión.</p>
+<p>El <strong>indicador verde</strong> confirma que la carpeta se ha seleccionado correctamente y que el espacio de trabajo está preparado.</p>
+<p>Esta operación no procesa todavía los datos. Únicamente establece su ubicación y prepara el entorno para la siguiente etapa.</p>
+<h2>Navegación</h2>
+<p>La barra superior organiza el funcionamiento de OAI-Processor en cuatro secciones:</p>
+<ul>
+<li><p><strong>Conectar:</strong> seleccionar la copia de seguridad.</p>
+</li>
+<li><p><strong>Procesar:</strong> analizar y preparar la información.</p>
+</li>
+<li><p><strong>Exportar:</strong> generar los archivos en el formato seleccionado.</p>
+</li>
+<li><p><strong>Limpiar:</strong> eliminar datos de trabajo generados por la aplicación.</p>
+</li>
+</ul>
+<p>Los indicadores de color muestran el estado de cada etapa:</p>
+<ul>
+<li><p><strong>Verde:</strong> etapa completada.</p>
+</li>
+<li><p><strong>Naranja:</strong> etapa en curso.</p>
+</li>
+<li><p><strong>Rojo:</strong> etapa pendiente o bloqueada.</p>
+</li>
+</ul>
+<p>El programa sigue un proceso secuencial: las etapas que dependen de operaciones anteriores permanecen bloqueadas hasta que estas se completan.</p>
+</div></section><section id="section-02-es"><div class="section-heading"><span class="section-index">02</span><h2>Procesamiento de la información</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Procesamiento de la información" loading="lazy" src="02.jpg"/><figcaption>02 · Procesamiento de la información</figcaption></figure><div class="manual-copy"><p>La sección <strong>Procesar</strong> constituye la primera de las dos etapas principales de OAI-Processor.</p>
+<p>Su función es analizar la copia de seguridad, organizar las conversaciones y sus recursos y generar una estructura de datos preparada para su posterior exportación.</p>
+<p><strong>El procesamiento no modifica los archivos originales del backup.</strong> Los resultados se almacenan en la carpeta de trabajo <code>process</code>.</p>
+<h2>Análisis del backup</h2>
+<p>El botón <strong>Analizar</strong> examina el contenido de la copia de seguridad y determina qué proyectos y conversaciones están disponibles.</p>
+<p>Este análisis permite identificar la información nueva, modificada o previamente procesada, evitando repetir innecesariamente operaciones.</p>
+<p>Una vez completado, se puede seleccionar qué proyectos se desean procesar.</p>
+<h2>Inicio del procesamiento</h2>
+<p>El botón <strong>Procesar</strong> inicia la preparación de los proyectos seleccionados.</p>
+<p>El programa realiza cuatro operaciones principales, representadas en el indicador de etapas.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Etapas del procesamiento" loading="lazy" src="02a.jpg"/><figcaption>02a · Etapas del procesamiento</figcaption></figure><div class="manual-copy"><h3>02a · Etapas del procesamiento</h3>
+<ol>
+<li><p><strong>Analizar backup:</strong> examina la información de origen y prepara los datos necesarios para el procesamiento.</p>
+</li>
+<li><p><strong>Procesar conversaciones:</strong> extrae y organiza los mensajes y contenidos de las conversaciones.</p>
+</li>
+<li><p><strong>Procesar recursos:</strong> identifica y prepara las imágenes, audios, vídeos, documentos y otros archivos asociados.</p>
+</li>
+<li><p><strong>Generar índices:</strong> construye los índices que permiten localizar y relacionar proyectos, conversaciones y recursos durante la exportación.</p>
+</li>
+</ol>
+<p>Cada etapa dispone de un indicador visual que muestra si está pendiente, en ejecución o completada.</p>
+<h2>Seguimiento del progreso</h2>
+<p>Durante el procesamiento, la interfaz muestra una barra de progreso, el porcentaje completado y el elemento en el que está trabajando la aplicación.</p>
+<p>También se presentan los tiempos transcurridos, tanto del proceso completo como de cada fase.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Contadores de procesamiento" loading="lazy" src="02b.jpg"/><figcaption>02b · Contadores de procesamiento</figcaption></figure><div class="manual-copy"><h3>02b · Contadores de procesamiento</h3>
+<p>Los contadores permiten conocer la cantidad y el tipo de información que está gestionando OAI-Processor:</p>
+<ul>
+<li><p><strong>Conversaciones:</strong> número de conversaciones procesadas respecto al total.</p>
+</li>
+<li><p><strong>Imágenes:</strong> recursos de imagen identificados.</p>
+</li>
+<li><p><strong>Audio:</strong> archivos de audio identificados.</p>
+</li>
+<li><p><strong>Vídeo:</strong> archivos de vídeo identificados.</p>
+</li>
+<li><p><strong>PDF:</strong> documentos PDF identificados.</p>
+</li>
+<li><p><strong>Archivos:</strong> otros archivos asociados a las conversaciones.</p>
+</li>
+<li><p><strong>Copiados:</strong> recursos que se han copiado a la estructura de trabajo.</p>
+</li>
+<li><p><strong>Sin archivo de origen:</strong> recursos referenciados en el backup cuyo archivo original no está disponible.</p>
+</li>
+</ul>
+<p>Estos indicadores ayudan a comprobar el avance del procesamiento y detectar posibles recursos ausentes.</p>
+<h2>Finalización del procesamiento</h2>
+<p>Cuando termina el procesamiento, la información queda organizada dentro de la carpeta <code>process</code> y preparada para la segunda etapa: <strong>Exportar</strong>.</p>
+<p>Una vez procesada una copia de seguridad, es posible generar diferentes exportaciones a partir de esos mismos datos, sin necesidad de repetir el procesamiento mientras la información de origen no haya cambiado.</p>
+</div></section><section id="section-03-es"><div class="section-heading"><span class="section-index">03</span><h2>Selección de proyectos</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Selección de proyectos" loading="lazy" src="03.jpg"/><figcaption>03 · Selección de proyectos</figcaption></figure><div class="manual-copy"><p>Una vez completado el análisis del backup, OAI-Processor muestra la relación de proyectos disponibles y permite seleccionar cuáles se desean procesar.</p>
+<p>Esta función permite trabajar con proyectos concretos sin necesidad de procesar toda la copia de seguridad.</p>
+<h2>Estado de los proyectos</h2>
+<p>Junto a cada proyecto aparece un indicador que identifica su estado respecto al análisis anterior:</p>
+<ul>
+<li><p><strong>Nuevo (verde):</strong> proyecto que no figuraba en el análisis de referencia.</p>
+</li>
+<li><p><strong>Modificado (azul):</strong> proyecto que contiene cambios detectados respecto a la información previamente registrada.</p>
+</li>
+<li><p><strong>Sin cambios (naranja):</strong> proyecto para el que no se han detectado modificaciones.</p>
+</li>
+</ul>
+<p>Estos estados permiten identificar rápidamente qué proyectos contienen información nueva o actualizada.</p>
+<h2>Selección de proyectos</h2>
+<p>Cada proyecto dispone de una casilla de selección.</p>
+<p>Los botones situados encima de la lista facilitan la selección:</p>
+<ul>
+<li><p><strong>Todos:</strong> selecciona todos los proyectos disponibles.</p>
+</li>
+<li><p><strong>Ninguno:</strong> desmarca todos los proyectos.</p>
+</li>
+</ul>
+<p>También es posible seleccionar o desmarcar individualmente cada proyecto.</p>
+<h2>Inicio del procesamiento</h2>
+<p>Una vez elegidos los proyectos, el botón <strong>Procesar</strong> inicia el tratamiento de la información seleccionada.</p>
+<p>La aplicación muestra el progreso mediante las cuatro etapas descritas anteriormente, junto con los contadores de conversaciones y recursos.</p>
+<p><strong>Importante:</strong> el estado «Sin cambios» no impide seleccionar un proyecto. La selección determina qué proyectos participarán en el procesamiento y, posteriormente, en las exportaciones.</p>
+</div></section><section id="section-04-es"><div class="section-heading"><span class="section-index">04</span><h2>Finalización del procesamiento</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Finalización del procesamiento" loading="lazy" src="04.jpg"/><figcaption>04 · Finalización del procesamiento</figcaption></figure><div class="manual-copy"><p>Cuando OAI-Processor termina de procesar los proyectos seleccionados, la barra de progreso alcanza el <strong>100 %</strong> y las cuatro etapas aparecen marcadas en verde, indicando que han finalizado correctamente.</p>
+<p>El programa presenta un resumen de la operación, con información sobre los datos procesados y los recursos encontrados.</p>
+<h2>Resultado del procesamiento</h2>
+<p>En la parte inferior se muestra un informe general que incluye:</p>
+<ul>
+<li><p><strong>Proyectos:</strong> número total de proyectos procesados.</p>
+</li>
+<li><p><strong>Conversaciones:</strong> cantidad de conversaciones tratadas.</p>
+</li>
+<li><p><strong>Mensajes:</strong> número total de mensajes procesados.</p>
+</li>
+<li><p><strong>Recursos:</strong> cantidad de archivos y recursos identificados.</p>
+</li>
+<li><p><strong>Recursos sin archivo de origen:</strong> elementos referenciados en las conversaciones cuyo archivo original no se encuentra disponible en el backup.</p>
+</li>
+</ul>
+<p>La existencia de recursos sin archivo de origen no implica necesariamente que el procesamiento haya fallado. Puede tratarse de archivos que no estaban disponibles en la copia de seguridad original.</p>
+<h2>Estadísticas y tiempos</h2>
+<p>Los contadores muestran el número de imágenes, audios, vídeos, documentos y otros archivos procesados, así como los recursos copiados.</p>
+<p>También se presenta el tiempo total de ejecución y la duración de las distintas fases, lo que permite conocer el coste del procesamiento.</p>
+<h2>Información generada</h2>
+<p>Durante esta operación, OAI-Processor crea y actualiza los archivos de trabajo necesarios para organizar las conversaciones y sus recursos.</p>
+<p>Entre ellos se encuentran los índices y manifiestos, como <code>manifest.json</code>, que permiten identificar y relacionar los elementos procesados.</p>
+<p>Toda esta información se conserva dentro de la carpeta <code>process</code>, sin modificar los archivos originales del backup.</p>
+<h2>Siguiente etapa</h2>
+<p>Una vez finalizado el procesamiento, la sección <strong>Exportar</strong> queda disponible.</p>
+<p>A partir de este momento, los datos pueden convertirse a los formatos compatibles con OAI-Processor, utilizando las opciones de exportación que se describen en los siguientes apartados.</p>
+<p><strong>Importante:</strong> no es necesario repetir el procesamiento para cambiar de formato o realizar una nueva exportación de los mismos datos, siempre que la información de origen no haya cambiado.</p>
+</div></section><section id="section-05-es"><div class="section-heading"><span class="section-index">05</span><h2>Exportación de la información</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Exportación de la información" loading="lazy" src="05.jpg"/><figcaption>05 · Exportación de la información</figcaption></figure><div class="manual-copy"><p>La sección <strong>Exportar</strong> constituye la segunda etapa principal de OAI-Processor.</p>
+<p>Una vez procesada la información, el programa permite generar documentos y recursos organizados en diferentes formatos, sin necesidad de repetir el procesamiento.</p>
+<p>Esta pantalla reúne las opciones que determinan el destino, el tratamiento de los recursos y la presentación del contenido exportado.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Formato de exportación" loading="lazy" src="05a.jpg"/><figcaption>05a · Formato de exportación</figcaption></figure><div class="manual-copy"><h2>05a · Formato de exportación</h2>
+<p>OAI-Processor dispone de dos formatos:</p>
+<ul>
+<li><p><strong>Obsidian:</strong> genera documentos Markdown y organiza los recursos para integrarlos en una vault de Obsidian.</p>
+</li>
+<li><p><strong>HTML:</strong> genera documentos HTML para consultar las conversaciones fuera de ChatGPT.</p>
+</li>
+</ul>
+<p>Ambas opciones utilizan la información preparada durante la etapa de procesamiento.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Carpeta de destino" loading="lazy" src="05b.jpg"/><figcaption>05b · Carpeta de destino</figcaption></figure><div class="manual-copy"><h2>05b · Carpeta de destino</h2>
+<p>En la exportación a Obsidian, el botón <strong>Seleccionar vault</strong> permite indicar la carpeta donde se incorporarán los documentos y recursos.</p>
+<p>Puede seleccionarse una vault existente, incluidos sus contenidos previos.</p>
+<p>La ruta elegida aparece debajo del botón.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Modo de escritura" loading="lazy" src="05c.jpg"/><figcaption>05c · Modo de escritura</figcaption></figure><div class="manual-copy"><h2>05c · Modo de escritura</h2>
+<p>Existen dos modos para incorporar los archivos a una vault de Obsidian:</p>
+<ul>
+<li><p><strong>Añadir:</strong> incorpora la información exportada sin sobrescribir los archivos existentes. Cuando es necesario evitar una colisión de nombres, se genera un nombre alternativo.</p>
+</li>
+<li><p><strong>Sobrescribir:</strong> permite actualizar los archivos previamente gestionados por OAI-Processor cuando han cambiado. Los archivos modificados por el usuario se protegen frente a sobrescrituras automáticas.</p>
+</li>
+</ul>
+<p>La aplicación utiliza la información de sus manifiestos para identificar los archivos gestionados y determinar cómo tratarlos.</p>
+<p><strong>Importante:</strong> «Sobrescribir» no significa eliminar o reemplazar indiscriminadamente el contenido de la vault. La aplicación distingue los archivos gestionados de los ajenos y contempla los posibles conflictos.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Copia de seguridad previa" loading="lazy" src="05d.jpg"/><figcaption>05d · Copia de seguridad previa</figcaption></figure><div class="manual-copy"><h2>05d · Copia de seguridad previa</h2>
+<p>La opción <strong>Crear una copia ZIP del destino antes de exportar</strong> permite generar una copia de seguridad de la carpeta de destino antes de introducir modificaciones.</p>
+<p>Al activarla, debe seleccionarse una carpeta donde guardar el archivo ZIP.</p>
+<p>Esta opción resulta especialmente recomendable cuando se exporta a una vault de Obsidian que ya contiene documentos, enlaces o modificaciones realizadas por el usuario.</p>
+<p>La copia se realiza antes de comenzar la exportación.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Tratamiento de recursos" loading="lazy" src="05e.jpg"/><figcaption>05e · Tratamiento de recursos</figcaption></figure><div class="manual-copy"><h2>05e · Tratamiento de recursos</h2>
+<p>Estas opciones determinan cómo se preparan determinados archivos multimedia y adjuntos.</p>
+<ul>
+<li><p><strong>Optimizar recursos:</strong> activa las conversiones de recursos compatibles para reducir el espacio ocupado por los archivos exportados.</p>
+</li>
+<li><p><strong>Conservar PNG con transparencia:</strong> evita perder la transparencia de las imágenes PNG que la contienen.</p>
+</li>
+<li><p><strong>Convertir M4A a MP3:</strong> convierte los archivos de audio M4A al formato MP3.</p>
+</li>
+<li><p><strong>Incluir audio original de las conversaciones:</strong> incorpora los archivos de audio originales asociados a las conversaciones.</p>
+</li>
+<li><p><strong>Incluir archivos adjuntos del usuario:</strong> incorpora los archivos que el usuario haya adjuntado a las conversaciones, cuando estén disponibles en el backup.</p>
+</li>
+</ul>
+<p>Estas opciones afectan a la exportación, no a los archivos originales.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Opciones de contenido" loading="lazy" src="05f.jpg"/><figcaption>05f · Opciones de contenido</figcaption></figure><div class="manual-copy"><h2>05f · Opciones de contenido</h2>
+<p>Permiten personalizar determinados elementos de los documentos generados.</p>
+<p><strong>Añadir etiqueta de proyecto</strong></p>
+<p>Incorpora una etiqueta que identifica el proyecto al que pertenece una conversación.</p>
+<p><strong>Personalizar roles</strong></p>
+<p>Permite sustituir las denominaciones predeterminadas de los participantes:</p>
+<ul>
+<li><p><strong>Usuario:</strong> nombre que aparecerá en los mensajes del usuario.</p>
+</li>
+<li><p><strong>Asistente:</strong> nombre que aparecerá en los mensajes de ChatGPT.</p>
+</li>
+</ul>
+<p>Por ejemplo, pueden utilizarse nombres personalizados en lugar de las etiquetas genéricas «Usuario» y «Asistente».</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Perfiles de exportación" loading="lazy" src="05g.jpg"/><figcaption>05g · Perfiles de exportación</figcaption></figure><div class="manual-copy"><h2>05g · Perfiles de exportación</h2>
+<p>Los perfiles permiten guardar y recuperar conjuntos de opciones de exportación.</p>
+<p>Resultan útiles cuando se realizan exportaciones frecuentes con la misma configuración.</p>
+<ul>
+<li><p><strong>Guardar perfil:</strong> almacena las opciones seleccionadas bajo un nombre.</p>
+</li>
+<li><p><strong>Cargar perfil:</strong> permite recuperar una configuración guardada anteriormente.</p>
+</li>
+</ul>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Guardar un perfil" loading="lazy" src="05h.jpg"/><figcaption>05h · Guardar un perfil</figcaption></figure><div class="manual-copy"><h2>05h · Guardar un perfil</h2>
+<p>Al pulsar <strong>Guardar perfil</strong>, aparece una ventana donde se introduce el nombre de la configuración.</p>
+<p>El botón <strong>Guardar</strong> registra el perfil para utilizarlo posteriormente.</p>
+<p>El botón <strong>Cancelar</strong> cierra la ventana sin guardar cambios.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Seleccionar un perfil" loading="lazy" src="05i.jpg"/><figcaption>05i · Seleccionar un perfil</figcaption></figure><div class="manual-copy"><h2>05i · Seleccionar un perfil</h2>
+<p>La ventana <strong>Cargar perfil</strong> presenta los perfiles disponibles.</p>
+<p>Al seleccionar uno de ellos, se muestran sus opciones y se habilitan las operaciones correspondientes.</p>
+<p>Hasta que se selecciona un perfil, los botones <strong>Aplicar</strong> y <strong>Eliminar</strong> permanecen deshabilitados.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Consultar y aplicar un perfil" loading="lazy" src="05j.jpg"/><figcaption>05j · Consultar y aplicar un perfil</figcaption></figure><div class="manual-copy"><h2>05j · Consultar y aplicar un perfil</h2>
+<p>Una vez seleccionado un perfil, la ventana muestra un resumen de sus parámetros: modo de escritura, opciones multimedia, etiquetas y nombres personalizados.</p>
+<p>Desde esta ventana pueden realizarse tres operaciones:</p>
+<ul>
+<li><p><strong>Aplicar:</strong> recupera la configuración del perfil seleccionado.</p>
+</li>
+<li><p><strong>Eliminar:</strong> borra el perfil guardado.</p>
+</li>
+<li><p><strong>Cancelar:</strong> cierra la ventana sin aplicar cambios.</p>
+</li>
+</ul>
+<p>Los perfiles permiten reutilizar configuraciones sin tener que seleccionar manualmente todas las opciones en cada exportación.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Iniciar la exportación" loading="lazy" src="05k.jpg"/><figcaption>05k · Iniciar la exportación</figcaption></figure><div class="manual-copy"><h2>05k · Iniciar la exportación</h2>
+<p>Una vez seleccionado el formato, el destino y las opciones correspondientes, el botón <strong>Exportar</strong> inicia el procedimiento.</p>
+<p>La aplicación prepara los documentos y recursos necesarios y, en el caso de Obsidian, continúa con las operaciones de incorporación a la vault.</p>
+<p>Durante la ejecución se muestra el progreso de las distintas fases.</p>
+<p><strong>Importante:</strong> el procesamiento y la exportación son operaciones independientes. Una misma información procesada puede exportarse varias veces utilizando diferentes formatos, destinos o perfiles.</p>
+</div></section><section id="section-06a-es"><div class="section-heading"><span class="section-index">06a</span><h2>Métodos de exportación a Obsidian</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Métodos de exportación a Obsidian" loading="lazy" src="06a.jpg"/><figcaption>06a · Métodos de exportación a Obsidian</figcaption></figure><div class="manual-copy"><p>Antes de incorporar los archivos a una vault de Obsidian, OAI-Processor permite elegir entre dos métodos de exportación.</p>
+<p><strong>Advertencia sobre exportaciones grandes: cuando se incorporan miles de conversaciones y recursos de una sola vez, Obsidian puede saturarse al intentar indexar todos los archivos simultáneamente. Esto puede provocar ralentizaciones extremas, bloqueos temporales e incluso que la aplicación deje de responder, especialmente durante la primera importación.</strong></p>
+<p>Para reducir este riesgo, OAI-Processor ofrece dos procedimientos:</p>
+<h2>Exportación normal</h2>
+<p>La opción <strong>Exportación normal</strong> utiliza el procedimiento habitual de copia de archivos.</p>
+<p>Es el método más sencillo y no requiere instalar complementos adicionales en Obsidian.</p>
+<h2>Exportación asistida</h2>
+<p>La opción <strong>Exportación asistida</strong> está pensada para exportaciones grandes.</p>
+<p>En lugar de incorporar todos los proyectos de forma continua, OAI-Processor los copia secuencialmente y espera a que Obsidian termine su actividad de indexación entre proyectos.</p>
+<p>Este procedimiento permite reducir la carga sobre Obsidian durante la incorporación de grandes cantidades de documentos y recursos.</p>
+<p>Para utilizarlo es necesario:</p>
+<ol>
+<li><p>Instalar y activar el complemento <strong>Local REST API</strong> en Obsidian.</p>
+</li>
+<li><p>Mantener Obsidian abierto con la vault de destino cargada.</p>
+</li>
+<li><p>Introducir la clave de acceso (<strong>API Key</strong>) proporcionada por el complemento.</p>
+</li>
+</ol>
+<p>La API Key solo es necesaria para la exportación asistida.</p>
+<h2>Recordar la clave de acceso</h2>
+<p>La casilla <strong>Recordar</strong> permite conservar la API Key para futuras exportaciones, evitando tener que introducirla cada vez.</p>
+<p><strong>Importante:</strong> la clave se guarda localmente de forma ofuscada, pero no cifrada. Por tanto, cualquier persona con acceso al archivo de configuración podría recuperarla.</p>
+<h2>Selección del método</h2>
+<p>La ventana dispone de tres botones:</p>
+<ul>
+<li><p><strong>Exportación normal:</strong> continúa utilizando el procedimiento habitual.</p>
+</li>
+<li><p><strong>Exportación asistida:</strong> inicia el procedimiento secuencial mediante Local REST API.</p>
+</li>
+<li><p><strong>Cancelar:</strong> cierra la ventana sin iniciar la incorporación de archivos a Obsidian.</p>
+</li>
+</ul>
+<p>Ambos métodos utilizan la información previamente procesada y las opciones de exportación seleccionadas. La diferencia está en cómo se incorporan los archivos a la vault de destino.</p>
+</div></section><section id="section-07-es"><div class="section-heading"><span class="section-index">07</span><h2>Progreso de la exportación</h2></div><div class="manual-copy"><p>Una vez iniciada la exportación, OAI-Processor muestra el avance de las operaciones necesarias para generar los documentos y recursos correspondientes al formato seleccionado.</p>
+<p>La interfaz permite seguir cada fase del procedimiento, consultar los archivos que se están tratando y comprobar las estadísticas de la exportación.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Inicio de la exportación" loading="lazy" src="07a.jpg"/><figcaption>07a · Inicio de la exportación</figcaption></figure><div class="manual-copy"><h2>07a · Inicio de la exportación</h2>
+<p>La aplicación divide la exportación a Obsidian en seis etapas:</p>
+<ol>
+<li><p><strong>Crear backup:</strong> genera una copia ZIP de la carpeta de destino, si se ha activado esta opción.</p>
+</li>
+<li><p><strong>Preparar exportación:</strong> organiza la información procesada y prepara la estructura necesaria.</p>
+</li>
+<li><p><strong>Procesar recursos:</strong> prepara y convierte los archivos multimedia según las opciones seleccionadas.</p>
+</li>
+<li><p><strong>Generar Obsidian:</strong> crea los documentos Markdown y organiza los recursos destinados a la vault.</p>
+</li>
+<li><p><strong>Validar y finalizar:</strong> comprueba los resultados de la exportación y completa los archivos necesarios.</p>
+</li>
+<li><p><strong>Sincronizar vault:</strong> incorpora los documentos y recursos generados a la vault de destino.</p>
+</li>
+</ol>
+<p>Cada etapa presenta un indicador que permite identificar su estado:</p>
+<ul>
+<li><p><strong>Naranja:</strong> operación en curso.</p>
+</li>
+<li><p><strong>Verde:</strong> operación completada.</p>
+</li>
+<li><p><strong>Gris:</strong> operación pendiente.</p>
+</li>
+</ul>
+<p>El porcentaje situado a la derecha indica el avance de cada etapa.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Seguimiento de recursos y validación" loading="lazy" src="07b.jpg"/><figcaption>07b · Seguimiento de recursos y validación</figcaption></figure><div class="manual-copy"><h2>07b · Seguimiento de recursos y validación</h2>
+<p>A medida que avanza la exportación, las etapas completadas aparecen marcadas en verde y la aplicación continúa automáticamente con las siguientes.</p>
+<p>En la zona inferior se muestran cuatro contadores:</p>
+<ul>
+<li><p><strong>Recursos:</strong> cantidad de recursos preparados respecto al total.</p>
+</li>
+<li><p><strong>Conversiones:</strong> número de conversiones de archivos realizadas.</p>
+</li>
+<li><p><strong>Markdown:</strong> cantidad de documentos Markdown generados.</p>
+</li>
+<li><p><strong>Errores:</strong> número de errores registrados durante la operación.</p>
+</li>
+</ul>
+<p>También se muestra la ruta del archivo o recurso que se está procesando.</p>
+<p>Durante la fase <strong>Validar y finalizar</strong>, el programa comprueba los resultados generados antes de continuar con la sincronización de la vault.</p>
+<h2>Consideraciones sobre el tiempo de ejecución</h2>
+<p>La duración de la exportación depende principalmente de la cantidad de conversaciones, el volumen de recursos y las opciones de conversión seleccionadas.</p>
+<p>La creación de una copia ZIP de una vault grande también puede requerir bastante tiempo.</p>
+<p>En determinadas fases, el progreso puede avanzar lentamente mientras se trabaja con archivos grandes o se realizan operaciones de validación.</p>
+<p><strong>Importante:</strong> no debe cerrarse la aplicación mientras la exportación esté en curso. Es recomendable esperar a que finalicen todas las etapas y aparezca el resultado correspondiente.</p>
+</div></section><section id="section-08-es"><div class="section-heading"><span class="section-index">08</span><h2>Limpieza de datos</h2></div><div class="manual-copy"><p>La sección <strong>Limpiar</strong> permite eliminar los archivos de trabajo generados por OAI-Processor sin modificar la copia de seguridad original.</p>
+<p>Esta función resulta útil cuando se desea comenzar un nuevo procesamiento, liberar espacio en disco o eliminar los resultados de operaciones anteriores.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Opciones de limpieza" loading="lazy" src="08a.jpg"/><figcaption>08a · Opciones de limpieza</figcaption></figure><div class="manual-copy"><h2>08a · Opciones de limpieza</h2>
+<p>El botón <strong>Limpiar</strong> inicia el procedimiento de eliminación de los datos generados por la aplicación.</p>
+<p>Por defecto, se eliminan:</p>
+<ul>
+<li><p><strong><code>process/</code>:</strong> carpeta que contiene las conversaciones, recursos e índices preparados durante el procesamiento.</p>
+</li>
+<li><p><strong><code>oai_processor.sqlite3</code>:</strong> base de datos utilizada por OAI-Processor para registrar información sobre las operaciones realizadas.</p>
+</li>
+</ul>
+<p>La casilla <strong>Eliminar también las exportaciones</strong> permite ampliar la limpieza a la carpeta <code>export/</code>, donde se encuentran los archivos generados durante las exportaciones.</p>
+<p>Si esta opción permanece desactivada, los archivos de exportación se conservan.</p>
+<p><strong>Importante:</strong> la limpieza no elimina la copia de seguridad original ni los archivos que ya se hayan incorporado a una vault externa de Obsidian.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Confirmación de seguridad" loading="lazy" src="08b.jpg"/><figcaption>08b · Confirmación de seguridad</figcaption></figure><div class="manual-copy"><h2>08b · Confirmación de seguridad</h2>
+<p>Para evitar eliminaciones accidentales, OAI-Processor presenta una ventana de confirmación antes de iniciar la limpieza.</p>
+<p>Esta ventana informa de las carpetas y archivos que se eliminarán y recuerda que el backup original permanecerá intacto.</p>
+<p>La confirmación requiere <strong>mantener pulsadas simultáneamente las teclas A + L durante cuatro segundos</strong>.</p>
+<p>Una barra de progreso muestra el tiempo durante el que se mantiene la combinación.</p>
+<p>Si se sueltan las teclas antes de completar los cuatro segundos, la confirmación no se realiza.</p>
+<p>El botón <strong>Cancelar</strong> permite cerrar la ventana sin eliminar ningún archivo.</p>
+<h2>Después de la limpieza</h2>
+<p>Una vez completada la operación, los datos de trabajo seleccionados dejan de estar disponibles.</p>
+<p>Para generar nuevas exportaciones será necesario procesar de nuevo la información del backup.</p>
+<p><strong>Advertencia:</strong> la eliminación de los archivos seleccionados es definitiva. Antes de activar la opción de borrar también las exportaciones, conviene comprobar que no contienen documentos o recursos que se deseen conservar.</p>
+</div></section><section id="section-09-es"><div class="section-heading"><span class="section-index">09</span><h2>Ayuda contextual</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Ayuda contextual" loading="lazy" src="09.jpg"/><figcaption>09 · Ayuda contextual</figcaption></figure><div class="manual-copy"><p>OAI-Processor incorpora un sistema de <strong>ayuda contextual</strong> que permite consultar explicaciones sobre las diferentes funciones de la aplicación sin abandonar la pantalla de trabajo.</p>
+<h2>Activación de la ayuda</h2>
+<p>El botón <strong>?</strong>, situado en la barra superior, permite activar o desactivar este sistema.</p>
+<p>Cuando está activado, el botón aparece resaltado y la aplicación muestra información adicional sobre los elementos que disponen de ayuda.</p>
+<h2>Funcionamiento</h2>
+<p>Al situar el cursor sobre un elemento compatible, aparece una pequeña ventana emergente con una explicación de su función.</p>
+<p>Los mensajes de ayuda permiten conocer el propósito de determinados botones, opciones y controles sin necesidad de consultar continuamente el manual.</p>
+<p>La ventana desaparece al retirar el cursor.</p>
+<h2>Desactivación</h2>
+<p>Para desactivar la ayuda contextual, basta con pulsar nuevamente el botón <strong>?</strong>.</p>
+<p>La función es exclusivamente informativa y no modifica los datos, la configuración ni las operaciones de OAI-Processor.</p>
+</div></section><section id="section-10-es"><div class="section-heading"><span class="section-index">10</span><h2>Selección de idioma</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Selección de idioma" loading="lazy" src="10.jpg"/><figcaption>10 · Selección de idioma</figcaption></figure><div class="manual-copy"><p>OAI-Processor dispone de una interfaz disponible en <strong>tres idiomas: inglés, español y francés</strong>.</p>
+<p>El selector de idioma se encuentra en la barra superior de la aplicación, junto al botón de ayuda contextual.</p>
+<h2>Cambiar el idioma</h2>
+<p>Al pulsar sobre el idioma mostrado, se despliega un menú con las opciones disponibles:</p>
+<ul>
+<li><p><strong>English:</strong> inglés.</p>
+</li>
+<li><p><strong>Español:</strong> español.</p>
+</li>
+<li><p><strong>Français:</strong> francés.</p>
+</li>
+</ul>
+<p>Al seleccionar una opción, la interfaz se presenta en el idioma elegido.</p>
+<p>El cambio afecta a los textos de los menús, botones, mensajes de estado, opciones de configuración y ayudas de la aplicación.</p>
+<h2>Consideraciones</h2>
+<p>El idioma seleccionado afecta únicamente a la interfaz de OAI-Processor.</p>
+<p><strong>No traduce las conversaciones originales ni modifica el contenido de los archivos exportados.</strong> Estos conservan el idioma en el que fueron escritos.</p>
+</div></section><section id="section-11-es"><div class="section-heading"><span class="section-index">11</span><h2>Información de la aplicación</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Información de la aplicación" loading="lazy" src="11.jpg"/><figcaption>11 · Información de la aplicación</figcaption></figure><div class="manual-copy"><p>El botón con el <strong>logotipo de Corrosion Labs</strong>, situado en el extremo derecho de la barra superior, abre la ventana de información de OAI-Processor.</p>
+<p>Esta ventana muestra el nombre de la aplicación, su logotipo y la identificación de <strong>Corrosion Labs</strong> como responsable de su desarrollo.</p>
+<p>Para cerrarla, basta con pulsar el botón <strong>×</strong> situado en la parte derecha de la ventana.</p>
+<p>Esta sección es exclusivamente informativa y no modifica la configuración ni los datos de la aplicación.</p>
+</div></section></div><div class="language-panel" hidden="" id="panel-en" lang="en"><section id="introduccion-en"><div class="section-heading"><span class="section-index">00</span><h2>Introduction</h2></div><div class="manual-copy"><h2>What is OAI-Processor?</h2>
+<p><strong>OAI-Processor</strong> is an application developed by <strong>Corrosion Labs</strong> for processing, organizing, and exporting ChatGPT conversations and resources into formats that can be consulted and preserved outside OpenAI's platform.</p>
+<p>It works with local backups, particularly those obtained with <strong>OAI-Downloader</strong>, and turns their contents into organized documents while preserving projects, conversations, and associated resources.</p>
+<p>Its workflow has <strong>two main, separate stages</strong>:</p>
+<h3>1. Processing information</h3>
+<p>OAI-Processor examines backup data and prepares it for export. It identifies projects and conversations, organizes their contents, and links associated images, audio, video, and documents.</p>
+<p>The resulting processed structure can be reused for several exports without repeating the entire processing stage.</p>
+<h3>2. Exporting to different formats</h3>
+<p>After processing, the information can be exported to either of the currently supported formats:</p>
+<ul>
+<li><strong>Obsidian:</strong> organized Markdown documents for integration into an Obsidian vault, retaining relationships between projects, conversations, and resources.</li>
+<li><strong>HTML:</strong> an HTML version of the contents for viewing outside ChatGPT.</li>
+</ul>
+<p>Export settings let you configure resources, media conversion, and selected aspects of how the contents are presented.</p>
+<h3>Why separate processing from exporting?</h3>
+<p><strong>Processing prepares the information. Exporting determines how and where it will be used.</strong></p>
+<p>The same processed backup can be exported more than once, to different destinations or formats, without rebuilding all the data. OAI-Processor turns a ChatGPT backup into an organized archive that users can consult and manage independently of OpenAI's interface.</p>
+</div></section><section id="section-00-en"><div class="section-heading"><span class="section-index">00</span><h2>Starting and initial setup</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Starting and initial setup" loading="lazy" src="00.jpg"/><figcaption>00 · Starting and initial setup</figcaption></figure><div class="manual-copy"><p>When <strong>OAI-Processor</strong> starts, a launcher window is displayed to configure and open the application. The launcher detects the operating system and supports <strong>Spanish, English, and French</strong>.</p>
+<h2>First run</h2>
+<p>The first time you launch OAI-Processor, select the folder containing your ChatGPT backup.</p>
+<p>Use <strong>Choose folder</strong> to locate the backup. When you select <strong>Start application</strong>, its location is saved in <code>settings.json</code>, so it can be remembered on later runs.</p>
+<p>This file is stored in the operating system's local settings location, separate from the backup data.</p>
+<h2>Later runs</h2>
+<p>Once configured, the launcher presents a simpler window with two actions:</p>
+<ul>
+<li><strong>Start application:</strong> opens OAI-Processor using the stored settings.</li>
+<li><strong>Clear local settings:</strong> asks for confirmation, then removes the stored settings without deleting backups, processed data, or exports.</li>
+</ul>
+<p>After clearing the settings, the launcher returns to the initial setup screen so another folder can be selected.</p>
+<p><strong>Important:</strong> clearing local settings is not the same as uninstalling the application or deleting working data.</p>
+</div></section><section id="section-01-en"><div class="section-heading"><span class="section-index">01</span><h2>Connecting to a backup</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Connecting to a backup" loading="lazy" src="01.jpg"/><figcaption>01 · Connecting to a backup</figcaption></figure><div class="manual-copy"><p>The <strong>Connect</strong> page selects the root folder of the ChatGPT backup used as the data source. This folder must contain the original backup obtained using <strong>OAI-Downloader</strong>.</p>
+<h2>Choosing the folder</h2>
+<p><strong>Choose folder</strong> opens the file explorer. Once a backup is selected, two paths are shown:</p>
+<ul>
+<li><strong>Backup folder:</strong> location of the original downloaded files.</li>
+<li><strong>Working folder:</strong> the <code>process</code> directory, where processed information will be stored.</li>
+</ul>
+<p>The working folder is created automatically if it does not exist.</p>
+<h2>Connection status</h2>
+<p>A status indicator appears at the bottom of the screen. <strong>Green</strong> confirms that the folder has been selected and the working space is ready.</p>
+<p>This action does <strong>not</strong> process the data yet. It only locates it and prepares the environment.</p>
+<h2>Navigation</h2>
+<p>The top navigation bar has four sections:</p>
+<ul>
+<li><strong>Connect:</strong> choose the backup.</li>
+<li><strong>Process:</strong> analyze and prepare the information.</li>
+<li><strong>Export:</strong> generate files in the chosen format.</li>
+<li><strong>Clean:</strong> remove generated working data.</li>
+</ul>
+<p>Indicators show the stage status: <strong>green</strong> for completed, <strong>orange</strong> for running, and <strong>red</strong> for pending or locked. Dependent stages cannot be run until previous stages have completed.</p>
+</div></section><section id="section-02-en"><div class="section-heading"><span class="section-index">02</span><h2>Processing information</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Processing information" loading="lazy" src="02.jpg"/><figcaption>02 · Processing information</figcaption></figure><div class="manual-copy"><p><strong>Process</strong> is the first of OAI-Processor's two main stages. It examines the backup, organizes conversations and resources, and creates the data structure used for exporting.</p>
+<p><strong>Original backup files are not changed.</strong> The results are stored in the <code>process</code> working folder.</p>
+<h2>Analyzing the backup</h2>
+<p><strong>Analyze</strong> examines the available projects and conversations. The analysis identifies new, modified, and previously processed content so unnecessary repeat operations can be avoided.</p>
+<p>When analysis is finished, you can select the projects to process.</p>
+<h2>Starting processing</h2>
+<p><strong>Process</strong> starts preparing the selected projects. The application displays four main operations.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Processing stages" loading="lazy" src="02a.jpg"/><figcaption>02a · Processing stages</figcaption></figure><div class="manual-copy"><h3>02a · Processing stages</h3>
+<ol>
+<li><strong>Analyze backup:</strong> examines source data and prepares it for processing.</li>
+<li><strong>Process conversations:</strong> extracts and organizes messages and conversation contents.</li>
+<li><strong>Process resources:</strong> identifies and prepares images, audio, video, documents, and other associated files.</li>
+<li><strong>Generate indexes:</strong> builds indexes that locate and connect projects, conversations, and resources during exporting.</li>
+</ol>
+<p>Visual indicators show whether each stage is pending, running, or complete.</p>
+<h2>Tracking progress</h2>
+<p>The application displays a progress bar, completion percentage, and current item. Both overall elapsed time and time per phase are shown.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Processing counters" loading="lazy" src="02b.jpg"/><figcaption>02b · Processing counters</figcaption></figure><div class="manual-copy"><h3>02b · Processing counters</h3>
+<ul>
+<li><strong>Conversations:</strong> processed conversations versus total.</li>
+<li><strong>Images:</strong> identified image resources.</li>
+<li><strong>Audio:</strong> identified audio files.</li>
+<li><strong>Video:</strong> identified video files.</li>
+<li><strong>PDF:</strong> identified PDF documents.</li>
+<li><strong>Files:</strong> other associated files.</li>
+<li><strong>Copied:</strong> resources copied to the working structure.</li>
+<li><strong>Missing source file:</strong> resources referenced in the backup whose original file is unavailable.</li>
+</ul>
+<p>The counters help monitor progress and locate missing resources.</p>
+<h2>Completing processing</h2>
+<p>When processing finishes, the information in <code>process</code> is ready for <strong>Export</strong>. You can produce different exports from the same data without processing again, provided the source information has not changed.</p>
+</div></section><section id="section-03-en"><div class="section-heading"><span class="section-index">03</span><h2>Selecting projects</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Selecting projects" loading="lazy" src="03.jpg"/><figcaption>03 · Selecting projects</figcaption></figure><div class="manual-copy"><p>After analyzing the backup, OAI-Processor lists the available projects and lets you choose which ones to process. You do not have to process the whole backup.</p>
+<h2>Project status</h2>
+<p>Each project has a status relative to the reference analysis:</p>
+<ul>
+<li><strong>New (green):</strong> not present in the reference analysis.</li>
+<li><strong>Modified (blue):</strong> changes detected since the information was last recorded.</li>
+<li><strong>Unchanged (orange):</strong> no changes detected.</li>
+</ul>
+<p>These labels make new or updated projects easier to identify.</p>
+<h2>Project selection</h2>
+<p>Use each project's checkbox to include or exclude it. <strong>All</strong> selects every project; <strong>None</strong> clears the selection. Projects can also be chosen individually.</p>
+<h2>Starting processing</h2>
+<p>Press <strong>Process</strong> after choosing projects. The application displays the four stages and the conversation and resource counters.</p>
+<p><strong>Important:</strong> an <strong>Unchanged</strong> project can still be selected. Project selection determines what is processed and, subsequently, exported.</p>
+</div></section><section id="section-04-en"><div class="section-heading"><span class="section-index">04</span><h2>Processing complete</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Processing complete" loading="lazy" src="04.jpg"/><figcaption>04 · Processing complete</figcaption></figure><div class="manual-copy"><p>When processing finishes, the progress bar reaches <strong>100%</strong> and all four stages appear green. A summary reports the processed content and resources.</p>
+<h2>Processing results</h2>
+<p>The summary lists:</p>
+<ul>
+<li><strong>Projects:</strong> total projects processed.</li>
+<li><strong>Conversations:</strong> conversations handled.</li>
+<li><strong>Messages:</strong> total messages processed.</li>
+<li><strong>Resources:</strong> files and resources identified.</li>
+<li><strong>Missing source files:</strong> referenced resources whose original files are unavailable in the backup.</li>
+</ul>
+<p>A missing source file does not necessarily mean processing failed. The resource may have been absent from the source backup.</p>
+<h2>Statistics and timing</h2>
+<p>Counters show images, audio, video, documents, other files, and copied resources. Total running time and times for individual phases are also displayed.</p>
+<h2>Generated information</h2>
+<p>OAI-Processor creates or updates working files, including indexes and manifests such as <code>manifest.json</code>, to connect the processed elements. Everything is stored in <code>process</code>; original backup files are not modified.</p>
+<h2>Next stage</h2>
+<p><strong>Export</strong> is now available. You can generate the supported formats using the settings described below.</p>
+<p><strong>Important:</strong> processing does not need to be repeated merely to export the same data again to a different format, as long as the original data remains unchanged.</p>
+</div></section><section id="section-05-en"><div class="section-heading"><span class="section-index">05</span><h2>Exporting information</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Exporting information" loading="lazy" src="05.jpg"/><figcaption>05 · Exporting information</figcaption></figure><div class="manual-copy"><p><strong>Export</strong> is the second main stage. It creates organized documents and resources from processed data without repeating processing. Settings control the destination, resource handling, and output contents.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Export format" loading="lazy" src="05a.jpg"/><figcaption>05a · Export format</figcaption></figure><div class="manual-copy"><h2>05a · Export format</h2>
+<p>Two output formats are supported:</p>
+<ul>
+<li><strong>Obsidian:</strong> creates Markdown documents and organizes resources for integration into an Obsidian vault.</li>
+<li><strong>HTML:</strong> generates HTML documents for reading conversations outside ChatGPT.</li>
+</ul>
+<p>Both use the results of the processing stage.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Destination folder" loading="lazy" src="05b.jpg"/><figcaption>05b · Destination folder</figcaption></figure><div class="manual-copy"><h2>05b · Destination folder</h2>
+<p>For Obsidian, <strong>Select vault</strong> specifies the folder where documents and resources will be added. An existing vault may be selected, even if it already contains files. The selected path is shown below the button.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Writing mode" loading="lazy" src="05c.jpg"/><figcaption>05c · Writing mode</figcaption></figure><div class="manual-copy"><h2>05c · Writing mode</h2>
+<p>Two modes are available for an Obsidian vault:</p>
+<ul>
+<li><strong>Add:</strong> adds exported content without overwriting existing files. If filenames collide, an alternative name is generated when needed.</li>
+<li><strong>Overwrite:</strong> updates previously managed files that have changed. User-modified files are protected from automatic overwriting.</li>
+</ul>
+<p>OAI-Processor uses its manifests to recognize managed files and handle conflicts.</p>
+<p><strong>Important:</strong> <strong>Overwrite</strong> does not indiscriminately replace vault contents. The application distinguishes managed files from unrelated files.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Backup before exporting" loading="lazy" src="05d.jpg"/><figcaption>05d · Backup before exporting</figcaption></figure><div class="manual-copy"><h2>05d · Backup before exporting</h2>
+<p><strong>Create a ZIP backup of the destination before exporting</strong> copies the destination folder before making changes. Select where the ZIP should be saved.</p>
+<p>This is especially recommended when an existing Obsidian vault already contains documents, links, or user edits. The backup is created before exporting begins.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Resource handling" loading="lazy" src="05e.jpg"/><figcaption>05e · Resource handling</figcaption></figure><div class="manual-copy"><h2>05e · Resource handling</h2>
+<ul>
+<li><strong>Optimize resources:</strong> enables compatible conversions to reduce exported file sizes.</li>
+<li><strong>Keep transparent PNGs:</strong> preserves transparency in PNG images.</li>
+<li><strong>Convert M4A to MP3:</strong> converts M4A audio into MP3.</li>
+<li><strong>Include original conversation audio:</strong> includes original audio associated with conversations.</li>
+<li><strong>Include user attachments:</strong> includes files attached by the user when present in the backup.</li>
+</ul>
+<p>These options affect exported output, <strong>not the original files</strong>.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Content options" loading="lazy" src="05f.jpg"/><figcaption>05f · Content options</figcaption></figure><div class="manual-copy"><h2>05f · Content options</h2>
+<p><strong>Add project tag</strong> adds a tag identifying the project of each conversation.</p>
+<p><strong>Customize roles</strong> changes the default labels of the participants:</p>
+<ul>
+<li><strong>User:</strong> label shown on user messages.</li>
+<li><strong>Assistant:</strong> label shown on ChatGPT messages.</li>
+</ul>
+<p>You may use custom names instead of generic labels.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Export profiles" loading="lazy" src="05g.jpg"/><figcaption>05g · Export profiles</figcaption></figure><div class="manual-copy"><h2>05g · Export profiles</h2>
+<p>Profiles save and restore sets of export settings. They are useful for recurring exports.</p>
+<ul>
+<li><strong>Save profile:</strong> stores the selected settings under a name.</li>
+<li><strong>Load profile:</strong> retrieves a saved configuration.</li>
+</ul>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Saving a profile" loading="lazy" src="05h.jpg"/><figcaption>05h · Saving a profile</figcaption></figure><div class="manual-copy"><h2>05h · Saving a profile</h2>
+<p>Press <strong>Save profile</strong>, enter a name, and choose <strong>Save</strong> to store the profile. <strong>Cancel</strong> closes the dialog without saving.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Choosing a profile" loading="lazy" src="05i.jpg"/><figcaption>05i · Choosing a profile</figcaption></figure><div class="manual-copy"><h2>05i · Choosing a profile</h2>
+<p><strong>Load profile</strong> lists available profiles. Selecting one displays its settings and enables the relevant actions. <strong>Apply</strong> and <strong>Delete</strong> remain disabled until a profile is selected.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Viewing and applying a profile" loading="lazy" src="05j.jpg"/><figcaption>05j · Viewing and applying a profile</figcaption></figure><div class="manual-copy"><h2>05j · Viewing and applying a profile</h2>
+<p>A selected profile shows its writing mode, multimedia options, tags, and custom labels.</p>
+<ul>
+<li><strong>Apply:</strong> loads the selected settings.</li>
+<li><strong>Delete:</strong> removes the saved profile.</li>
+<li><strong>Cancel:</strong> closes the dialog without applying changes.</li>
+</ul>
+<p>Profiles avoid having to select the same settings manually for every export.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Starting an export" loading="lazy" src="05k.jpg"/><figcaption>05k · Starting an export</figcaption></figure><div class="manual-copy"><h2>05k · Starting an export</h2>
+<p>Choose the format, destination, and settings, then press <strong>Export</strong>. The application prepares the documents and resources; for Obsidian, it then proceeds to add them to the destination vault.</p>
+<p>Progress is displayed throughout the operation.</p>
+<p><strong>Important:</strong> processing and exporting are independent. The same processed information may be exported repeatedly using different formats, destinations, or profiles.</p>
+</div></section><section id="section-06a-en"><div class="section-heading"><span class="section-index">06a</span><h2>Obsidian export methods</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Obsidian export methods" loading="lazy" src="06a.jpg"/><figcaption>06a · Obsidian export methods</figcaption></figure><div class="manual-copy"><p>Before adding files to an Obsidian vault, OAI-Processor lets you choose between two methods.</p>
+<p><strong>Warning about large exports: when thousands of conversations and resources are added at once, Obsidian may become overloaded while indexing all the files simultaneously. This can cause extreme slowdowns, temporary freezing, or an unresponsive application, especially during the first import.</strong></p>
+<p>OAI-Processor offers two methods to reduce this risk:</p>
+<h2>Normal export</h2>
+<p><strong>Normal export</strong> uses the usual file-copying procedure. It is the simplest option and does not require additional Obsidian plugins.</p>
+<h2>Assisted export</h2>
+<p><strong>Assisted export</strong> is intended for large exports. Instead of adding all projects continuously, it copies them sequentially and waits for Obsidian to finish indexing activity between projects.</p>
+<p>This can reduce Obsidian's load while importing large amounts of content.</p>
+<p>To use it:</p>
+<ol>
+<li>Install and enable the <strong>Local REST API</strong> plugin in Obsidian.</li>
+<li>Keep Obsidian open with the destination vault loaded.</li>
+<li>Enter the <strong>API Key</strong> provided by the plugin.</li>
+</ol>
+<p>The API Key is needed only for assisted export.</p>
+<h2>Remembering the API Key</h2>
+<p><strong>Remember</strong> stores the API Key for later exports.</p>
+<p><strong>Important:</strong> the key is obfuscated locally, <strong>not encrypted</strong>. Someone with access to the settings file could recover it.</p>
+<h2>Choosing a method</h2>
+<ul>
+<li><strong>Normal export:</strong> proceeds with the standard method.</li>
+<li><strong>Assisted export:</strong> starts the sequential procedure using Local REST API.</li>
+<li><strong>Cancel:</strong> closes the dialog without beginning the transfer into Obsidian.</li>
+</ul>
+<p>Both methods use the already processed information and chosen settings. The difference is how files are added to the destination vault.</p>
+</div></section><section id="section-07-en"><div class="section-heading"><span class="section-index">07</span><h2>Export progress</h2></div><div class="manual-copy"><p>Once an export begins, OAI-Processor displays the operations used to generate the output documents and resources. You can track stages, current files, and statistics.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Starting an export" loading="lazy" src="07a.jpg"/><figcaption>07a · Starting an export</figcaption></figure><div class="manual-copy"><h2>07a · Starting an export</h2>
+<p>Obsidian export is divided into six stages:</p>
+<ol>
+<li><strong>Create backup:</strong> creates a ZIP of the destination folder when requested.</li>
+<li><strong>Prepare export:</strong> organizes processed information and prepares the required structure.</li>
+<li><strong>Process resources:</strong> prepares and converts media according to selected settings.</li>
+<li><strong>Generate Obsidian:</strong> creates Markdown documents and organizes vault resources.</li>
+<li><strong>Validate and finish:</strong> checks the output and completes required files.</li>
+<li><strong>Sync vault:</strong> adds generated documents and resources to the target vault.</li>
+</ol>
+<p>Indicators show <strong>orange</strong> for running, <strong>green</strong> for complete, and <strong>gray</strong> for pending. The percentage shows the progress of a stage.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Resource tracking and validation" loading="lazy" src="07b.jpg"/><figcaption>07b · Resource tracking and validation</figcaption></figure><div class="manual-copy"><h2>07b · Resource tracking and validation</h2>
+<p>As export proceeds, completed stages turn green and the next stages start automatically.</p>
+<p>The counters show:</p>
+<ul>
+<li><strong>Resources:</strong> prepared resources versus total.</li>
+<li><strong>Conversions:</strong> number of file conversions performed.</li>
+<li><strong>Markdown:</strong> number of Markdown documents generated.</li>
+<li><strong>Errors:</strong> errors recorded during the operation.</li>
+</ul>
+<p>The current file or resource path is shown. During <strong>Validate and finish</strong>, the output is checked before vault synchronization.</p>
+<h2>Execution time</h2>
+<p>Duration depends on the number of conversations, resource volume, and chosen conversions. Creating a ZIP backup of a large vault may also take a considerable amount of time. Progress may move slowly when processing large files or validating output.</p>
+<p><strong>Important:</strong> do not close the application while export is in progress. Wait for the stages to complete and for the final result to appear.</p>
+</div></section><section id="section-08-en"><div class="section-heading"><span class="section-index">08</span><h2>Cleaning working data</h2></div><div class="manual-copy"><p><strong>Clean</strong> removes working files generated by OAI-Processor without altering the original backup. Use it to start processing again, free disk space, or remove results of previous operations.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Cleanup options" loading="lazy" src="08a.jpg"/><figcaption>08a · Cleanup options</figcaption></figure><div class="manual-copy"><h2>08a · Cleanup options</h2>
+<p><strong>Clean</strong> starts removing generated data. By default, the following are deleted:</p>
+<ul>
+<li><strong><code>process/</code>:</strong> processed conversations, resources, and indexes.</li>
+<li><strong><code>oai_processor.sqlite3</code>:</strong> the database recording processing information.</li>
+</ul>
+<p><strong>Also delete exports</strong> additionally removes the <code>export/</code> folder. If unchecked, exported files remain in place.</p>
+<p><strong>Important:</strong> cleanup does not remove original backup data or files already added to an external Obsidian vault.</p>
+</div><figure class="image-frame wide"><img alt="OAI-Processor: Safety confirmation" loading="lazy" src="08b.jpg"/><figcaption>08b · Safety confirmation</figcaption></figure><div class="manual-copy"><h2>08b · Safety confirmation</h2>
+<p>Before removing data, OAI-Processor shows a confirmation dialog describing the affected files and reminding users that the original backup will be preserved.</p>
+<p>To confirm, <strong>hold A + L simultaneously for four seconds</strong>. A progress bar displays the elapsed hold time. Releasing the keys too early prevents confirmation.</p>
+<p><strong>Cancel</strong> closes the dialog without deleting files.</p>
+<h2>After cleanup</h2>
+<p>The selected working data is no longer available. A new processing run is necessary before creating fresh exports.</p>
+<p><strong>Warning:</strong> deletion is permanent. Before selecting the option to delete exports, make sure they contain nothing you need to keep.</p>
+</div></section><section id="section-09-en"><div class="section-heading"><span class="section-index">09</span><h2>Contextual help</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Contextual help" loading="lazy" src="09.jpg"/><figcaption>09 · Contextual help</figcaption></figure><div class="manual-copy"><p>OAI-Processor includes contextual help to explain the interface without leaving the current screen.</p>
+<h2>Turning help on</h2>
+<p>The <strong>?</strong> button in the top bar enables or disables help. When enabled, it is highlighted and additional explanations become available for supported controls.</p>
+<h2>How it works</h2>
+<p>Hover over a supported button or option to display a small pop-up explaining its purpose. The message disappears when the pointer leaves the element.</p>
+<h2>Turning help off</h2>
+<p>Click <strong>?</strong> again. Help is informational only and does not change application data, settings, or operations.</p>
+</div></section><section id="section-10-en"><div class="section-heading"><span class="section-index">10</span><h2>Language selection</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: Language selection" loading="lazy" src="10.jpg"/><figcaption>10 · Language selection</figcaption></figure><div class="manual-copy"><p>The OAI-Processor interface is available in <strong>English, Spanish, and French</strong>. The menu is in the top bar next to the help button.</p>
+<h2>Changing the language</h2>
+<p>Open the current language menu and choose <strong>English</strong>, <strong>Español</strong>, or <strong>Français</strong>. Menus, buttons, status messages, settings, and help text are shown in the selected language.</p>
+<h2>Notes</h2>
+<p>The selection only changes the application's interface. <strong>It does not translate original conversations or alter the exported content.</strong></p>
+</div></section><section id="section-11-en"><div class="section-heading"><span class="section-index">11</span><h2>About the application</h2></div><figure class="image-frame wide"><img alt="OAI-Processor: About the application" loading="lazy" src="11.jpg"/><figcaption>11 · About the application</figcaption></figure><div class="manual-copy"><p>The <strong>Corrosion Labs</strong> logo at the right of the top bar opens the information dialog. It displays the application's name, logo, and Corrosion Labs as its developer.</p>
+<p>Close the dialog using <strong>×</strong>. This section is informational and does not change application settings or data.</p>
+</div></section></div></main>
+<footer><div class="footer-inner" id="footer-text">OAI-Processor · Manual de usuario · Corrosion Labs</div></footer>
+<script>(()=>{
+  const select=document.getElementById('language-selector');
+  const nav=document.getElementById('main-nav');
+  const labels={es:["Introducción", "Inicio", "Conectar", "Procesar", "Proyectos", "Resultados", "Exportar", "Obsidian", "Progreso", "Limpiar", "Ayuda", "Idioma", "Información"],en:["Introduction", "Start", "Connect", "Process", "Projects", "Results", "Export", "Obsidian", "Progress", "Clean", "Help", "Language", "About"]};
+  function setLang(lang){
+    lang=labels[lang]?lang:'es';
+    document.documentElement.lang=lang;
+    document.getElementById('panel-es').hidden=lang!=='es';
+    document.getElementById('panel-en').hidden=lang!=='en';
+    select.value=lang;
+    select.setAttribute('aria-label',lang==='es'?'Seleccionar idioma':'Select language');
+    nav.setAttribute('aria-label',lang==='es'?'Navegación del manual':'Manual navigation');
+    document.getElementById('subtitle').textContent=lang==='es'?'Manual de usuario':'User manual';
+    document.getElementById('footer-text').textContent='OAI-Processor · '+(lang==='es'?'Manual de usuario':'User manual')+' · Corrosion Labs';
+    document.title='OAI-Processor | '+(lang==='es'?'Manual de usuario':'User manual');
+    document.querySelector('meta[name="description"]').content=lang==='es'?'Manual de usuario de OAI-Processor, herramienta para procesar y exportar backups de ChatGPT.':'OAI-Processor user manual for processing and exporting ChatGPT backups.';
+    [...nav.querySelectorAll('a')].forEach((a,i)=>{a.textContent=labels[lang][i];a.href='#'+a.dataset.section+'-'+lang;});
+    try{localStorage.setItem('oai-processor-manual-language',lang);}catch(_){}
+  }
+  select.addEventListener('change',()=>{
+    const old=select.value==='es'?'en':'es';
+    const next=select.value;
+    setLang(next);
+    if(location.hash.endsWith('-'+old))history.replaceState(null,'',location.hash.slice(0,-old.length)+next);
+  });
+  const requested=new URLSearchParams(location.search).get('lang');
+  let saved='es';try{saved=localStorage.getItem('oai-processor-manual-language')||'es';}catch(_){}
+  setLang(labels[requested]?requested:saved);
+})();</script></body></html>
